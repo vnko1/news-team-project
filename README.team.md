@@ -21,3 +21,7 @@
   ).
 
   URL: "https://news-db-8a691-default-rtdb.europe-west1.firebasedatabase.app/"
+
+- Api-key для бекенду новин: "6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY"
+
+- Api-key для бекенду погоди: 'd144a2c840446e4183b50680264513d2'
