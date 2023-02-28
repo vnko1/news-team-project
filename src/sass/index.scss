@@ -1,4 +1,13 @@
+@import './utils/vars';
+@import './utils/mixin';
+
 @import './base/fonts';
 @import './base/common';
+@import './base/body';
+@import './base/container';
+@import './base/visually-hidden';
+
 @import './base/reset';
-@import './utils/vars';
+@import './base/link';
+@import './base/list';
+

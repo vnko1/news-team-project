@@ -1,0 +1,31 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    @include font(400, 14px, null, 0.03em);
+    color: var(--text-color-first);
+
+    max-width: 1600px;
+    margin: 0 auto;
+
+    background-position: top;
+    background-repeat: no-repeat;
+    background-color: $main-bgcolor;
+
+    background-image: url('../images/body/backgroung-mob-1x.jpg');
+    @include double-pixel {
+        background-image: url('../images/body/backgroung-mob-2x.jpg');
+    }
+
+    @include tablet {
+        background-image: url('../images/body/backgroung-tab-1x.jpg');
+        @include double-pixel {
+        background-image: url('../images/body/backgroung-tab-2x.jpg');
+        }
+    }
+
+    @include desktop {
+        background-image: url('../images/body/backgroung-desktop-1x.jpg');
+        @include double-pixel {
+        background-image: url('../images/body/backgroung-desktop-2x.jpg');
+        }
+    }
+}
