@@ -1,0 +1,43 @@
+.news-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 320px;
+    max-height: 630px;
+
+    @include tablet {
+        max-width: 353px;
+        max-height: 675px;
+    
+    }
+}
+.news-card__img {
+    position: relative;
+}
+
+.news-card__item {
+    height: 395px;
+    object-fit: cover;
+}
+
+.news-card__theme {
+    position: absolute;
+    top: 40px;
+    left: 0;
+
+    padding: 4px, 8px;
+}
+.news-card__favorite {
+    position: absolute;
+    bottom: 12px;
+    right: 8px;
+
+    padding: 6px 12px;
+
+}
+.news-card__additional {
+    display: flex;
+    justify-content: space-between;
+
+}
