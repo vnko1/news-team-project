@@ -1,0 +1,44 @@
+@import '../utils/_vars.scss';
+
+.calendar-string{
+    font-family: $main-font;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.38;
+    margin-right: 37px;
+}
+
+.calendar-box{
+    display: flex
+}
+
+.calendar-input {
+    border: 1px solid #111321;
+    border-radius: 20px;
+    width: 168px;
+    height: 31px;
+    text-align: center;
+    justify-content: center;
+
+    .calendar-input-box:hover & {
+        background-color: #4440F6;
+        border-color: #4440F6;      
+        color: white;  
+    }
+}
+
+.calendar-icon{
+    top: 6px;
+    left: 12px;
+    position: absolute;
+    fill: #4440F7;
+
+    .calendar-input-box:hover &,
+    .calendar-input-box:focus & {
+        fill: #fff;
+    }
+}
+
+.calendar-input-box{
+    position: relative;
+}
