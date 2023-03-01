@@ -1,9 +1,41 @@
 .header {
-    outline: solid red 1px;
+  outline: solid red 1px;
 }
 .nav {
-    display: flex;
+  display: flex;
 }
 .header-list {
-    display: flex;
+  display: flex;
+}
+
+.input-theme {
+  display: none;
+}
+
+.label-theme {
+  position: relative;
+  &::before {
+    display: block;
+    content: '';
+    width: 40px;
+    height: 20px;
+    border: 1px solid #4b48db;
+    border-radius: 50px;
+  }
+  &::after {
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-color: #4b48db;
+    border-radius: 50%;
+    transition: transform 250ms linear;
+  }
+}
+
+.input-theme:checked + .label-theme::after {
+  transform: translateX(18px);
 }
