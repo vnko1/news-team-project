@@ -9,7 +9,14 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <include src="./partials/common/header.html"></include>
+
+    <main>
+      <include src="./partials/common/filters.html"></include>
+      <include src="./partials/main/gallery.html"></include>
+
+    </main>
+
+    <include src="./partials/common/footer.html"></include>
   </body>
 </html>
