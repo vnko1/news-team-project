@@ -1,0 +1,67 @@
+
+.footer {
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    background-color: #7A7A7A;
+    z-index: 2;
+    
+  }
+  .footer-box {
+     @media screen and (max-width: 767px) {
+    padding-top: 25px;
+    padding-bottom: 24px;
+  }
+  @media screen and (min-width: 768px) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    
+  }
+  @media screen and (min-width: 768px) {
+    
+  }
+}
+.text-1 {
+    font-family: 'Manrope';
+    color: #F4F4F4;
+text-align: center;
+
+
+}
+.button-donat {
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 21px;
+
+width: auto;
+height: auto;
+margin-bottom: 5px;
+background: #4440F6;
+border: 1px solid #4B48DB;
+border-radius: 20px;
+margin-left: auto;
+margin-right: auto;
+
+}
+.fa {
+    color: #fff;
+    font-family: 'Manrope';
+    font-style: normal;
+}
+.ZSU {
+    margin-bottom: 20px;
+    @media screen and (min-width: 768px) {
+       
+    max-width: none;
+
+      }
+      
+}
+.butt{
+@media screen and (min-width: 768px) {
+    display: flex;
+    max-width: none;
+}
+}
