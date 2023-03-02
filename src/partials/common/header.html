@@ -1,13 +1,17 @@
 <header class="header">
     <div class="container">
         <nav class="nav">
-            <a href="/src/index.html" class="header-logo link">News</a>
-            <ul class="header-list list">
-                <li class="header-list__item"><a href="/src/index.html" class="header-list__links link">Home</a></li>
-                <li class="header-list__item"><a href="/src/favorite.html" class="header-list__links link">Favorite</a></li>
-                <li class="header-list__item"><a href="/src/read.html" class="header-list__links link">Read</a></li>
+            <a href="/src/index.html" class="header-logo">News</a>
+            <ul class="header-list">
+                <li class="header-list__item"><a href="/src/index.html" class="header-list__link header-list__link--current">Home</a></li>
+                <li class="header-list__item"><a href="/src/favorite.html" class="header-list__link">Favorite</a></li>
+                <li class="header-list__item"><a href="/src/read.html" class="header-list__link">Read</a></li>
             </ul>
             <form class="search-form" id="search-form">
+                <button class="query-btn" id="queryBtn" type="submit">
+                    <i class="material-icons">
+                        search
+                    </i></button>
                 <input class="search-input"
                     type="text"
                     name="search"
@@ -15,15 +19,17 @@
                     autocomplete="off"
                     placeholder="Search |"
                 />
-                <button class="query-btn" id="queryBtn" type="submit">
-                    <i class="material-icons">
-                        search
-                    </i></button>
             </form>
             
             <div class="js-articles-container"></div>
 
             <div>
+            <button class="menu-toggle js-open-menu" type="button" aria-expanded="false" aria-controls="mobile-menu">
+                <svg class="menu-toggle__icons" width="24" height="24" aria-label="Перемикач мобільного меню">
+                    <use class="menu-toggle__menu" href="/src/images/Vector.svg"></use>
+                </svg>
+            </button>
+            <div class="change-theme">
                 <input type="checkbox" class="input-theme" id="theme">
                 <label for="theme" class="label-theme"></label>
             </div>
