@@ -32,7 +32,7 @@ async function onDateClick(e) {
     calendarContainer.classList.add('is-hidden');
 
     const response = await fetchNews.fetchNews();
-
+    console.log(response);
     const { docs } = response;
 
     docs.forEach(element => {
