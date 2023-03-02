@@ -11,9 +11,9 @@ const calendarEl = document.querySelector('#calendar');
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
 
-function onInputElClick(e) {
+function onInputElClick() {
   calendarContainer.classList.remove('is-hidden');
-  window.addEventListener('click', onWindowClick);
+  // window.addEventListener('click', onWindowClick);
 }
 
 function onWindowClick(e) {
@@ -31,10 +31,33 @@ async function onDateClick(e) {
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
 
-    // const response = await fetchNews.fetchNews();
-    // if (!response.docs.length) {
-    //   console.log('нічого не знайдено');
-    //   return;
-    // }
+    const response = await fetchNews.fetchNews();
+
+    const { docs } = response;
+
+    docs.forEach(element => {
+      const img = element.multimedia.forEach(e => {
+        if (e.subType === 'xlarge') {
+          return e.url;
+        }
+      });
+      fetchNews.addData(
+        fetchNews.createObj(
+          element.headline.main,
+          element.lead_paragraph,
+          element.section_name,
+          element.pub_date,
+          element.web_url,
+          img,
+          element._id
+        )
+      );
+    });
+    console.log(fetchNews.getData());
+
+    if (!response.docs.length) {
+      console.log('нічого не знайдено');
+      return;
+    }
   }
 }

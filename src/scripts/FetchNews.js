@@ -5,13 +5,19 @@ const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 
 class FetchNews {
   constructor() {
-    this.data = null;
+    this.data = [];
     this.date = null;
     this.querySearch = '';
+    this.hits = null;
+    this.counter = 0;
   }
 
   setData(newData) {
     this.data = newData;
+  }
+
+  addData(data) {
+    this.data.push(data);
   }
 
   getData() {
@@ -32,6 +38,37 @@ class FetchNews {
 
   getQuerySearch() {
     return this.querySearch;
+  }
+
+  getHits() {
+    return this.hits;
+  }
+
+  setHits(newHits) {
+    this.hits = newHits;
+  }
+
+  getCounter() {
+    return this.counter;
+  }
+
+  updateCounter() {
+    this.counter += 1;
+  }
+  resetCounter() {
+    this.counter = 0;
+  }
+
+  createObj(
+    title = 'no data',
+    description = 'no data',
+    category = 'no data',
+    pubDate = 'no data',
+    url = 'no data',
+    imgUrl = 'no data',
+    id = 'no data'
+  ) {
+    return { title, description, category, pubDate, url, imgUrl, id };
   }
 
   async fetchNews() {
