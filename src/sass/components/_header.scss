@@ -50,29 +50,28 @@
   background-color: #4b48db;
 }
 
-.light-label {
+.checkbox-wrap span {
   display: inline-block;
-  margin-right: 12px;
   font-family: $secondary-font;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.33;
+}
+
+.light-label {
+  margin-right: 12px;
   color: #4b48db;
 }
 .dark-label {
-  display: inline-block;
   margin-left: 12px;
-  font-family: $secondary-font;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.33;
   color: #5f6775;
 }
 
 .light-label.light-theme-site {
   color: #f4f4f4;
+  opacity: 0.4;
 }
 
 .dark-label.dark-theme-site {
-  color: #4b48db;
+  color: #4440f7;
 }

@@ -3,7 +3,6 @@ const refs = {
   lightLabel: document.querySelector('.light-label'),
   darkLabel: document.querySelector('.dark-label'),
 };
-console.log(refs.lightLabel);
 
 const savedTheme = localStorage.getItem('theme-site');
 
