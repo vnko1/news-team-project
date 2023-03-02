@@ -24,6 +24,7 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
+  console.log('object');
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
 
@@ -31,7 +32,7 @@ async function onDateClick(e) {
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
 
-    const response = await fetchNews.fetchNews();
+    const response = await fetchNews.fetchNewsByData();
     console.log(response);
     const { docs } = response;
 
