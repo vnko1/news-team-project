@@ -18,6 +18,11 @@
         max-height: 675px;
     
     }
+
+    @include desktop {
+        max-width: 394px;
+    }
+
 }
 
 .weather-card__top {

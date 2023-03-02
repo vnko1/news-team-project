@@ -11,6 +11,11 @@
         max-height: 675px;
     
     }
+
+    @include desktop {
+        max-width: 394px;
+    }
+
 }
 .news-card__img {
     position: relative;
@@ -36,6 +41,17 @@
     padding: 6px 12px;
 
 }
+
+.news-card__info-title {
+    display: flex;
+    align-items: center;
+    height: 132px;
+}
+
+.news-card__info-text {
+    height: 66px;
+}
+
 .news-card__additional {
     display: flex;
     justify-content: space-between;
