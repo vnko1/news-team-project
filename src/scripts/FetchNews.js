@@ -71,7 +71,7 @@ class FetchNews {
     return { title, description, category, pubDate, url, imgUrl, id };
   }
 
-  async fetchNews() {
+  async fetchNewsByData() {
     const params = new URLSearchParams({
       'api-key': API_KEY,
       q: this.getQuerySearch(),
