@@ -6,12 +6,23 @@
     gap: 14px;
     padding-top: 24px;
     padding-bottom: 24px;
+
+    @include tablet {
+        justify-content: space-between;
+        align-items: center;
+    }
 }
+
 .header-list {
     display: none;
 
     @include tablet {
         display: flex;
+        gap: 44px;
+    }
+
+    @include desktop {
+        gap: 69px;
     }
 }
 
