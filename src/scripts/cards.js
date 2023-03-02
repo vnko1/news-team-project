@@ -26,6 +26,7 @@ function funvb(e) {
     fl: 'web_url,section_name,lead_paragraph,pub_date,headline, multimedia,_id', // вибераємо потрібні поля
     fq: 'document_type:("article") AND type_of_material:("news")',
     sort: 'relevance', // сортування за релевантністю
+    page: 1,
   };
 
   const urlParams = new URLSearchParams(queryParams);
