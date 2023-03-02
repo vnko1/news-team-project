@@ -1,7 +1,23 @@
+.date-container {
+  position: relative;
+}
+
+#calendar-container {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+.is-hidden {
+  display: none;
+}
+
 .vanilla-calendar {
   $calendar: &;
-
-  width: 280px;
+  font-family: $main-font;
+  width: 250px;
+  height: 250px;
+  border-radius: 20px;
   position: relative;
   min-width: min-content;
   display: grid;
@@ -9,7 +25,6 @@
   grid-template-columns: 1fr;
   background-color: white;
   padding: 12px;
-  border-radius: 4px;
 
   &_multiple {
     #{$calendar} {
@@ -150,7 +165,7 @@
       top: 5px;
       width: 10px;
       height: 1px;
-      background-color: black;
+      background-color: #4440f6;
       transform: rotateZ(45deg);
     }
 
@@ -161,7 +176,7 @@
       bottom: 5px;
       width: 10px;
       height: 1px;
-      background-color: black;
+      background-color: #4440f6;
       transform: rotateZ(-45deg);
     }
 

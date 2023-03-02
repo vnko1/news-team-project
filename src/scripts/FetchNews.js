@@ -41,7 +41,7 @@ class FetchNews {
       begin_date: this.getDate(),
       end_date: this.getDate(),
     });
-    console.log(`${BASE_URL}?${params}`);
+
     const {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
