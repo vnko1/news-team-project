@@ -10,7 +10,6 @@
 
 .checkbox-wrap {
   display: flex;
-  align-items: baseline;
 }
 
 .input-theme {
@@ -70,10 +69,10 @@
   color: #5f6775;
 }
 
-// .light-label .dark-theme-site {
-//   color: #f4f4f4;
-// }
+.light-label.light-theme-site {
+  color: #f4f4f4;
+}
 
-// .dark-label .dark-theme-site {
-//   color: #4b48db;
-// }
+.dark-label.dark-theme-site {
+  color: #4b48db;
+}
