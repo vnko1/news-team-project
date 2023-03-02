@@ -17,17 +17,18 @@
     padding-bottom: 40px;
     
   }
-  @media screen and (min-width: 768px) {
-    
-  }
+  
 }
 .text-1 {
     font-family: 'Manrope';
-    color: #F4F4F4;
+    color: 
+    #F4F4F4;
 text-align: center;
-
-
 }
+@media screen and (min-width: 768px) {
+    
+}
+
 .button-donat {
     display: flex;
 flex-direction: row;
@@ -38,17 +39,44 @@ padding: 8px 21px;
 width: auto;
 height: auto;
 margin-bottom: 5px;
-background: #4440F6;
-border: 1px solid #4B48DB;
+background: #F4F4F4;
+border: 1px solid 
+#4B48DB;
 border-radius: 20px;
 margin-left: auto;
 margin-right: auto;
 
+@media screen and (min-width: 768px) {
+  padding: 6px 10px;
+  
+}
+@media screen and (min-width: 768px) {
+    padding: auto;
+}
+}
+.button-donat:hover {
+  background-color: #4440F6;
+}
+.button-donat:active {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 0  #1b18f3;
 }
 .fa {
-    color: #fff;
+    color: #4B48DB;
     font-family: 'Manrope';
     font-style: normal;
+    
+    @media screen and (min-width: 768px) {
+      font-size: auto;
+      
+    }
+    @media screen and (min-width: 1200px) {
+    font-size: auto;
+    }
+}
+
+.fa:hover {
+  color: #F4F4F4;
 }
 .ZSU {
     margin-bottom: 20px;
