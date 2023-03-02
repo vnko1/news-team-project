@@ -1,6 +1,20 @@
 <section class="read">
-    <div class="container">
-        
-        <!-- body section -->
-    </div>
+  <div class="container">
+    <!-- body section -->
+    <form class="search-form" id="read-search-form">
+      <input
+        id="read-input"
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search news..."
+      />
+      <button type="submit">-----Search-----</button>
+      <button type="button" id="parseBtn">--Parse and Render--</button>
+    </form>
+
+    <ul id="ul-gallery"></ul>
+  </div>
 </section>
+
+<script src="/src/scripts/read.js"></script>
