@@ -55,13 +55,10 @@ function funvb(e) {
         return;
       }
 
-      const resultsList = document.createElement('ul');
-      resultsList.classList.add('list');
-
       // Відображаємо лише 8 елементів
       const slicedData = data.response.docs.slice(0, 8);
 
-      resultsList.innerHTML = slicedData.reduce((acc, article) => {
+      container.innerHTML = slicedData.reduce((acc, article) => {
         const multimedia = article.multimedia.find(
           media => media.subtype === 'xlarge'
         );
@@ -102,9 +99,7 @@ function funvb(e) {
         return (acc += listItem);
       }, '');
 
-      container.appendChild(resultsList);
-
-      localStorage.setItem('list', JSON.stringify(slicedData));
+      // localStorage.setItem('list', JSON.stringify(slicedData));
     })
     .catch(error => console.error(error));
   form.reset();
