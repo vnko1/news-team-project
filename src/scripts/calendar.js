@@ -55,6 +55,8 @@ async function onDateClick(e) {
 
       deleteNewsCards();
       renderNewsCards();
+      const el = document.querySelectorAll('.gallery .news-card');
+      console.log(el);
     } catch (error) {
       console.log(error);
     }
@@ -129,11 +131,11 @@ function pushData(
 }
 
 function deleteNewsCards() {
-  const galleryChild = gallery.children;
-  console.log(object);
-  for (let i = 0; i < galleryChild.length; i++) {
-    console.log(galleryChild[i]);
-  }
+  // const galleryChild = gallery.children;
+  // console.log(object);
+  // for (let i = 0; i < galleryChild.length; i++) {
+  //   console.log(galleryChild[i]);
+  // }
 
   gallery.innerHTML = '';
 
