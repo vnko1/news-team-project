@@ -100,7 +100,7 @@ function rendeNewsCards() {
         <p class="news-card__theme">${el.category}</p>
         <img
           class="news-card__item"
-          src="${el.imgUrl}"
+          src="https://www.nytimes.com/${el.imgUrl}"
           alt=""
           loading="lazy"
           width="395"
