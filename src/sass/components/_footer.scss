@@ -46,8 +46,8 @@ justify-content: center;
 align-items: center;
 padding: 8px 21px;
 
-width: auto;
-height: auto;
+width: 170px;
+height: 60px;
 margin-bottom: 5px;
 background:  #F4F4F4;
 border: 1px solid 
@@ -55,16 +55,9 @@ border: 1px solid
 border-radius: 20px;
 margin-left: auto;
 margin-right: auto;
-
-@media screen and (max-width: 768px) {
-  padding: 8px 8px;
-  
-}
-@media screen and (min-width: 768px) {
-    padding: 2px;
-}
 @media screen and (min-width: 1280px) {
-  padding: 15px 15px;
+  width: 200px;
+  height: 70px;
 }
 }
 .button-donat:hover {
@@ -149,6 +142,9 @@ margin-right: auto;
   &__text--flex {
     margin: 0;
   }
+}
+.donatik {
+  object-fit: fill;
 }
  
 
