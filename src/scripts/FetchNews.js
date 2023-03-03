@@ -6,10 +6,12 @@ const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 class FetchNews {
   constructor() {
     this.data = [];
+    this.storageData = [];
     this.date = null;
     this.querySearch = '';
     this.hits = null;
     this.counter = 0;
+    this.url = '';
   }
 
   setData(newData) {
@@ -22,6 +24,18 @@ class FetchNews {
 
   getData() {
     return this.data;
+  }
+
+  resetData() {
+    this.data = [];
+  }
+
+  getStorageData() {
+    return this.storageData;
+  }
+
+  addStorageData(data) {
+    this.storageData.push(data);
   }
 
   setDate(newDate) {
@@ -55,8 +69,17 @@ class FetchNews {
   updateCounter() {
     this.counter += 1;
   }
+
   resetCounter() {
     this.counter = 0;
+  }
+
+  getUrl() {
+    return this.url;
+  }
+
+  setUrl(newUrl) {
+    this.url = newUrl;
   }
 
   createObj(
@@ -65,10 +88,14 @@ class FetchNews {
     category = 'no data',
     pubDate = 'no data',
     url = 'no data',
-    imgUrl = 'no data',
+    imgUrl,
+    imgDescr = 'no data',
     id = 'no data'
   ) {
-    return { title, description, category, pubDate, url, imgUrl, id };
+    const img = imgUrl
+      ? `https://www.nytimes.com/${imgUrl}`
+      : 'https://unsplash.it/395';
+    return { title, description, category, pubDate, url, img, imgDescr, id };
   }
 
   async fetchNewsByData() {
@@ -78,7 +105,7 @@ class FetchNews {
       begin_date: this.getDate(),
       end_date: this.getDate(),
     });
-
+    this.setUrl(`${BASE_URL}?${params}`);
     const {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
