@@ -119,7 +119,7 @@ margin-right: auto;
   @media screen and (min-width: 768px) {
     height: auto;
   }
-  &__text {
+  &__text, .text-go, .text-footer, .heart {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,42 +133,25 @@ margin-right: auto;
     @media screen and (min-width: 768px) {
       flex-direction: row;
       justify-content: center;
-      padding: 0;
-      padding-top: 30px;
+      padding: 10px;
+    padding-bottom: 20px 0px 0px;
     }
-    
+    .heart {
+      font-size: 10px;
+      
+      animation: beat .25s infinite alternate;
+      transform-origin: center;
+    }
+    @keyframes beat {
+      to { transform: scale(1.4);}
+    }
   }
   &__text--flex {
     margin: 0;
   }
-  &__text--bottom {
-    margin-bottom: 10px;
-    margin-top: 29px;
-    @media screen and (min-width: 768px) {
-      margin-top: 0;
-      margin-bottom: 0;
-      margin-right: 4px;
-    }
-   
-  }
-
-  .footer-button {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.14;
-
-    color: #111321;
-
-    
-    border: none;
-    background-color: 
-    #4440F6;
-    text-decoration: underline;
-  }
-  .serdce{
-    margin-left: 10px;
-    margin-right: 10px;
-  }
 }
+ 
+
+
 
   
