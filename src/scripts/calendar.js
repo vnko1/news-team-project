@@ -61,6 +61,8 @@ async function onDateClick(e) {
           .join('')
           .replaceAll('.', '/');
 
+        const text = article.lead_paragraph.slice(0, 200) + '...';
+
         fetchNews.addData(
           fetchNews.createObj(
             element.headline.main,
