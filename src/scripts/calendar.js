@@ -73,7 +73,7 @@ function normalizeData(data) {
       .join('')
       .replaceAll('.', '/');
     imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
-    console.log(img);
+
     pushData(
       element.headline.main,
       element.lead_paragraph,
@@ -132,7 +132,7 @@ function deleteNewsCards() {
 function renderNewsCards() {
   const data = [];
   const fetchData = fetchNews.getData();
-  console.log(fetchData);
+
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
     data.push(fetchData[i]);
