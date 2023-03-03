@@ -36,10 +36,48 @@ function createMarkup(dataOfOneCard) {
     date.getMonth() + 1
   ).padStart(2, 0)}/${String(date.getFullYear())}`;
 
-  {
-    /* <img class="card__img" src="https://static01.nyt.com/${multimedia[0].url}" alt="Заглушка" width="395" height="395"></img> */
-  }
-  return `
+  const favouriteList = getStorageList("favourites");
+  const readMoreList = getStorageList("Read more");
+
+  const resultFavorite = favouriteList.some(obj=>obj.id === _id)
+  const resultReadMore = readMoreList.some(obj=>obj.id === _id)
+  
+  if(resultReadMore && resultFavorite) {
+    console.log('resultReadMore && resultFavorite')
+    return `
+    <div class="card">
+      <h2 class="card__title" data-card-title>${main}</h2>
+      <p class="card__description">${abstract}</p>
+      <p class="card__news-create-date">${convertDate}</p>
+      <a class="card__news-link storage-value" href="${web_url}" id="${_id}">Read more</a>
+      <button class="card__btn storage-value">Add to favorite</button>
+    </div>
+  `;
+  } else if (resultReadMore && !resultFavorite) {
+    console.log('resultReadMore && !resultFavorite')
+    return `
+    <div class="card">
+      <h2 class="card__title" data-card-title>${main}</h2>
+      <p class="card__description">${abstract}</p>
+      <p class="card__news-create-date">${convertDate}</p>
+      <a class="card__news-link storage-value" href="${web_url}" id="${_id}">Read more</a>
+      <button class="card__btn">Add to favorite</button>
+    </div>
+  `;
+  } else if(!resultReadMore && resultFavorite) {
+    console.log('!resultReadMore && resultFavorite')
+    return `
+    <div class="card">
+      <h2 class="card__title" data-card-title>${main}</h2>
+      <p class="card__description">${abstract}</p>
+      <p class="card__news-create-date">${convertDate}</p>
+      <a class="card__news-link" href="${web_url}" id="${_id}">Read more</a>
+      <button class="card__btn storage-value">Add to favorite</button>
+    </div>
+  `;
+  } else {
+    console.log('совпадений нету')
+    return `
     <div class="card">
       <h2 class="card__title" data-card-title>${main}</h2>
       <p class="card__description">${abstract}</p>
@@ -48,6 +86,7 @@ function createMarkup(dataOfOneCard) {
       <button class="card__btn">Add to favorite</button>
     </div>
   `;
+  }
 }
 
 //------------------------------------------------------------
@@ -77,6 +116,8 @@ divRef.addEventListener("click", onClick);
 function onClick(event) {
 //--------------------Favourites--------------------------------
   if (event.target.textContent === "Add to favorite") {
+
+    event.target.classList.toggle('storage-value')
     // забираем значения с зарендереной карточки
     const arrayChildren = event.target.parentNode.children;
 
@@ -96,6 +137,8 @@ function onClick(event) {
 //--------------------Read more--------------------------------
   if (event.target.textContent === "Read more") {
     event.preventDefault();
+    event.target.classList.add('storage-value')
+    
     const arrayChildren = event.target.parentNode.children;
 
     const newObj = {
