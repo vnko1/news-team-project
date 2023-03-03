@@ -102,7 +102,7 @@ function pushData(
   id
 ) {
   fetchNews.addData(
-    fetchNews.createObj(
+    fetchNews.createObj({
       title,
       description,
       category,
@@ -110,8 +110,8 @@ function pushData(
       url,
       img,
       imgDescr,
-      id
-    )
+      id,
+    })
   );
 }
 
@@ -142,7 +142,7 @@ function renderNewsCards() {
         <p class="news-card__theme">${el.category}</p>
         <img
           class="news-card__item"
-          src="${el.img}"
+          src="${el.imgUrl}"
           alt="${el.imgDescr ? el.imgDescr : 'photo'}"
           loading="lazy"
           width="395"

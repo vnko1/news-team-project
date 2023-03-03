@@ -89,21 +89,30 @@ class FetchNews {
     this.url = newUrl;
   }
   // повертає обʼєкт з даними для рендеру
-  createObj(
+  createObj({
     title = 'no data',
     description = 'no data',
     category = 'no data',
     pubDate = 'no data',
     url = 'no data',
-    imgUrl,
+    img,
     imgDescr = 'no data',
-    id = 'no data'
-  ) {
-    const img = imgUrl
-      ? `https://www.nytimes.com/${imgUrl}`
+    id = 'no data',
+  }) {
+    const imgUrl = img
+      ? `https://www.nytimes.com/${img}`
       : 'https://unsplash.it/395';
 
-    return { title, description, category, pubDate, url, img, imgDescr, id };
+    return {
+      title,
+      description,
+      category,
+      pubDate,
+      url,
+      imgUrl,
+      imgDescr,
+      id,
+    };
   }
   // метод запиту на бекенд
   async fetchNewsByData() {
