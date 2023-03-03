@@ -80,8 +80,9 @@ function renderMarkup(array) {
       
     const cardMarkupLi = `<li class="cards">
             <h2 class="cards-date">${date}
-            <svg class="arrow arrow-up" width="9" height="15">
-                  <use href="/src/images/sprite.svg#icon-arrow-up"></use>
+            <img class="d" src="https://w7.pngwing.com/pngs/475/618/png-transparent-arrow-computer-icons-bar-chart-arrow-angle-chevron-svg-filter-effects-thumbnail.png" alt="" width="9px" height="15px"/>
+            <svg class="arrow arrow-up" width="20" height="20">
+                  <use href="/src/images/sprite.svg#cross-icon"></use>
                 </svg>
                 <svg class="arrow arrow-down" width="9" height="15">
                   <use href="/src/images/sprite.svg#icon-arrow-up"></use>

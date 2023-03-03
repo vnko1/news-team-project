@@ -1,10 +1,16 @@
 <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
   <defs>
+  <symbol id="cross-icon" viewBox="0 0 32 32">
+<path fill="none" stroke="#86e543" style="stroke: var(--color1, #86e543)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.4286" d="M28.857 3.143l-25.714 25.714M3.143 3.143l25.714 25.714"></path>
+</symbol>
     <symbol id="icon-arrow-down" viewBox="0 0 53 32">
       <path d="M6.265 0 0 6.091 26.667 32 53.334 6.091 47.069 0 26.667 19.78 6.269 0z"/>
     </symbol>
     <symbol id="icon-arrow-up" viewBox="0 0 53 32">
       <path d="M6.265 32 0 25.909 26.667 0l26.667 25.909L47.069 32 26.667 12.22 6.269 32z"/>
     </symbol>
+    <symbol id="icon" viewBox="0 0 53 32">
+  <path fill="#4440F6" d="M1.645 0 0 1.522 7 8l7-6.478L12.355 0 7 4.945 1.645 0Z"/>
+</symbol>
   </defs>
 </svg>
