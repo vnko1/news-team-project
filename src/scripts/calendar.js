@@ -116,14 +116,16 @@ function pushData(
 }
 
 function deleteNewsCards() {
-  // const galleryChild = gallery.childNodes;
+  const galleryChild = gallery.childNodes;
+  galleryChild[1].remove();
   // for (let i = 0; i < galleryChild.length; i++) {
-  //   if (galleryChild[i] !== gallery.firstChild) {
-  //     galleryChild[i].innerHTML = '';
+  //   if (galleryChild[i] === gallery.firstChild) {
+  //     continue;
   //   }
+  //   galleryChild[i].remove();
   // }
 
-  gallery.innerHTML = '';
+  // gallery.innerHTML = '';
 }
 
 function renderNewsCards() {
