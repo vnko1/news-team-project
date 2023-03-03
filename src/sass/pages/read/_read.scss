@@ -1,17 +1,9 @@
-.card {
-//   margin-bottom: 60px;
-}
-
 .hidden {
   display: none;
-
-  .arrow-up {
-    display: none;
-  }
 }
 
 .cards-date {
-  // position: relative;
+ 
     padding-top: 60px;
     padding-bottom: 12px;
   font-style: normal;
@@ -28,9 +20,4 @@
     cursor: pointer;
   }
 
-}
-
-.arrow {
-  // position: absolute;
-  fill: black;
 }

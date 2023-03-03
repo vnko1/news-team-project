@@ -111,7 +111,7 @@ function renderMarkup(array) {
             <svg class="arrow-up" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
                <path d="M1.762 9 0 7.287 7.5 0 15 7.287 13.238 9 7.5 3.437 1.763 9Z" fill="#111321"/>
             </svg>
-            <svg class="arrow-down" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="arrow-down hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
                <path d="M1.762 0 0 1.713 7.5 9 15 1.713 13.238 0 7.5 5.563 1.763 0Z" fill="#111321"/>
             </svg>
             </h2>
@@ -135,7 +135,13 @@ function renderMarkup(array) {
 function onClick(e) {
   console.log(e.target.tagName);
   console.log(e.target.children);
+
+  // ----если нажали на заголовок H2, то выбираем в массив все DIVы у тега LI который выше заголовка H2----
+
   if (e.target.tagName === 'H2') {
+    let svg = e.target.children;
+    for (let item of svg) item.classList.toggle('hidden');
+
     let cont = e.target.parentNode.querySelectorAll('div');
     for (let item of cont) item.classList.toggle('hidden');
   }
