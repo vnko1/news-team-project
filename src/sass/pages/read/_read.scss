@@ -4,6 +4,10 @@
 
 .hidden {
   display: none;
+
+  .arrow-up {
+    display: none;
+  }
 }
 
 .cards-date {
@@ -29,9 +33,4 @@
 .arrow {
   // position: absolute;
   fill: black;
-}
-
-.d {
-  width: 9px;
-  height: 15px;
 }
