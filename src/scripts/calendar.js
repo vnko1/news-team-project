@@ -7,6 +7,7 @@ calendar.init();
 const inputEl = document.querySelector('#date');
 const calendarContainer = document.querySelector('#calendar-container');
 const calendarEl = document.querySelector('#calendar');
+const gallery = document.querySelector('.gallery-container');
 const galleryList = document.querySelectorAll('.gallery-container .news-card');
 
 inputEl.addEventListener('click', onInputElClick);
@@ -34,6 +35,7 @@ async function onDateClick(e) {
 
     try {
       const response = await fetchNews.fetchNewsByData();
+      console.log(response);
 
       if (!response.docs.length) {
         console.log('нічого не знайдено');
@@ -43,19 +45,28 @@ async function onDateClick(e) {
       fetchNews.setHits(response.meta.hits);
 
       const { docs } = response;
+
       let img = null;
+
       docs.forEach(element => {
         element.multimedia.forEach(e => {
           if (e.subType === 'xlarge') {
             img = e.url;
           }
         });
-        const pubDate = element.pub_date.fetchNews.addData(
+        const pubDate = new Date(element.pub_date)
+          .toLocaleString()
+          .split(',')
+          .splice(0, 1)
+          .join('')
+          .replaceAll('.', '/');
+
+        fetchNews.addData(
           fetchNews.createObj(
             element.headline.main,
             element.lead_paragraph,
             element.section_name,
-            element.pub_date,
+            pubDate,
             element.web_url,
             img,
             element._id
@@ -83,7 +94,7 @@ function rendeNewsCards() {
     data.push(fetchData[i]);
   }
   console.log(data);
-  return data.reduce((acc, el) => {
+  const markUp = data.reduce((acc, el) => {
     acc += `<div class="news-card">
       <div class="news-card__img">
         <p class="news-card__theme">${el.category}</p>
@@ -107,5 +118,6 @@ function rendeNewsCards() {
       </div>
     </div>`;
     return acc;
-  }, '');
+  }, ``);
+  gallery.insertAdjacentHTML('beforeend', markUp);
 }
