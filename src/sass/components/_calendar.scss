@@ -1,3 +1,6 @@
+body {
+  background-color: grey;
+}
 .date-container {
   position: relative;
 }
@@ -5,8 +8,6 @@
 #calendar-container {
   position: absolute;
   z-index: 999;
-  width: 100px;
-  height: 100px;
 }
 
 .is-hidden {
@@ -60,7 +61,7 @@
 
   button {
     &:focus-visible {
-      outline: 1px solid darkorange;
+      outline: 1px solid grey;
     }
   }
 
@@ -181,12 +182,12 @@
       transform: rotateZ(-45deg);
     }
 
-    &:hover {
-      &::before,
-      &::after {
-        background-color: lightseagreen;
-      }
-    }
+    // &:hover {
+    //   &::before,
+    //   &::after {
+    //     background-color: lightseagreen;
+    //   }
+    // }
 
     &_prev {
       right: 0;
@@ -225,7 +226,7 @@
       line-height: 16px;
       font-weight: 700;
       background-color: white;
-      color: lightseagreen;
+      color: #000;
       padding: 2px;
       border-radius: 4px;
       border: 0;
@@ -236,11 +237,11 @@
       }
 
       &_selected {
-        background-color: lightseagreen;
+        background-color: #4440f6;
         color: white;
 
         &:hover {
-          background-color: lightseagreen;
+          background-color: #4440f6;
           color: white;
         }
       }
@@ -259,9 +260,10 @@
   }
 
   &-month {
+    font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
-    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: -0.408px;
     color: black;
     cursor: pointer;
     border-radius: 4px;
@@ -270,7 +272,7 @@
     background-color: transparent;
 
     &:hover {
-      color: lightseagreen;
+      color: #4440f6;
     }
 
     &_not-active {
@@ -313,7 +315,7 @@
       line-height: 20px;
       font-weight: 700;
       background-color: white;
-      color: lightseagreen;
+      color: #000;
       padding: 2px;
       border-radius: 4px;
       border: 0;
@@ -324,11 +326,11 @@
       }
 
       &_selected {
-        background-color: lightseagreen;
+        background-color: #4440f6;
         color: white;
 
         &:hover {
-          background-color: lightseagreen;
+          background-color: #4440f6;
           color: white;
         }
       }
@@ -347,9 +349,10 @@
   }
 
   &-year {
+    font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
-    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: -0.408px;
     color: black;
     cursor: pointer;
     border-radius: 4px;
@@ -358,7 +361,7 @@
     background-color: transparent;
 
     &:hover {
-      color: lightseagreen;
+      color: #4440f6;
     }
 
     &_not-active {
@@ -381,7 +384,7 @@
       font-size: 12px;
       line-height: 16px;
       font-weight: 700;
-      color: lightseagreen;
+      color: rgba(60, 60, 67, 0.3);
       width: 28px;
       height: 18px;
       display: flex;
@@ -389,7 +392,7 @@
       justify-content: center;
 
       &_weekend {
-        color: coral;
+        color: rgba(60, 60, 67, 0.3);
       }
     }
 
@@ -497,11 +500,11 @@
 
       &_today {
         background-color: aliceblue;
-        color: lightseagreen;
+        color: #000;
         font-weight: 600;
 
         &:hover {
-          color: lightseagreen;
+          color: #4440f6;
           background-color: aliceblue;
         }
 
@@ -513,11 +516,11 @@
       }
 
       &_selected {
-        background-color: #289b95;
+        background-color: #4440f6;
         color: white;
 
         &:hover {
-          background-color: #289b95;
+          background-color: #4440f6;
           color: white;
         }
 
@@ -545,7 +548,7 @@
 
       &_weekend,
       &_holiday {
-        color: coral;
+        color: #5f6775;
 
         &:hover {
           background-color: seashell;
