@@ -128,6 +128,11 @@ function pushData(
 }
 
 function deleteNewsCards() {
+  const galleryChild = gallery.children;
+  for (let i = 0; i < galleryChild.length; i++) {
+    console.log(galleryChild[i]);
+  }
+
   gallery.innerHTML = '';
 
   // galleryList.forEach(el => (el.innerHTML = ''));
