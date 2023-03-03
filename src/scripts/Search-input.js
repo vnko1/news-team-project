@@ -1,76 +1,5 @@
-// import serviceApi from './api-key';
-
-const formEl = document.querySelector('#search-form');
 const articlesContainer = document.querySelector('.js-articles-container');
 
-// // const serviceApi = new ApiService();
-// // console.log(serviceApi);
-
-// formEl.addEventListener('submit', onSearch);
-
-function onSearch(e) {
-  e.preventDefault();
-  serviceApi.query = e.currentTarget.elements.searchQuery.value;
-  const form = e.currentTarget;
-  // console.log(form);
-  const value = form.elements.searchQuery.value.trim();
-
-  // if (serviceApi.query === '') {
-  //   return alert('Введи что-то нормальное');
-  // }
-  serviceApi(value)
-    .then(({ articles }) => {
-      if (articles.length === 0) throw new Error('No data');
-
-      return articles.reduce(
-        (markup, article) => createMarkup(article) + markup,
-        ''
-      );
-    })
-    .then(updateNewsList)
-    .catch(onError)
-    .finally(() => form.reset());
-}
-
-function updateNewsList(markup) {
-  articlesContainer.innerHTML = markup;
-}
-
-// // serviceApi.resetPage();
-// // fetchArticles();
-// // clearArticlesContainer();
-
-// //
-// // function fetchArticles() {
-// //   serviceApi.fetchArticles().then(articles => {
-// //     appendArticlesMarkup(articles);
-// //   });
-// // }
-
-// // function appendArticlesMarkup(articles) {
-// //   articlesContainer.insertAdjacentHTML('beforeend', articlesTpl(articles));
-// // }
-
-// // function clearArticlesContainer() {
-// //   articlesContainer.innerHTML = '';
-// // }
-
-// // Запрос на популярние то витягуєм title
-// fetchPopular().then(renderCard).catch(error => console.log(error));
-
-// function fetchPopular() {
-//     return fetch(
-//         'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY'
-//     )
-//         .then(response => {
-//             return response.json();
-//         })
-
-// }
-// function renderCard(mostpopular) {
-//   const markup = createMarkup(mostpopular);
-//   articlesContainer.innerHTML = markup;
-// }
 
 const BASE_URL =
   'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
@@ -80,8 +9,9 @@ const res = fetch(BASE_URL)
   .then(res => res.json())
   .then(data => {
     // console.log(data);
-    createDivMarkup(data.results);
-      // console.log(data.results);
+    const slicedData = data.results.slice(0, 8);
+    createDivMarkup(slicedData);
+    console.log(slicedData);
   })
   .catch(error => {
     console.log(error);
@@ -122,12 +52,3 @@ function createMarkup(dataOfOneCard) {
   `;
 }
 
-// за популярними:
-// категорія: section,
-// заголовок: title
-// короткий опис: abstract
-// дата: published_date
-// елемент read more: url
-// / Відображаємо лише 8 елементів
-//       const slicedData = data.response.docs.slice(0, 8);
-// ти береш дані які приходять у відповідь з апішки та обрізаєш їх до потрібної довжини
