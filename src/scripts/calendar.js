@@ -7,6 +7,7 @@ calendar.init();
 const inputEl = document.querySelector('#date');
 const calendarContainer = document.querySelector('#calendar-container');
 const calendarEl = document.querySelector('#calendar');
+const galleryList = document.querySelectorAll('.gallery-container .news-card');
 
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
@@ -31,34 +32,80 @@ async function onDateClick(e) {
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
 
-    const response = await fetchNews.fetchNewsByData();
-    console.log(response);
-    fetchNews.setHits(response.meta.hits);
+    try {
+      const response = await fetchNews.fetchNewsByData();
 
-    const { docs } = response;
+      if (!response.docs.length) {
+        console.log('нічого не знайдено');
+        return;
+      }
 
-    docs.forEach(element => {
-      const img = element.multimedia.forEach(e => {
-        if (e.subType === 'xlarge') {
-          return e.url;
-        }
+      fetchNews.setHits(response.meta.hits);
+
+      const { docs } = response;
+      let img = null;
+      docs.forEach(element => {
+        element.multimedia.forEach(e => {
+          if (e.subType === 'xlarge') {
+            img = e.url;
+          }
+        });
+        const pubDate = element.pub_date.fetchNews.addData(
+          fetchNews.createObj(
+            element.headline.main,
+            element.lead_paragraph,
+            element.section_name,
+            element.pub_date,
+            element.web_url,
+            img,
+            element._id
+          )
+        );
       });
-      fetchNews.addData(
-        fetchNews.createObj(
-          element.headline.main,
-          element.lead_paragraph,
-          element.section_name,
-          element.pub_date,
-          element.web_url,
-          img,
-          element._id
-        )
-      );
-    });
 
-    if (!response.docs.length) {
-      console.log('нічого не знайдено');
-      return;
+      deleteNewsCards();
+      rendeNewsCards();
+    } catch (error) {
+      console.log(error);
     }
   }
+}
+
+function deleteNewsCards() {
+  galleryList.forEach(el => (el.innerHTML = ''));
+}
+
+function rendeNewsCards() {
+  const data = [];
+  const fetchData = fetchNews.getData();
+  for (let i = 0; i < fetchData.length; i++) {
+    if (i >= 8) break;
+    data.push(fetchData[i]);
+  }
+  console.log(data);
+  return data.reduce((acc, el) => {
+    acc += `<div class="news-card">
+      <div class="news-card__img">
+        <p class="news-card__theme">${el.category}</p>
+        <img
+          class="news-card__item"
+          src="${el.imgUrl}"
+          alt=""
+          loading="lazy"
+          width="395"
+        />
+        <div class="news-card__favorite">
+          <label for="favorite" class="label-favorite">Add to favorite</label>
+          <input type="checkbox" class="input-favorite" id="favorite" />
+        </div>
+      </div>
+      <h2 class="news-card__info-title">${el.title}</h2>
+      <p class="news-card__info-text">${el.description}</p>
+      <div class="news-card__additional">
+        <p class="news-card__date">${el.pubDate}</p>
+        <a class="news-card__more" href="${el.url}">Read more</a>
+      </div>
+    </div>`;
+    return acc;
+  }, '');
 }
