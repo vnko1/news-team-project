@@ -92,7 +92,7 @@ class FetchNews {
     const {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
-
+    console.log(this.getUrl());
     return response;
   }
 }
