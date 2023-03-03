@@ -24,7 +24,6 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
-  console.log('object');
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
 
@@ -34,6 +33,8 @@ async function onDateClick(e) {
 
     const response = await fetchNews.fetchNewsByData();
     console.log(response);
+    fetchNews.setHits(response.meta.hits);
+
     const { docs } = response;
 
     docs.forEach(element => {
@@ -54,7 +55,6 @@ async function onDateClick(e) {
         )
       );
     });
-    console.log(fetchNews.getData());
 
     if (!response.docs.length) {
       console.log('нічого не знайдено');
