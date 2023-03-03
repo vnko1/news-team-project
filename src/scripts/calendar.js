@@ -32,7 +32,6 @@ function onWindowClick(e) {
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
-    console.log(date);
 
     fetchNews.setDate(date.split('-').join(''));
     inputEl.value = date.split('-').reverse().join('/');
@@ -55,8 +54,6 @@ async function onDateClick(e) {
 
       deleteNewsCards();
       renderNewsCards();
-      const el = document.querySelectorAll('.gallery .news-card');
-      console.log(el);
     } catch (error) {
       console.log(error);
     }
@@ -116,18 +113,6 @@ function pushData(
       id
     )
   );
-  fetchNews.addStorageData(
-    fetchNews.createObj(
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      img,
-      imgDescr,
-      id
-    )
-  );
 }
 
 function deleteNewsCards() {
@@ -145,7 +130,7 @@ function deleteNewsCards() {
 function renderNewsCards() {
   const data = [];
   const fetchData = fetchNews.getData();
-  console.log(fetchData);
+
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
     data.push(fetchData[i]);
