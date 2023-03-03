@@ -141,6 +141,17 @@ function onClick(event) {
     
     const arrayChildren = event.target.parentNode.children;
 
+    // 1. визиваю масив с класа [{},{},{}]
+    // 2. буру обьект с id что подходит .. find {}
+    // 3. function transformObj(date, ...obj) {
+//   return {
+//       date: getDateForCreateObjToStorage(),
+//     ...obj
+//   }
+// }
+    // 4. дальше буду сравнивать то что лежит в локалсторидж есть ли такой же id
+    // 5. потом пушить
+
     const newObj = {
       date: getDateForCreateObjToStorage(),
       id: arrayChildren[3].id,
