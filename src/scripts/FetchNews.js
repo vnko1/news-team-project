@@ -89,7 +89,7 @@ class FetchNews {
     this.url = newUrl;
   }
   // повертає обʼєкт з даними для рендеру
-  createObj({
+  createObj(
     title = 'no data',
     description = 'no data',
     category = 'no data',
@@ -97,8 +97,8 @@ class FetchNews {
     url = 'no data',
     imgUrl,
     imgDescr = 'no data',
-    id = 'no data',
-  }) {
+    id = 'no data'
+  ) {
     const img = imgUrl
       ? `https://www.nytimes.com/${imgUrl}`
       : 'https://unsplash.it/395';
