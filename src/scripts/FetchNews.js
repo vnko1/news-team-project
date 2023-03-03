@@ -88,11 +88,15 @@ class FetchNews {
     category = 'no data',
     pubDate = 'no data',
     url = 'no data',
-    imgUrl = 'no data',
+    imgUrl,
     imgDescr = 'no data',
     id = 'no data'
   ) {
-    return { title, description, category, pubDate, url, imgUrl, imgDescr, id };
+    console.log(imgUrl);
+    const img = imgUrl
+      ? `https://www.nytimes.com/${imgUrl}`
+      : './src/images/logo.png';
+    return { title, description, category, pubDate, url, img, imgDescr, id };
   }
 
   async fetchNewsByData() {

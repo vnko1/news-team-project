@@ -8,7 +8,7 @@ const inputEl = document.querySelector('#date');
 const calendarContainer = document.querySelector('#calendar-container');
 const calendarEl = document.querySelector('#calendar');
 const gallery = document.querySelector('.gallery-container');
-let galleryList = document.querySelectorAll('.gallery-container .news-card');
+let galleryList = null;
 
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
@@ -36,7 +36,6 @@ async function onDateClick(e) {
 
     try {
       const response = await fetchNews.fetchNewsByData();
-      console.log(response);
 
       if (!response.docs.length) {
         console.log('нічого не знайдено');
@@ -50,7 +49,7 @@ async function onDateClick(e) {
       normalizeData(docs);
 
       deleteNewsCards();
-      rendeNewsCards();
+      renderNewsCards();
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +73,7 @@ function normalizeData(data) {
       .join('')
       .replaceAll('.', '/');
     imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
-    console.log(imgDescr);
+    console.log(img);
     pushData(
       element.headline.main,
       element.lead_paragraph,
@@ -125,26 +124,27 @@ function pushData(
 }
 
 function deleteNewsCards() {
-  // gallery.innerHTML = '';
-  console.log(galleryList);
-  galleryList.forEach(el => (el.innerHTML = ''));
+  gallery.innerHTML = '';
+
+  // galleryList.forEach(el => (el.innerHTML = ''));
 }
 
-function rendeNewsCards() {
+function renderNewsCards() {
   const data = [];
   const fetchData = fetchNews.getData();
+  console.log(fetchData);
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
     data.push(fetchData[i]);
   }
-  console.log(data);
+
   const markUp = data.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
       <div class="news-card__img">
         <p class="news-card__theme">${el.category}</p>
         <img
           class="news-card__item"
-          src="https://www.nytimes.com/${el.imgUrl}"
+          src="${el.img}"
           alt="${el.imgDescr ? el.imgDescr : 'photo'}"
           loading="lazy"
           width="395"
