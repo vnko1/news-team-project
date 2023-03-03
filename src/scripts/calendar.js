@@ -160,8 +160,8 @@ function renderNewsCards() {
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
       <p class="news-card__info-text">${
-        el.description.length > 200
-          ? el.description.slice(0, 200) + '...'
+        el.description.length > 180
+          ? el.description.slice(0, 180) + '...'
           : el.description
       }</p>
       <div class="news-card__additional">
