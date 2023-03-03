@@ -1,0 +1,50 @@
+.weather-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 630px;
+    width: 100%;
+    max-width: 320px;
+    max-height: 630px;
+    padding: 32px;
+    object-fit: contain;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    @include tablet {
+        max-width: 353px;
+        max-height: 675px;
+    
+    }
+
+    @include desktop {
+        max-width: 394px;
+    }
+
+}
+
+.weather-card__top {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.weather-card__temp {
+    font-size: 55px;
+    line-height: 1.16;
+    border-right: solid 1px black;
+}
+
+.weather-card__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-card__date {
+    font-size: 28px;
+    line-height: 1.18;
+
+}

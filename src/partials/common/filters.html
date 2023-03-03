@@ -1,12 +1,34 @@
-
 <section class="filters">
-    <div class="container">     
-    </div>
-    <button type="button" class="js_filter-button" value='load' id="load">start fetch and render categories</button>   
+    <div class="container">
+        <form action="">
+            <input type="radio" id="filter_1" name="news_category" value="1">
+        <label for="javascript">1</label>
+        <input type="radio" id="filter_1" name="news_category" value="2">
+        <label for="javascript">2</label>
+        <input type="radio" id="filter_1" name="news_category" value="3">
+        <label for="javascript">3</label>
+        <input type="radio" id="filter_1" name="news_category" value="4">
+        <label for="javascript">4</label>
+        <input type="radio" id="filter_1" name="news_category" value="5">
+        <label for="javascript">5</label>
+        <input type="radio" id="filter_1" name="news_category" value="6">
+        <label for="javascript">6</label>
+        </form>
+
+        <form action="">
+            <label for="other_filter">Others...</label>
+            <select name="other_filter" id="other_filter">
+              <option value="">7</option>
+              <option value="">8</option>
+              <option value="">9</option>
+              <option value="">10</option>
+            </select>
+          </form>
+    </div>  
 </section>
 
 
-<!-- "6. Зверстати блок зі списком категорій для пошуку тематичних новин по  відповідній категорії  (мобільна, планшет та десктопна версії)
+<!-- "Зверстати блок зі списком категорій для пошуку тематичних новин по відповідній категорії  (мобільна, планшет та десктопна версії)
 Блок в себе включає список з категоріями новин
 Категорії новин приходять з бекенда в результаті запиту
 Список новин що помістився в рядок потрібно відобразити випадаючим списком, що відкрвається по кліку на кнопку Others
