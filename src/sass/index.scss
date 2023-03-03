@@ -11,12 +11,12 @@
 @import './base/link';
 @import './base/list';
 
-@import './components/footer';
-@import './components/calendar';
 @import './components/header';
 @import './components/mobile-menu';
+@import './components/calendar';
 @import './components/news-card';
 @import './components/weather-card';
+@import './components/footer';
 
 @import './pages/main/gallery';
 @import './pages/favorite/favorite';

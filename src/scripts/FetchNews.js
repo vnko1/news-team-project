@@ -6,6 +6,7 @@ const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 class FetchNews {
   constructor() {
     this.data = [];
+    this.storageData = [];
     this.date = null;
     this.querySearch = '';
     this.hits = null;
@@ -23,6 +24,18 @@ class FetchNews {
 
   getData() {
     return this.data;
+  }
+
+  resetData() {
+    this.data = [];
+  }
+
+  getStorageData() {
+    return this.storageData;
+  }
+
+  addStorageData(data) {
+    this.storageData.push(data);
   }
 
   setDate(newDate) {
@@ -76,9 +89,10 @@ class FetchNews {
     pubDate = 'no data',
     url = 'no data',
     imgUrl = 'no data',
+    imgDescr = 'no data',
     id = 'no data'
   ) {
-    return { title, description, category, pubDate, url, imgUrl, id };
+    return { title, description, category, pubDate, url, imgUrl, imgDescr, id };
   }
 
   async fetchNewsByData() {

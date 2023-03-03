@@ -8,7 +8,7 @@ const inputEl = document.querySelector('#date');
 const calendarContainer = document.querySelector('#calendar-container');
 const calendarEl = document.querySelector('#calendar');
 const gallery = document.querySelector('.gallery-container');
-const galleryList = document.querySelectorAll('.gallery-container .news-card');
+let galleryList = document.querySelectorAll('.gallery-container .news-card');
 
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
@@ -32,6 +32,7 @@ async function onDateClick(e) {
     fetchNews.setDate(date.split('-').join(''));
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
+    fetchNews.resetData();
 
     try {
       const response = await fetchNews.fetchNewsByData();
@@ -46,33 +47,7 @@ async function onDateClick(e) {
 
       const { docs } = response;
 
-      let img = null;
-
-      docs.forEach(element => {
-        element.multimedia.forEach(e => {
-          if (e.subType === 'xlarge') {
-            img = e.url;
-          }
-        });
-        const pubDate = new Date(element.pub_date)
-          .toLocaleString()
-          .split(',')
-          .splice(0, 1)
-          .join('')
-          .replaceAll('.', '/');
-
-        fetchNews.addData(
-          fetchNews.createObj(
-            element.headline.main,
-            element.lead_paragraph,
-            element.section_name,
-            pubDate,
-            element.web_url,
-            img,
-            element._id
-          )
-        );
-      });
+      normalizeData(docs);
 
       deleteNewsCards();
       rendeNewsCards();
@@ -82,7 +57,76 @@ async function onDateClick(e) {
   }
 }
 
+function normalizeData(data) {
+  let img = null;
+
+  data.forEach(element => {
+    element.multimedia.forEach(e => {
+      if (e.subType === 'xlarge') {
+        img = e.url;
+      }
+    });
+
+    const pubDate = new Date(element.pub_date)
+      .toLocaleString()
+      .split(',')
+      .splice(0, 1)
+      .join('')
+      .replaceAll('.', '/');
+    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+    console.log(imgDescr);
+    pushData(
+      element.headline.main,
+      element.lead_paragraph,
+      element.section_name,
+      pubDate,
+      element.web_url,
+      img,
+      imgDescr,
+      element._id
+    );
+  });
+}
+
+function pushData(
+  title,
+  description,
+  category,
+  pubDate,
+  url,
+  img,
+  imgDescr,
+  id
+) {
+  fetchNews.addData(
+    fetchNews.createObj(
+      title,
+      description,
+      category,
+      pubDate,
+      url,
+      img,
+      imgDescr,
+      id
+    )
+  );
+  fetchNews.addStorageData(
+    fetchNews.createObj(
+      title,
+      description,
+      category,
+      pubDate,
+      url,
+      img,
+      imgDescr,
+      id
+    )
+  );
+}
+
 function deleteNewsCards() {
+  // gallery.innerHTML = '';
+  console.log(galleryList);
   galleryList.forEach(el => (el.innerHTML = ''));
 }
 
@@ -95,13 +139,13 @@ function rendeNewsCards() {
   }
   console.log(data);
   const markUp = data.reduce((acc, el) => {
-    acc += `<div class="news-card">
+    acc += `<div class="news-card" news-id="${el.id}">
       <div class="news-card__img">
         <p class="news-card__theme">${el.category}</p>
         <img
           class="news-card__item"
           src="https://www.nytimes.com/${el.imgUrl}"
-          alt=""
+          alt="${el.imgDescr ? el.imgDescr : 'photo'}"
           loading="lazy"
           width="395"
         />
