@@ -95,7 +95,7 @@ class FetchNews {
     console.log(imgUrl);
     const img = imgUrl
       ? `https://www.nytimes.com/${imgUrl}`
-      : './src/images/logo.png';
+      : 'https://unsplash.it/395';
     return { title, description, category, pubDate, url, img, imgDescr, id };
   }
 
