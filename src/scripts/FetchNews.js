@@ -92,7 +92,6 @@ class FetchNews {
     imgDescr = 'no data',
     id = 'no data'
   ) {
-    console.log(imgUrl);
     const img = imgUrl
       ? `https://www.nytimes.com/${imgUrl}`
       : 'https://unsplash.it/395';
