@@ -61,8 +61,6 @@ async function onDateClick(e) {
           .join('')
           .replaceAll('.', '/');
 
-        const text = article.lead_paragraph.slice(0, 200) + '...';
-
         fetchNews.addData(
           fetchNews.createObj(
             element.headline.main,
@@ -113,7 +111,11 @@ function rendeNewsCards() {
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${el.description}</p>
+      <p class="news-card__info-text">${
+        el.description.length > 200
+          ? el.description.slice(0, 200) + '...'
+          : el.description
+      }</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
         <a class="news-card__more" href="${el.url}">Read more</a>
