@@ -74,16 +74,24 @@ function renderMarkup(array) {
   let cardMarkup = '';
   const uniqueDates = array
     .flatMap(obj => obj.readDate)
-    .filter((course, index, array) => array.indexOf(course) === index);
-  for (let date of uniqueDates) {
+        .filter((course, index, array) => array.indexOf(course) === index);
+    
+    for (let date of uniqueDates) {
+      
     const cardMarkupLi = `<li class="cards">
-            <h2>View date ${date}</h2>`;
+            <h2 class="cards-date">${date}
+            <svg class="arrow arrow-up" width="9" height="15">
+                  <use href="/src/images/sprite.svg#icon-arrow-up"></use>
+                </svg>
+                <svg class="arrow arrow-down" width="9" height="15">
+                  <use href="/src/images/sprite.svg#icon-arrow-up"></use>
+                </svg>
+                </h2>
+                `;
     const cardMarkupDiv = array
       .filter(obj => obj.readDate === date)
       .map(obj => {
-        let src = ``;
-        if (obj.imgurl === 0) src = './images/img.jpeg';
-        else src = `https://www.nytimes.com/${obj.imgurl}`;
+          const src = `https://www.nytimes.com/${obj.imgurl}`;
         return `<div class="card">
                       <img src="${src}" alt="" />
                       <h3>${obj.headline}</h3>

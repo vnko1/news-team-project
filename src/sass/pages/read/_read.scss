@@ -1,7 +1,32 @@
 .card {
-    margin-bottom: 60px;
+//   margin-bottom: 60px;
 }
 
 .hidden {
-    display: none;
+  display: none;
+}
+
+.cards-date {
+  // position: relative;
+    padding-top: 60px;
+    padding-bottom: 12px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  color: #111321;
+
+  border-bottom: 1px solid #929292;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+  }
+
+}
+
+.arrow {
+  // position: absolute;
+  fill: black;
 }
