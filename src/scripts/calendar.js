@@ -32,6 +32,7 @@ function onWindowClick(e) {
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
+    console.log(date);
 
     fetchNews.setDate(date.split('-').join(''));
     inputEl.value = date.split('-').reverse().join('/');
@@ -129,6 +130,7 @@ function pushData(
 
 function deleteNewsCards() {
   const galleryChild = gallery.children;
+  console.log(object);
   for (let i = 0; i < galleryChild.length; i++) {
     console.log(galleryChild[i]);
   }
@@ -141,7 +143,7 @@ function deleteNewsCards() {
 function renderNewsCards() {
   const data = [];
   const fetchData = fetchNews.getData();
-
+  console.log(fetchData);
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
     data.push(fetchData[i]);
