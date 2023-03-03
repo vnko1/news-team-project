@@ -6,22 +6,24 @@ calendar.init();
 
 const inputEl = document.querySelector('#date');
 const calendarContainer = document.querySelector('#calendar-container');
+const dateContainer = document.querySelector('.date-container');
 const calendarEl = document.querySelector('#calendar');
 const gallery = document.querySelector('.gallery-container');
-let galleryList = null;
+// let galleryList = null;
 
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
 
 function onInputElClick() {
   calendarContainer.classList.remove('is-hidden');
-  // window.addEventListener('click', onWindowClick);
+  window.addEventListener('click', onWindowClick);
 }
 
 function onWindowClick(e) {
-  if (e.target !== inputEl) {
+  console.log(e.target);
+  if (e.target !== dateContainer) {
     calendarContainer.classList.add('is-hidden');
-    window.removeEventListener('click', onWindowClick);
+    // window.removeEventListener('click', onWindowClick);
   }
 }
 
@@ -42,130 +44,130 @@ async function onDateClick(e) {
         return;
       }
 
-      fetchNews.setHits(response.meta.hits);
+      // fetchNews.setHits(response.meta.hits);
 
       const { docs } = response;
 
-      normalizeData(docs);
+      // normalizeData(docs);
 
-      deleteNewsCards();
-      renderNewsCards();
+      // deleteNewsCards();
+      // renderNewsCards();
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-function normalizeData(data) {
-  let img = null;
+// function normalizeData(data) {
+//   let img = null;
 
-  data.forEach(element => {
-    element.multimedia.forEach(e => {
-      if (e.subType === 'xlarge') {
-        img = e.url;
-      }
-    });
+//   data.forEach(element => {
+//     element.multimedia.forEach(e => {
+//       if (e.subType === 'xlarge') {
+//         img = e.url;
+//       }
+//     });
 
-    const pubDate = new Date(element.pub_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
-    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+//     const pubDate = new Date(element.pub_date)
+//       .toLocaleString()
+//       .split(',')
+//       .splice(0, 1)
+//       .join('')
+//       .replaceAll('.', '/');
+//     imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
 
-    pushData(
-      element.headline.main,
-      element.lead_paragraph,
-      element.section_name,
-      pubDate,
-      element.web_url,
-      img,
-      imgDescr,
-      element._id
-    );
-  });
-}
+//     pushData(
+//       element.headline.main,
+//       element.lead_paragraph,
+//       element.section_name,
+//       pubDate,
+//       element.web_url,
+//       img,
+//       imgDescr,
+//       element._id
+//     );
+//   });
+// }
 
-function pushData(
-  title,
-  description,
-  category,
-  pubDate,
-  url,
-  img,
-  imgDescr,
-  id
-) {
-  fetchNews.addData(
-    fetchNews.createObj(
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      img,
-      imgDescr,
-      id
-    )
-  );
-  fetchNews.addStorageData(
-    fetchNews.createObj(
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      img,
-      imgDescr,
-      id
-    )
-  );
-}
+// function pushData(
+//   title,
+//   description,
+//   category,
+//   pubDate,
+//   url,
+//   img,
+//   imgDescr,
+//   id
+// ) {
+//   fetchNews.addData(
+//     fetchNews.createObj(
+//       title,
+//       description,
+//       category,
+//       pubDate,
+//       url,
+//       img,
+//       imgDescr,
+//       id
+//     )
+//   );
+//   fetchNews.addStorageData(
+//     fetchNews.createObj(
+//       title,
+//       description,
+//       category,
+//       pubDate,
+//       url,
+//       img,
+//       imgDescr,
+//       id
+//     )
+//   );
+// }
 
-function deleteNewsCards() {
-  gallery.innerHTML = '';
+// function deleteNewsCards() {
+//   gallery.innerHTML = '';
 
-  // galleryList.forEach(el => (el.innerHTML = ''));
-}
+//   // galleryList.forEach(el => (el.innerHTML = ''));
+// }
 
-function renderNewsCards() {
-  const data = [];
-  const fetchData = fetchNews.getData();
+// function renderNewsCards() {
+//   const data = [];
+//   const fetchData = fetchNews.getData();
 
-  for (let i = 0; i < fetchData.length; i++) {
-    if (i >= 8) break;
-    data.push(fetchData[i]);
-  }
+//   for (let i = 0; i < fetchData.length; i++) {
+//     if (i >= 8) break;
+//     data.push(fetchData[i]);
+//   }
 
-  const markUp = data.reduce((acc, el) => {
-    acc += `<div class="news-card" news-id="${el.id}">
-      <div class="news-card__img">
-        <p class="news-card__theme">${el.category}</p>
-        <img
-          class="news-card__item"
-          src="${el.img}"
-          alt="${el.imgDescr ? el.imgDescr : 'photo'}"
-          loading="lazy"
-          width="395"
-        />
-        <div class="news-card__favorite">
-          <label for="favorite" class="label-favorite">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite" />
-        </div>
-      </div>
-      <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${
-        el.description.length > 200
-          ? el.description.slice(0, 200) + '...'
-          : el.description
-      }</p>
-      <div class="news-card__additional">
-        <p class="news-card__date">${el.pubDate}</p>
-        <a class="news-card__more" href="${el.url}">Read more</a>
-      </div>
-    </div>`;
-    return acc;
-  }, ``);
-  gallery.insertAdjacentHTML('beforeend', markUp);
-}
+//   const markUp = data.reduce((acc, el) => {
+//     acc += `<div class="news-card" news-id="${el.id}">
+//       <div class="news-card__img">
+//         <p class="news-card__theme">${el.category}</p>
+//         <img
+//           class="news-card__item"
+//           src="${el.img}"
+//           alt="${el.imgDescr ? el.imgDescr : 'photo'}"
+//           loading="lazy"
+//           width="395"
+//         />
+//         <div class="news-card__favorite">
+//           <label for="favorite" class="label-favorite">Add to favorite</label>
+//           <input type="checkbox" class="input-favorite" id="favorite" />
+//         </div>
+//       </div>
+//       <h2 class="news-card__info-title">${el.title}</h2>
+//       <p class="news-card__info-text">${
+//         el.description.length > 200
+//           ? el.description.slice(0, 200) + '...'
+//           : el.description
+//       }</p>
+//       <div class="news-card__additional">
+//         <p class="news-card__date">${el.pubDate}</p>
+//         <a class="news-card__more" href="${el.url}">Read more</a>
+//       </div>
+//     </div>`;
+//     return acc;
+//   }, ``);
+//   gallery.insertAdjacentHTML('beforeend', markUp);
+// }
