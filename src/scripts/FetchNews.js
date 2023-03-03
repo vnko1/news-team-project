@@ -10,6 +10,7 @@ class FetchNews {
     this.querySearch = '';
     this.hits = null;
     this.counter = 0;
+    this.url = '';
   }
 
   setData(newData) {
@@ -55,8 +56,17 @@ class FetchNews {
   updateCounter() {
     this.counter += 1;
   }
+
   resetCounter() {
     this.counter = 0;
+  }
+
+  getUrl() {
+    return this.url;
+  }
+
+  setUrl(newUrl) {
+    this.url = newUrl;
   }
 
   createObj(
@@ -78,7 +88,7 @@ class FetchNews {
       begin_date: this.getDate(),
       end_date: this.getDate(),
     });
-
+    this.setUrl(`${BASE_URL}?${params}`);
     const {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
