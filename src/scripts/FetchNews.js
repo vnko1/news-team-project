@@ -99,30 +99,6 @@ class FetchNews {
   setUrl(newUrl) {
     this.url = newUrl;
   }
-  // повертає обʼєкт з даними
-  createObj({
-    title = 'no data',
-    description = 'no data',
-    category = 'no data',
-    pubDate = 'no data',
-    url = 'no data',
-    img,
-    imgDescr = 'no data',
-    id = 'no data',
-  }) {
-    const imgUrl = img ? img : 'https://unsplash.it/395';
-
-    return {
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      imgUrl,
-      imgDescr,
-      id,
-    };
-  }
 
   //приводимо дату до потрібного формату
   formatDate(dateString) {
@@ -133,7 +109,7 @@ class FetchNews {
     return `${day}/${month}/${year}`;
   }
 
-  //обрізаємо опис якщо більше 200 символів
+  //обрізаємо опис якщо більше 180 символів
   cutInfo(text) {
     return text.length <= 180 ? text : text.slice(0, 180) + '...';
   }
@@ -157,11 +133,14 @@ class FetchNews {
   }
 
   async fetchNewsBySearch() {
+    //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
       q: this.getQuerySearch(),
     });
+    // зберігаємо URL
     this.setUrl(`${BASE_URL}?${params}`);
+    // запит на бекенд
     const {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
