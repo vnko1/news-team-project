@@ -99,7 +99,7 @@ class FetchNews {
   setUrl(newUrl) {
     this.url = newUrl;
   }
-  // повертає обʼєкт з даними для для запису його в this.data
+  // повертає обʼєкт з даними
   createObj({
     title = 'no data',
     description = 'no data',
