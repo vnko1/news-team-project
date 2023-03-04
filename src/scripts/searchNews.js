@@ -51,13 +51,14 @@ async function onFormSubmit(event) {
       const date = formatDate(article.pub_date);
 
       //шукаємо картинку
+
       const multimedia = article.multimedia.find(
         media => media.subtype === 'xlarge'
       );
 
       const img = `https://www.nytimes.com/${multimedia.url}`;
 
-      //   console.log(img);
+      console.log(img);
 
       const obj = {
         title: article.headline.main,
@@ -76,7 +77,6 @@ async function onFormSubmit(event) {
     deleteCards();
 
     //пушимо розмітку
-
     renderCards();
 
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
@@ -84,7 +84,7 @@ async function onFormSubmit(event) {
     console.log;
   }
   form.reset();
-  // console.log(fetchNews.getData());
+  console.log(fetchNews.getData());
 }
 
 //очищаємо картки
