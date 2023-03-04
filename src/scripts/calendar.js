@@ -1,4 +1,5 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+import { spinner } from './Spinner';
 import { fetchNews } from './fetchNews';
 import { renderNewsCards, deleteNewsCards } from './CommonFunctions';
 
@@ -8,7 +9,7 @@ calendar.init();
 const inputEl = document.querySelector('#date');
 const calendarContainer = document.querySelector('#calendar-container');
 const calendarEl = document.querySelector('#calendar');
-const gallery = document.querySelector('.gallery-container');
+// const gallery = document.querySelector('.gallery-container');
 const dateContainer = document.querySelector('.date-container');
 
 inputEl.addEventListener('click', onInputElClick);
@@ -31,12 +32,20 @@ function onWindowClick(e) {
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
+    const unixDate = new Date();
+    const selectedDate = new Date(date);
+
+    if (selectedDate.getTime() > unixDate.getTime()) {
+      console.log('введіть сьоднішню дату');
+      return;
+    }
     deleteNewsCards();
     fetchNews.setDate(date.split('-').join(''));
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
     fetchNews.resetData();
 
+    spinner.spin(document.body);
     try {
       const response = await fetchNews.fetchNewsByDate();
 
@@ -52,6 +61,7 @@ async function onDateClick(e) {
       saveData(docs);
 
       renderNewsCards();
+      spinner.stop();
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     } catch (error) {
       console.log(error);
