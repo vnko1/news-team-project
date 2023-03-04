@@ -6,12 +6,11 @@ onLoad();
 
 async function onLoad() {
   const response = await fetchNews.fetchNewsByDate();
-  const { results } = response;
 
-  normalizeData(results);
+  // normalizeData(response);
 
   renderNewsCards();
-  fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+  // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
 }
 
 function normalizeData(data) {
@@ -105,8 +104,6 @@ function renderNewsCards() {
   }, ``);
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
-
-
 
 // const BASE_URL =
 //   'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
