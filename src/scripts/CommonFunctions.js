@@ -2,6 +2,31 @@ import { fetchNews } from './fetchNews';
 
 const gallery = document.querySelector('.gallery-container');
 
+// повертає обʼєкт з даними
+function createObj({
+  title = 'no data',
+  description = 'no data',
+  category = 'no data',
+  pubDate = 'no data',
+  url = 'no data',
+  img,
+  imgDescr = 'no data',
+  id = 'no data',
+}) {
+  const imgUrl = img ? img : 'https://unsplash.it/395';
+
+  return {
+    title,
+    description,
+    category,
+    pubDate,
+    url,
+    imgUrl,
+    imgDescr,
+    id,
+  };
+}
+
 function renderNewsCards() {
   //  cтворюємо новий масив
   const renderData = [];
@@ -39,7 +64,9 @@ function renderNewsCards() {
       }</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
-        <a class="news-card__more" href="${el.url}" id="${el.id}"}>Read more</a>
+        <a class="news-card__more" href="${el.url}" id="${
+      el.id
+    }"target="_blank" rel="noreferrer noopener">Read more</a>
       </div>
     </div>`;
     return acc;
@@ -56,4 +83,4 @@ function deleteNewsCards() {
   // newsCards.forEach(el => el.remove());
 }
 
-export { renderNewsCards, deleteNewsCards };
+export { createObj, renderNewsCards, deleteNewsCards };
