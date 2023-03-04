@@ -3,7 +3,50 @@
 }
 .nav {
     display: flex;
+    gap: 14px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    @include tablet {
+        justify-content: space-between;
+        align-items: center;
+    }
 }
+
 .header-list {
-    display: flex;
+    display: none;
+
+    @include tablet {
+        display: flex;
+        gap: 44px;
+    }
+
+    @include desktop {
+        gap: 69px;
+    }
 }
+
+.change-theme {
+    display: none;
+
+    @include tablet {
+        display: block;
+    }
+
+}
+
+.search-form {
+    position: relative;
+}
+.search-input {
+    max-width: 173px;
+    height: 31px;
+    padding-left: 60px;
+}
+
+.query-btn {
+    position: absolute;
+    left: 0;
+
+}
+
