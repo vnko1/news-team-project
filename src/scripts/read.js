@@ -24,7 +24,7 @@ function onSubmit(e) {
         const date = new Date();
 
         if (i % 2 === 0) obj.readDate = date.getTime();
-        else if (i % 3 === 0) obj.readDate = date.getTime() - 180000000;
+        else if (i % 3 === 0) obj.readDate = date.getTime() - 181000000;
         else obj.readDate = date.getTime() - 360000000;
 
         console.log(obj.readDate);
@@ -42,7 +42,7 @@ function onSubmit(e) {
       console.log('получился массив статей    ', articles);
 
       try {
-        localStorage.setItem('have read', JSON.stringify(articles));
+        localStorage.setItem('Read more', JSON.stringify(articles));
       } catch (err) {
         console.error(err);
       }
@@ -51,7 +51,7 @@ function onSubmit(e) {
 
 function onParse() {
   try {
-    const unparsed = localStorage.getItem('have read');
+    const unparsed = localStorage.getItem('Read more');
     const parsed = JSON.parse(unparsed);
     if (parsed !== null) {
       renderMarkup(parsed);
@@ -105,15 +105,17 @@ function renderMarkup(array) {
 
   for (let date of uniqueDates) {
     const cardMarkupLi = `<li>
-            <h2 class="cards-date">${date}
-            <svg class="arrow-up" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M1.762 9 0 7.287 7.5 0 15 7.287 13.238 9 7.5 3.437 1.763 9Z" fill="#111321"/>
-            </svg>
-            <svg class="arrow-down visually-hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M1.762 0 0 1.713 7.5 9 15 1.713 13.238 0 7.5 5.563 1.763 0Z" fill="#111321"/>
-            </svg>
-            </h2>
-            <div class="date-wrap">`;
+            <div class="date-wrap">
+                <p class="cards-date js-toggle_hidden">${date}
+                   <svg class="arrow-read js-toggle_hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M1.762 9 0 7.287 7.5 0 15 7.287 13.238 9 7.5 3.437 1.763 9Z" fill="#111321"/>
+                   </svg>
+                   <svg class="arrow-read visually-hidden js-toggle_hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M1.762 0 0 1.713 7.5 9 15 1.713 13.238 0 7.5 5.563 1.763 0Z" fill="#111321"/>
+                   </svg>
+                </p>
+            </div>
+            <div class="news-wrap">`;
     const cardMarkupDiv = arrayConverDates
       .filter(obj => obj.readDate === date)
       .map(obj => {
@@ -137,12 +139,7 @@ function renderMarkup(array) {
         
         
         
-        // `<div class="card">
-        //               <img src="${src}" alt="" />
-        //               <h3>${obj.headline}</h3>
-        //               <p class="info-item">${obj.snippet}</p>
-        //               <p class="info-item">${obj.weburl}</p>
-        //     </div>`;
+        
       });
     cardMarkup += cardMarkupLi + cardMarkupDiv.join('') + '</div></li>';
   }
@@ -150,16 +147,28 @@ function renderMarkup(array) {
 }
 
 function onClick(e) {
-  console.log(e.target.tagName);
-  console.log(e.target.children);
 
-  // ----если нажали на заголовок H2, то выбираем в массив все DIVы у тега LI который выше заголовка H2----
+  // ----присваиваем visually-hidden новостям выбранного заголовка с датой----
+  // ----ловим событие click отдельно на заголовке p, на svg и на path
 
-  if (e.target.tagName === 'H2') {
-    let svg = e.target.children;
-    for (let item of svg) item.classList.toggle('visually-hidden');
-
-    let cont = e.target.parentNode.querySelectorAll('.date-wrap');
-    for (let item of cont) item.classList.toggle('visually-hidden');
+  if (
+    e.target.tagName === 'P' &&
+    e.target.classList.contains('js-toggle_hidden')
+  ) {
+    const svg = e.target.children;
+    for (let itemsvg of svg) itemsvg.classList.toggle('visually-hidden');
+    e.target.parentNode.nextElementSibling.classList.toggle('visually-hidden');
+  } else if (
+    e.target.tagName === 'svg' &&
+    e.target.classList.contains('js-toggle_hidden')
+  ) {
+    const p = e.target.parentNode;
+    for (let itemsvg of p.children) itemsvg.classList.toggle('visually-hidden');
+    p.parentNode.nextElementSibling.classList.toggle('visually-hidden');
+  } else if (e.target.tagName === 'path') {
+    const svg = e.target.parentNode;
+    const p = svg.parentNode;
+    for (let itemsvg of p.children) itemsvg.classList.toggle('visually-hidden');
+    p.parentNode.nextElementSibling.classList.toggle('visually-hidden');
   }
 }
