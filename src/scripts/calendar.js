@@ -97,18 +97,7 @@ function pushData(data) {
 function deleteNewsCards() {
   gallery.innerHTML = '';
   // const newsCards = fetchNews.getNodeChild();
-
   // newsCards.forEach(el => el.remove());
-  // galleryChild.forEach(console.log);
-  // galleryChild[1].remove();
-  // for (let i = 0; i < galleryChild.length; i++) {
-  //   if (galleryChild[i] === gallery.firstChild) {
-  //     continue;
-  //   }
-  //   galleryChild[i].remove();
-  // }
-
-  // gallery.innerHTML = '';
 }
 
 function renderNewsCards() {
