@@ -42,6 +42,7 @@ async function onFormSubmit(event) {
     fetchNews.setHits(response.meta.hits);
     // console.log(fetchNews.getHits());
     const { docs } = response;
+
     saveData(docs);
     //очищаємо картки
     deleteCards();
@@ -67,14 +68,15 @@ function pushData(data) {
 }
 
 function saveData(data) {
+  let img = null;
   data.forEach(article => {
     //шукаємо картинку
-    // let img = null;
-    // article.multimedia.forEach(media => {
-    //   if (media.subType === 'xlarge') {
-    //     img = `https://www.nytimes.com/${media.url}`;
-    //   }
-    // });
+
+    article.multimedia.forEach(media => {
+      if (media.subType === 'xlarge') {
+        img = `https://www.nytimes.com/${media.url}`;
+      }
+    });
     //обрізаємо опис якщо більше 180 символів
     const infoText = cutInfo(article.lead_paragraph);
     //   console.log(infoText);
@@ -82,12 +84,12 @@ function saveData(data) {
     const date = formatDate(article.pub_date);
 
     //шукаємо картинку
-    let img = null;
-    const multimedia = article.multimedia.find(
-      media => media.subtype === 'xlarge'
-    );
+    // let img = null;
+    // const multimedia = article.multimedia.find(
+    //   media => media.subtype === 'xlarge'
+    // );
 
-    img = `https://www.nytimes.com/${multimedia.url}`;
+    // img = `https://www.nytimes.com/${multimedia.url}`;
     // const img = multimedia
     //   ? `<img  src="https://www.nytimes.com/${multimedia.url}" loading="lazy" width="100%">`
     //   : `<img  src="https://klike.net/uploads/posts/2020-09/1599896421_21.jpg" loading="lazy" width="100%">`;
@@ -113,12 +115,13 @@ function renderCards() {
   const data = [];
 
   const fetchData = fetchNews.getData();
+
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
     data.push(fetchData[i]);
   }
-  console.log(fetchNews.getData());
+  console.log(fetchData);
   const markUp = data.reduce((acc, el) => {
     acc += `
 <div class="news-card" news-id="${el.id}">
