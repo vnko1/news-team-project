@@ -1,3 +1,2 @@
-
-import './scripts/Search-input';
+import './scripts/Most-Popular';
 import './scripts/mobile-menu';
