@@ -8,6 +8,13 @@ form.addEventListener('submit', onSubmit);
 window.addEventListener('click', onClick);
 parseBtn.addEventListener('click', onParse);
 
+// ---------------создаем пустое хранилище
+// try {
+//   localStorage.setItem('Read more', JSON.stringify([]));
+// } catch (err) {
+//   console.error(err);
+// }
+
 onParse();
 
 function onSubmit(e) {
@@ -59,7 +66,8 @@ function onParse() {
   try {
     const unparsed = localStorage.getItem('Read more');
     const parsed = JSON.parse(unparsed);
-    if (parsed !== null) {
+    if(parsed.length === 0) console.log("ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ");
+    else if (parsed !== null) {
       renderMarkup(parsed);
     }
   } catch (err) {
@@ -116,6 +124,7 @@ function renderMarkup(array) {
   //------- рендерим разметку по отсортированным уникальным датам---------
 
   for (let date of uniqueDates) {
+    // --------------рендер заголовка с датой прочтения новостей-----------------
     const cardMarkupLi = `<li>
             <div class="date-wrap">
                 <p class="cards-date js-toggle_hidden">${date}
@@ -128,6 +137,9 @@ function renderMarkup(array) {
                 </p>
             </div>
             <div class="news-wrap">`;
+    
+    // ---------------рендер карточек новостей согласно прочитанной дате в заголовке---------
+    
     const cardMarkupDiv = arrayConverDates
       .filter(obj => obj.date === date)
       .map(obj => {
