@@ -20,7 +20,7 @@ class FetchNews {
     this.counter = 0;
     // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
     this.url = '';
-    // колекція елементів з селектором .news-card
+    // буде зберігатись колекція елементів картки новин
     this.nodeChild = null;
   }
   // повертає масив елементів з селектором .news-card
@@ -141,17 +141,6 @@ class FetchNews {
     } = await axios.get(`${BASE_URL}?${params}`);
     // повертає дані з бекенду
     return response;
-  }
-
-  async fetchNewsByPopular() {
-    const params = new URLSearchParams({
-      'api-key': API_KEY,
-    });
-    this.setUrl(`${POP_URL}?${params}`);
-    // запит на бекенд
-    const { data } = await axios.get(`${POP_URL}?${params}`);
-
-    return data;
   }
 }
 

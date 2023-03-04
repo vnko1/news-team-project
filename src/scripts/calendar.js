@@ -95,9 +95,10 @@ function pushData(data) {
 }
 
 function deleteNewsCards() {
-  const newsCards = fetchNews.getNodeChild();
+  gallery.innerHTML = '';
+  // const newsCards = fetchNews.getNodeChild();
 
-  newsCards.forEach(el => el.remove());
+  // newsCards.forEach(el => el.remove());
   // galleryChild.forEach(console.log);
   // galleryChild[1].remove();
   // for (let i = 0; i < galleryChild.length; i++) {
