@@ -10,7 +10,9 @@ const gallery = document.querySelector('.gallery >.container');
 // const newsCards = document.querySelectorAll('.news-card');
 
 form.addEventListener('submit', onFormSubmit);
+
 fetchNews.resetData();
+
 async function onFormSubmit(event) {
   try {
     event.preventDefault();
@@ -37,6 +39,11 @@ async function onFormSubmit(event) {
     const { docs } = response;
 
     docs.forEach(article => {
+      //   artilce.multimedia.forEach(e => {
+      //     if (e.subType === 'xlarge') {
+      //       return (image = `https://www.nytimes.com/${e.url}`);
+      //     }
+      //   });
       //обрізаємо опис якщо більше 200 символів
       const infoText = fetchNews.cutInfo(article.lead_paragraph);
       //   console.log(infoText);
@@ -47,21 +54,21 @@ async function onFormSubmit(event) {
         media => media.subtype === 'xlarge'
       );
 
-      const image = multimedia
-        ? `https://www.nytimes.com/${multimedia.url}`
-        : `https://klike.net/uploads/posts/2020-09/1599896421_21.jpg`;
-      // console.log(image);
+      const img = multimedia.url;
 
-      pushData(
-        article.headline.main, //заголовок
-        infoText, //короткий опис
-        article.section_name, //категорія
-        date, //дата
-        article.web_url, //read more
-        image, //картинка
-        article.keywords[0].value, //атрибут alt)
-        article._id //айдішник
-      );
+      console.log(img);
+      const obj = {
+        title: article.headline.main,
+        description: infoText,
+        category: article.section_name,
+        pubDate: date,
+        url: article.web_url,
+        imgUrl: img,
+        imgDescr: article.keywords[0].value,
+        id: article._id,
+      };
+      pushData(obj);
+      console.log(obj);
     });
 
     //очищаємо картки
@@ -81,46 +88,14 @@ function deleteCards() {
   gallery.innerHTML = '';
 }
 
-function pushData(
-  title,
-  description,
-  category,
-  pubDate,
-  url,
-  imgUrl,
-  imgDescr,
-  id
-) {
-  fetchNews.addData(
-    fetchNews.createObj({
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      imgUrl,
-      imgDescr,
-      id,
-    })
-  );
-  fetchNews.addStorageData(
-    fetchNews.createObj({
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      imgUrl,
-      imgDescr,
-      id,
-    })
-  );
-  ``;
+function pushData(data) {
+  fetchNews.addData(fetchNews.createObj(data));
 }
 
 function renderCards() {
   // треба ще зробити перевірку якщо нічого не приходить у відповідь то
   const data = [];
+
   const fetchData = fetchNews.getData();
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
   for (let i = 0; i < fetchData.length; i++) {
