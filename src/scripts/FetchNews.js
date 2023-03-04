@@ -63,7 +63,7 @@ class FetchNews {
   getDate() {
     return this.date;
   }
-  // привоює нове значення пошуковуму параметру
+  // приcвоює нове значення пошуковуму параметру
   setQuerySearch(newQuerySearch) {
     this.querySearch = newQuerySearch;
   }
@@ -100,19 +100,6 @@ class FetchNews {
     this.url = newUrl;
   }
 
-  //приводимо дату до потрібного формату
-  formatDate(dateString) {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0'); // додаємо нуль, якщо число менше 10
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // додаємо нуль, якщо місяць менше 10
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  //обрізаємо опис якщо більше 180 символів
-  cutInfo(text) {
-    return text.length <= 180 ? text : text.slice(0, 180) + '...';
-  }
   // метод запиту на бекенд
   async fetchNewsByDate() {
     //  обʼєкт параметрів для URL

@@ -1,5 +1,5 @@
 import { fetchNews } from './FetchNews';
-import { createObj } from './CommonFunctions';
+import { cutInfo, createObj, formatDate } from './CommonFunctions';
 
 // const submitBtn = document.getElementById('queryBtn');
 const inputField = document.querySelector('.search-input');
@@ -11,13 +11,10 @@ const gallery = document.querySelector('.gallery >.container');
 
 form.addEventListener('submit', onFormSubmit);
 
-fetchNews.resetData();
-
 async function onFormSubmit(event) {
   fetchNews.resetData();
+  event.preventDefault();
   try {
-    event.preventDefault();
-
     const query = inputField.value;
     if (!query) {
       alert('Please enter a search term.');
@@ -48,10 +45,10 @@ async function onFormSubmit(event) {
 
     docs.forEach(article => {
       //обрізаємо опис якщо більше 180 символів
-      const infoText = fetchNews.cutInfo(article.lead_paragraph);
+      const infoText = cutInfo(article.lead_paragraph);
       //   console.log(infoText);
       //приводимо дату до потрібного формату
-      const date = fetchNews.formatDate(article.pub_date);
+      const date = formatDate(article.pub_date);
 
       //шукаємо картинку
       const multimedia = article.multimedia.find(
@@ -122,7 +119,9 @@ function renderCards() {
           width="395"
         />
         <div class="news-card__favorite">
-          <label for="favorite" class="label-favorite">Add to favorite</label>
+        <label for="favorite" class="label-favorite" id="${
+          el.id
+        }">Add to favorite</label>
           <input type="checkbox" class="input-favorite" id="favorite" />
         </div>
       </div>
