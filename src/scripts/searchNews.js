@@ -66,7 +66,7 @@ function deleteCards() {
 function pushData(data) {
   fetchNews.addData(createObj(data));
 }
-
+//приводимо отримані дані до потрібного нам формату
 function saveData(data) {
   let img = null;
   data.forEach(article => {
@@ -106,7 +106,7 @@ function saveData(data) {
       imgDescr: article.keywords[0].value,
       id: article._id,
     };
-    // console.log(obj);
+    console.log(obj);
     pushData(obj);
   });
 }
