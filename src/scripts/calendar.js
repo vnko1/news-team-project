@@ -44,7 +44,7 @@ async function onDateClick(e) {
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
     fetchNews.resetData();
-
+    console.log(fetchNews.getUrl());
     spinner.spin(document.body);
     try {
       const response = await fetchNews.fetchNewsByDate();
