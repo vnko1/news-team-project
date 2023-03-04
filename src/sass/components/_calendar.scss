@@ -552,7 +552,7 @@
         }
 
         &#{$btn}_today {
-          color: coral;
+          color: #4440f6;
           background-color: seashell;
 
           &#{$btn}_prev,
@@ -573,20 +573,20 @@
         }
 
         &#{$btn}_selected {
-          background-color: coral;
+          background-color: #f0f8ff;
           color: white;
 
           &:hover {
-            background-color: coral;
+            background-color: #f0f8ff;
             color: white;
           }
 
           &#{$btn}_intermediate {
-            background-color: #ffaa8a;
+            background-color: #f0f8ff;
             color: white;
 
             &:hover {
-              background-color: #ffaa8a;
+              background-color: #f0f8ff;
               color: white;
             }
           }
