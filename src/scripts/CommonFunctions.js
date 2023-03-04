@@ -64,7 +64,9 @@ function renderNewsCards() {
       }</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
-        <a class="news-card__more" href="${el.url}" id="${el.id}"}>Read more</a>
+        <a class="news-card__more" href="${el.url}" id="${
+      el.id
+    }"target="_blank" rel="noreferrer noopener">Read more</a>
       </div>
     </div>`;
     return acc;
