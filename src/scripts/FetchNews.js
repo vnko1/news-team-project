@@ -99,30 +99,7 @@ class FetchNews {
   setUrl(newUrl) {
     this.url = newUrl;
   }
-  // повертає обʼєкт з даними
-  createObj({
-    title = 'no data',
-    description = 'no data',
-    category = 'no data',
-    pubDate = 'no data',
-    url = 'no data',
-    img,
-    imgDescr = 'no data',
-    id = 'no data',
-  }) {
-    const imgUrl = img ? img : 'https://unsplash.it/395';
 
-    return {
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      imgUrl,
-      imgDescr,
-      id,
-    };
-  }
   // метод запиту на бекенд
   async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
