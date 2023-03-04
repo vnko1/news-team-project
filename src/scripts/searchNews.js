@@ -68,12 +68,13 @@ function pushData(data) {
 
 function saveData(data) {
   data.forEach(article => {
-    let img = null;
-    article.multimedia.forEach(e => {
-      if (e.subType === 'xlarge') {
-        img = `https://www.nytimes.com/${e.url}`;
-      }
-    });
+    //шукаємо картинку
+    // let img = null;
+    // article.multimedia.forEach(media => {
+    //   if (media.subType === 'xlarge') {
+    //     img = `https://www.nytimes.com/${media.url}`;
+    //   }
+    // });
     //обрізаємо опис якщо більше 180 символів
     const infoText = cutInfo(article.lead_paragraph);
     //   console.log(infoText);
@@ -81,12 +82,12 @@ function saveData(data) {
     const date = formatDate(article.pub_date);
 
     //шукаємо картинку
+    let img = null;
+    const multimedia = article.multimedia.find(
+      media => media.subtype === 'xlarge'
+    );
 
-    // const multimedia = article.multimedia.find(
-    //   media => media.subtype === 'xlarge'
-    // );
-
-    // let img = `https://www.nytimes.com/${multimedia.url}`;
+    img = `https://www.nytimes.com/${multimedia.url}`;
     // const img = multimedia
     //   ? `<img  src="https://www.nytimes.com/${multimedia.url}" loading="lazy" width="100%">`
     //   : `<img  src="https://klike.net/uploads/posts/2020-09/1599896421_21.jpg" loading="lazy" width="100%">`;
