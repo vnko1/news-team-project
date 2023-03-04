@@ -123,6 +123,20 @@ class FetchNews {
       id,
     };
   }
+
+  //приводимо дату до потрібного формату
+  formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0'); // додаємо нуль, якщо число менше 10
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // додаємо нуль, якщо місяць менше 10
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  //обрізаємо опис якщо більше 200 символів
+  cutInfo(text) {
+    return text.length <= 200 ? text : text.slice(0, 200) + '...';
+  }
   // метод запиту на бекенд
   async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
@@ -139,6 +153,19 @@ class FetchNews {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
     // повертає дані з бекенду
+    return response;
+  }
+
+  async fetchNewsBySearch() {
+    const params = new URLSearchParams({
+      'api-key': API_KEY,
+      q: this.getQuerySearch(),
+    });
+    this.setUrl(`${BASE_URL}?${params}`);
+    const {
+      data: { response },
+    } = await axios.get(`${BASE_URL}?${params}`);
+
     return response;
   }
 }
