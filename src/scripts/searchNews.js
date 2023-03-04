@@ -1,4 +1,5 @@
 import { fetchNews } from './FetchNews';
+import { createObj } from './CommonFunctions';
 
 // const submitBtn = document.getElementById('queryBtn');
 const inputField = document.querySelector('.search-input');
@@ -95,7 +96,7 @@ function deleteCards() {
 }
 
 function pushData(data) {
-  fetchNews.addData(fetchNews.createObj(data));
+  fetchNews.addData(createObj(data));
 }
 
 //робимо розмітку
