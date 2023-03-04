@@ -10,7 +10,7 @@ class FetchNews {
     // масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі одані з обраними властивостями з бекенду на поточній сесії. Але фактично, він не потрібен.
     this.storageData = [];
     //  обрана в календарі дата
-    this.date = null;
+    this.date = '';
     // пошуковий параметр
     this.querySearch = '';
     // зберігається кількість знайдених новин
@@ -63,6 +63,10 @@ class FetchNews {
   getDate() {
     return this.date;
   }
+
+  resetDate() {
+    this.date = '';
+  }
   // привоює нове значення пошуковуму параметру
   setQuerySearch(newQuerySearch) {
     this.querySearch = newQuerySearch;
@@ -104,6 +108,7 @@ class FetchNews {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
+
       begin_date: this.getDate(),
       end_date: this.getDate(),
     });
@@ -122,3 +127,5 @@ class FetchNews {
 }
 
 export const fetchNews = new FetchNews();
+
+// добавлять дату как параметр запроса ко всем запросам, но с помощью чего ее обнулить? Использовать параметры предыдущего запроса для фильтрации по дате

@@ -41,6 +41,7 @@ async function onDateClick(e) {
     }
     deleteNewsCards();
     fetchNews.setDate(date.split('-').join(''));
+
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
     fetchNews.resetData();
