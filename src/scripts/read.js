@@ -3,13 +3,6 @@ const search = document.getElementById('read-input');
 const cardList = document.getElementById('ul-gallery');
 const parseBtn = document.getElementById('parseBtn');
 let articles = [];
-// const article = {
-//   readDate: '',
-//   imgurl: '',
-//   headline: '',
-//   snippet: '',
-//   weburl: '',
-// };
 
 form.addEventListener('submit', onSubmit);
 window.addEventListener('click', onClick);
