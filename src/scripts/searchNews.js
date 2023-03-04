@@ -70,8 +70,6 @@ function pushData(data) {
 function saveData(data) {
   let img = null;
   data.forEach(article => {
-    //шукаємо картинку
-
     article.multimedia.forEach(media => {
       if (media.subType === 'xlarge') {
         img = `https://www.nytimes.com/${media.url}`;
