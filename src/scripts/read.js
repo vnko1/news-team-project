@@ -8,6 +8,8 @@ form.addEventListener('submit', onSubmit);
 window.addEventListener('click', onClick);
 parseBtn.addEventListener('click', onParse);
 
+onParse();
+
 function onSubmit(e) {
   const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
   const querySearch = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${search.value}&api-key=${API_KEY}`;
@@ -21,19 +23,23 @@ function onSubmit(e) {
       for (let a of data.response.docs) {
         const obj = {};
 
-        const date = new Date();
+        const dateNow = new Date();
 
-        if (i % 2 === 0) obj.readDate = date.getTime();
-        else if (i % 3 === 0) obj.readDate = date.getTime() - 181000000;
-        else obj.readDate = date.getTime() - 360000000;
+        if (i % 2 === 0) obj.date = dateNow.getTime();
+        else if (i % 3 === 0) obj.date = dateNow.getTime() - 181000000;
+        else obj.date = dateNow.getTime() - 360000000;
 
-        console.log(obj.readDate);
-        console.log(i);
-        obj.imgurl = a.multimedia[0].url;
-        obj.headline = a.headline.main;
-        obj.snippet = a.snippet;
-        obj.weburl = a.web_url;
-        obj.pubdate = a.pub_date;
+        console.log(obj.date);
+
+        obj.img = `https://www.nytimes.com/${a.multimedia[0].url}`;
+        obj.descr = a.abstract;
+        obj.title = a.headline.main;
+        obj.link = a.web_url;
+        obj.dateArticle = a.pub_date;
+        obj.alt = a.news_desk;
+        obj.category = a.section_name;
+        obj.id = a._id;
+
         articles.push(obj);
 
         i += 1;
@@ -66,7 +72,7 @@ function renderMarkup(array) {
 
   // -------сортируем даты по убыванию и выделяем уникальные даты---------
 
-  const initialDates = array.map(obj => obj.readDate);
+  const initialDates = array.map(obj => obj.date);
   const descendingDates = [...initialDates]
     .sort((a, b) => b - a)
     .map(dateUnix => {
@@ -84,19 +90,25 @@ function renderMarkup(array) {
 
   const arrayConverDates = array.reduce((acc, obj) => {
     const newObj = {};
-    const dateStamp = new Date(obj.readDate);
-    const pubDateStamp = new Date(obj.pubdate);
+    const dateStamp = new Date(obj.date);
+    const pubDateStamp = new Date(obj.dateArticle);
 
-    newObj.readDate = `${String(dateStamp.getDate()).padStart(2, 0)}/${String(
+    newObj.date = `${String(dateStamp.getDate()).padStart(2, 0)}/${String(
       dateStamp.getMonth() + 1
     ).padStart(2, 0)}/${String(dateStamp.getFullYear())}`;
-    newObj.imgurl = obj.imgurl;
-    newObj.headline = obj.headline;
-    newObj.snippet = obj.snippet;
-    newObj.weburl = obj.weburl;
-    newObj.pubdate = `${String(pubDateStamp.getDate()).padStart(2, 0)}/${String(
-      pubDateStamp.getMonth() + 1
-    ).padStart(2, 0)}/${String(pubDateStamp.getFullYear())}`;
+    newObj.img = obj.img;
+    newObj.descr = obj.descr;
+    newObj.title = obj.title;
+    newObj.link = obj.link;
+    newObj.alt = obj.alt;
+    newObj.category = obj.category;
+    newObj.id = obj.id;
+    newObj.dateArticle = `${String(pubDateStamp.getDate()).padStart(
+      2,
+      0
+    )}/${String(pubDateStamp.getMonth() + 1).padStart(2, 0)}/${String(
+      pubDateStamp.getFullYear()
+    )}`;
     acc.push(newObj);
     return acc;
   }, []);
@@ -117,29 +129,36 @@ function renderMarkup(array) {
             </div>
             <div class="news-wrap">`;
     const cardMarkupDiv = arrayConverDates
-      .filter(obj => obj.readDate === date)
+      .filter(obj => obj.date === date)
       .map(obj => {
-        const src = `https://www.nytimes.com/${obj.imgurl}`;
-        return `<div class="news-card">
-                      <div class="news-card__img">
-                           <p class="news-card__theme">news theme</p>
-                           <img class="news-card__item" src="${src}" alt="" loading="lazy" width="395" />
-                           <div class="news-card__favorite">
-                                <label for="favorite" class="label-favorite">Add to favorite</label>
-                                <input type="checkbox" class="input-favorite" id="favorite">
-                           </div>
-                      </div>
-                      <h2 class="news-card__info-title">${obj.headline}</h2>
-                      <p class="news-card__info-text">${obj.snippet}</p>
-                      <div class="news-card__additional">
-                          <p class="news-card__date">${obj.pubdate}</p>
-                          <a class="news-card__more" href="${obj.weburl}" target="_blank" rel="noreferrer noopener">Read more</a>
-                      </div>
-                 </div>`;
-        
-        
-        
-        
+        return `<div class="news-card" news-id="${obj.id}">
+      <div class="news-card__img">
+        <p class="news-card__theme">${obj.category}</p>
+        <img
+          class="news-card__item"
+          src="${obj.img}"
+          alt="${obj.alt ? obj.alt : 'photo'}"
+          loading="lazy"
+          width="395"
+        />
+        <div class="news-card__favorite">
+          <label for="favorite" id="${
+            obj.id
+          }" class="label-favorite">Add to favorite</label>
+          <input type="checkbox" class="input-favorite" id="favorite"/>
+        </div>
+      </div>
+      <h2 class="news-card__info-title">${obj.title}</h2>
+      <p class="news-card__info-text">${
+        obj.descr.length > 180 ? obj.descr.slice(0, 180) + '...' : obj.descr
+      }</p>
+      <div class="news-card__additional">
+        <p class="news-card__date">${obj.dateArticle}</p>
+        <a class="news-card__more" href="${obj.link}" id="${
+          obj.id
+        }" target="_blank" rel="noreferrer noopener">Read more</a>
+      </div>
+    </div>`;
       });
     cardMarkup += cardMarkupLi + cardMarkupDiv.join('') + '</div></li>';
   }
@@ -147,7 +166,6 @@ function renderMarkup(array) {
 }
 
 function onClick(e) {
-
   // ----присваиваем visually-hidden новостям выбранного заголовка с датой----
   // ----ловим событие click отдельно на заголовке p, на svg и на path
 

@@ -47,6 +47,9 @@
   gap: 30px;
 
   width: 100%;
+
+  // transform: translate(-50%, -50%) scale(1);
+  transition: height 10000ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .date-wrap {
@@ -55,5 +58,5 @@
 }
 
 .arrow-read {
-   margin-left: 30px;
+   margin-left: 18px;
 }
