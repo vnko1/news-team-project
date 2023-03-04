@@ -14,14 +14,18 @@ form.addEventListener('submit', onFormSubmit);
 fetchNews.resetData();
 
 async function onFormSubmit(event) {
+  deleteCards();
+  fetchNews.resetData();
   try {
     event.preventDefault();
 
     const query = inputField.value;
+    // console.log(query);
 
     fetchNews.setQuerySearch(query);
 
     const response = await fetchNews.fetchNewsBySearch();
+
     if (!response.docs.length) {
       gallery.innerHTML = `
       <div>
@@ -39,11 +43,6 @@ async function onFormSubmit(event) {
     const { docs } = response;
 
     docs.forEach(article => {
-      //   artilce.multimedia.forEach(e => {
-      //     if (e.subType === 'xlarge') {
-      //       return (image = `https://www.nytimes.com/${e.url}`);
-      //     }
-      //   });
       //обрізаємо опис якщо більше 200 символів
       const infoText = fetchNews.cutInfo(article.lead_paragraph);
       //   console.log(infoText);
@@ -54,32 +53,32 @@ async function onFormSubmit(event) {
         media => media.subtype === 'xlarge'
       );
 
-      const img = multimedia.url;
+      const img = `https://www.nytimes.com/${multimedia.url}`;
 
-      console.log(img);
+      //   console.log(img);
+
       const obj = {
         title: article.headline.main,
         description: infoText,
         category: article.section_name,
         pubDate: date,
         url: article.web_url,
-        imgUrl: img,
+        img,
         imgDescr: article.keywords[0].value,
         id: article._id,
       };
       pushData(obj);
-      console.log(obj);
+      //   console.log(obj);
     });
 
     //очищаємо картки
-    deleteCards();
 
     renderCards();
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   } catch (error) {
     console.log;
   }
-
+  form.reset();
   //   console.log(fetchNews.getData());
 }
 
@@ -93,7 +92,6 @@ function pushData(data) {
 }
 
 function renderCards() {
-  // треба ще зробити перевірку якщо нічого не приходить у відповідь то
   const data = [];
 
   const fetchData = fetchNews.getData();
