@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-
+// const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+const BASE_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 
 class FetchNews {
   constructor() {
