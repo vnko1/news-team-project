@@ -10,7 +10,6 @@ const calendarEl = document.querySelector('#calendar');
 const gallery = document.querySelector('.gallery-container');
 
 const dateContainer = document.querySelector('.date-container');
-// let galleryList = null;
 
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
@@ -32,14 +31,14 @@ function onWindowClick(e) {
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
-
+    deleteNewsCards();
     fetchNews.setDate(date.split('-').join(''));
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
     fetchNews.resetData();
 
     try {
-      const response = await fetchNews.fetchNewsByData();
+      const response = await fetchNews.fetchNewsByDate();
 
       if (!response.docs.length) {
         console.log('нічого не знайдено');
@@ -50,74 +49,57 @@ async function onDateClick(e) {
 
       const { docs } = response;
 
-      normalizeData(docs);
+      saveData(docs);
 
-      deleteNewsCards();
       renderNewsCards();
+      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-function normalizeData(data) {
+function saveData(data) {
   let img = null;
 
   data.forEach(element => {
     element.multimedia.forEach(e => {
       if (e.subType === 'xlarge') {
-        img = e.url;
+        img = `https://www.nytimes.com/${e.url}`;
       }
     });
-
     const pubDate = new Date(element.pub_date)
       .toLocaleString()
       .split(',')
       .splice(0, 1)
       .join('')
       .replaceAll('.', '/');
-    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
 
-    pushData(
-      element.headline.main,
-      element.lead_paragraph,
-      element.section_name,
+    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+    const obj = {
+      title: element.headline.main,
+      description: element.lead_paragraph,
+      category: element.section_name,
       pubDate,
-      element.web_url,
+      url: element.web_url,
       img,
       imgDescr,
-      element._id
-    );
+      id: element._id,
+    };
+    pushData(obj);
   });
 }
 
-function pushData(
-  title,
-  description,
-  category,
-  pubDate,
-  url,
-  img,
-  imgDescr,
-  id
-) {
-  fetchNews.addData(
-    fetchNews.createObj({
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      img,
-      imgDescr,
-      id,
-    })
-  );
+function pushData(data) {
+  fetchNews.addData(fetchNews.createObj(data));
 }
 
 function deleteNewsCards() {
-  const galleryChild = gallery.childNodes;
-  galleryChild[1].remove();
+  const newsCards = fetchNews.getNodeChild();
+
+  newsCards.forEach(el => el.remove());
+  // galleryChild.forEach(console.log);
+  // galleryChild[1].remove();
   // for (let i = 0; i < galleryChild.length; i++) {
   //   if (galleryChild[i] === gallery.firstChild) {
   //     continue;

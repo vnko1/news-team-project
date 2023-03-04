@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+const POP_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json';
 
 class FetchNews {
   constructor() {
@@ -19,12 +20,23 @@ class FetchNews {
     this.counter = 0;
     // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
     this.url = '';
+    // колекція елементів з селектором .news-card
+    this.nodeChild = null;
   }
+  // повертає масив елементів з селектором .news-card
+  getNodeChild() {
+    return this.nodeChild;
+  }
+  // записує масив елементів
+  setNodeChild(newNode) {
+    this.nodeChild = newNode;
+  }
+
   // присвоює нове значення
   setData(newData) {
     this.data = newData;
   }
-  // додає в масив нове значення
+  // додає в масив обʼєкт з даними
   addData(data) {
     this.data.push(data);
   }
@@ -88,7 +100,7 @@ class FetchNews {
   setUrl(newUrl) {
     this.url = newUrl;
   }
-  // повертає обʼєкт з даними для рендеру
+  // повертає обʼєкт з даними для для запису його в this.data
   createObj({
     title = 'no data',
     description = 'no data',
@@ -99,9 +111,7 @@ class FetchNews {
     imgDescr = 'no data',
     id = 'no data',
   }) {
-    const imgUrl = img
-      ? `https://www.nytimes.com/${img}`
-      : 'https://unsplash.it/395';
+    const imgUrl = img ? img : 'https://unsplash.it/395';
 
     return {
       title,
@@ -115,7 +125,7 @@ class FetchNews {
     };
   }
   // метод запиту на бекенд
-  async fetchNewsByData() {
+  async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
@@ -131,6 +141,17 @@ class FetchNews {
     } = await axios.get(`${BASE_URL}?${params}`);
     // повертає дані з бекенду
     return response;
+  }
+
+  async fetchNewsByPopular() {
+    const params = new URLSearchParams({
+      'api-key': API_KEY,
+    });
+    this.setUrl(`${POP_URL}?${params}`);
+    // запит на бекенд
+    const { data } = await axios.get(`${POP_URL}?${params}`);
+
+    return data;
   }
 }
 
