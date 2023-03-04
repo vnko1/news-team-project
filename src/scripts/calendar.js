@@ -51,6 +51,7 @@ async function onDateClick(e) {
 
       if (!response.docs.length) {
         console.log('нічого не знайдено');
+        spinner.stop();
         return;
       }
 
@@ -65,6 +66,7 @@ async function onDateClick(e) {
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     } catch (error) {
       console.log(error);
+      spinner.stop();
     }
   }
 }
