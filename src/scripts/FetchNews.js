@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+// const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+const BASE_NEW = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 
 class FetchNews {
   constructor() {
@@ -105,24 +106,24 @@ class FetchNews {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
-      q: this.getQuerySearch(),
-      begin_date: this.getDate(),
-      end_date: this.getDate(),
+      // q: this.getQuerySearch(),
+      // begin_date: this.getDate(),
+      // end_date: this.getDate(),
     });
     // зберігаємо URL
-    this.setUrl(`${BASE_URL}?${params}`);
+    this.setUrl(`${BASE_NEW}?${params}`);
     // запит на бекенд
+    console.log(`${BASE_NEW}?${params}`);
     const {
       data: { response },
-    } = await axios.get(`${BASE_URL}?${params}`);
+    } = await axios.get(`${BASE_NEW}?${params}`);
     // повертає дані з бекенду
+    
     return response;
   }
-
 }
 
 export const fetchNews = new FetchNews();
 
 // const BASE_URL =
 //   'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-
