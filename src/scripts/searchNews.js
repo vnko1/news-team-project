@@ -1,4 +1,5 @@
 import { fetchNews } from './FetchNews';
+
 // const submitBtn = document.getElementById('queryBtn');
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
@@ -7,19 +8,20 @@ const gallery = document.querySelector('.gallery >.container');
 
 // console.log(gallery);
 
-// const newsCards = document.querySelectorAll('.news-card');
-
 form.addEventListener('submit', onFormSubmit);
 
 fetchNews.resetData();
 
 async function onFormSubmit(event) {
-  deleteCards();
   fetchNews.resetData();
   try {
     event.preventDefault();
 
     const query = inputField.value;
+    if (!query) {
+      alert('Please enter a search term.');
+      return;
+    }
     // console.log(query);
 
     fetchNews.setQuerySearch(query);
@@ -49,6 +51,7 @@ async function onFormSubmit(event) {
       //приводимо дату до потрібного формату
       const date = fetchNews.formatDate(article.pub_date);
 
+      //шукаємо картинку
       const multimedia = article.multimedia.find(
         media => media.subtype === 'xlarge'
       );
@@ -70,9 +73,9 @@ async function onFormSubmit(event) {
       pushData(obj);
       //   console.log(obj);
     });
-
     //очищаємо картки
-
+    deleteCards();
+    //пушимо розмітку
     renderCards();
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   } catch (error) {
@@ -91,6 +94,7 @@ function pushData(data) {
   fetchNews.addData(fetchNews.createObj(data));
 }
 
+//робимо розмітку
 function renderCards() {
   const data = [];
 
@@ -127,6 +131,6 @@ function renderCards() {
     </div>`;
     return acc;
   }, ``);
-
+  //пушимо розмітку на сторінку
   gallery.insertAdjacentHTML('beforeend', markUp);
 }

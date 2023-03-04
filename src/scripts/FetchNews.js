@@ -135,7 +135,7 @@ class FetchNews {
 
   //обрізаємо опис якщо більше 200 символів
   cutInfo(text) {
-    return text.length <= 200 ? text : text.slice(0, 200) + '...';
+    return text.length <= 180 ? text : text.slice(0, 180) + '...';
   }
   // метод запиту на бекенд
   async fetchNewsByDate() {
