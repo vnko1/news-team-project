@@ -99,46 +99,25 @@ class FetchNews {
   setUrl(newUrl) {
     this.url = newUrl;
   }
-  // повертає обʼєкт з даними
-  createObj({
-    title = 'no data',
-    description = 'no data',
-    category = 'no data',
-    pubDate = 'no data',
-    url = 'no data',
-    img,
-    imgDescr = 'no data',
-    id = 'no data',
-  }) {
-    const imgUrl = img ? img : 'https://unsplash.it/395';
-
-    return {
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      imgUrl,
-      imgDescr,
-      id,
-    };
-  }
   // метод запиту на бекенд
   async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
-      q: this.getQuerySearch(),
-      begin_date: this.getDate(),
-      end_date: this.getDate(),
+      q: 'ronaldinho',
+      // begin_date: this.getDate(),
+      // end_date: this.getDate(),
     });
     // зберігаємо URL
+
     this.setUrl(`${BASE_URL}?${params}`);
+    console.log(this.getUrl());
     // запит на бекенд
     const {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
     // повертає дані з бекенду
+    console.log(response);
     return response;
   }
 }

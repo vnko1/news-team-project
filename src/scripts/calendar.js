@@ -1,7 +1,7 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 import { spinner } from './Spinner';
 import { fetchNews } from './fetchNews';
-import { renderNewsCards, deleteNewsCards } from './CommonFunctions';
+import { createObj, renderNewsCards, deleteNewsCards } from './CommonFunctions';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
@@ -101,5 +101,5 @@ function saveData(data) {
 }
 
 function pushData(data) {
-  fetchNews.addData(fetchNews.createObj(data));
+  fetchNews.addData(createObj(data));
 }
