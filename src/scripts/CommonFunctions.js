@@ -56,4 +56,38 @@ function deleteNewsCards() {
   // newsCards.forEach(el => el.remove());
 }
 
-export { renderNewsCards, deleteNewsCards };
+// Вставить функцию в блок then(), после функции которая рендерит разметку!!!
+function AddClassesForCoincidencesMarkupAndStorage() {
+    const favouriteList = getStorageList("favourites");
+    const labelsEl = document.querySelectorAll(".label-favorite");
+    const newArrOfBtn = [...labelsEl];
+
+    newArrOfBtn.filter((obj) => {
+      for (const objOfFavourite of favouriteList) {
+        if (obj.id === objOfFavourite.id) {
+          obj.className = "label-favorite js-favourite-storage";
+        }
+      }
+    });
+    //-----------------------------------------
+    const readMoreList = getStorageList("Read more");
+    console.log(readMoreList);
+    const linkEl = document.querySelectorAll(".news-card__more");
+    console.dir(linkEl);
+    const newArrOfLinks = [...linkEl];
+
+    newArrOfLinks.filter((obj) => {
+      for (const objOfFavourite of readMoreList) {
+        if (obj.id === objOfFavourite.id) {
+          obj.className = "news-card__more js-read-more-storage";
+        }
+      }
+    });
+  }
+
+  // Взять данные с ЛОКАЛСТОРИДЖ
+  function getStorageList(valueOfKeyStorage) {
+    return JSON.parse(localStorage.getItem(valueOfKeyStorage));
+  }
+
+  export { renderNewsCards, deleteNewsCards, AddClassesForCoincidencesMarkupAndStorage, getStorageList };
