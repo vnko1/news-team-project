@@ -54,7 +54,7 @@ text-align: center;
   color:
   #4440F6;
 }
-.button-donat {
+.donat {
     display: flex;
 flex-direction: row;
 justify-content: center;
@@ -64,23 +64,21 @@ width: 170px;
 height: 60px;
 margin-bottom: 5px;
 background:  #F4F4F4;
-border: 1px solid 
-#4B48DB;
+border: none;
 border-radius: 20px;
 margin-left: auto;
 margin-right: auto;
+@media screen and (min-width: 768px) {
+  margin-left: 11px;
+    }
 @media screen and (min-width: 1280px) {
-  width: 200px;
-  height: 70px;
+  width: 230px;
+  height: 80px;
+  float: left;
+  margin-left: 65px;
 }
 }
-.button-donat:hover {
-  background-color:#4B48DB;
-}
-.button-donat:active {
-  transform: translateY(-2px);
-  box-shadow: 0 3px 0  #1b18f3;
-}
+
 .ZSU {
     margin-bottom: 20px;
     @media screen and (min-width: 768px) {
@@ -91,6 +89,7 @@ margin-right: auto;
 @media screen and (min-width: 768px) {
     display: flex;
     max-width: none;
+    
 }
 }
     .heart {
