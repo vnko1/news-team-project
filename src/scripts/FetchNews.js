@@ -104,20 +104,19 @@ class FetchNews {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
-      q: 'ronaldinho',
-      // begin_date: this.getDate(),
-      // end_date: this.getDate(),
+      begin_date: this.getDate(),
+      end_date: this.getDate(),
     });
     // зберігаємо URL
 
     this.setUrl(`${BASE_URL}?${params}`);
-    console.log(this.getUrl());
+
     // запит на бекенд
     const {
       data: { response },
     } = await axios.get(`${BASE_URL}?${params}`);
     // повертає дані з бекенду
-    console.log(response);
+
     return response;
   }
 }

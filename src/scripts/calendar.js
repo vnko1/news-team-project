@@ -44,7 +44,7 @@ async function onDateClick(e) {
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
     fetchNews.resetData();
-    console.log(fetchNews.getUrl());
+
     spinner.spin(document.body);
     try {
       const response = await fetchNews.fetchNewsByDate();
@@ -78,6 +78,7 @@ function saveData(data) {
         img = `https://www.nytimes.com/${e.url}`;
       }
     });
+
     const pubDate = new Date(element.pub_date)
       .toLocaleString()
       .split(',')
