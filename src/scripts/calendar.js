@@ -101,14 +101,16 @@ function deleteNewsCards() {
 }
 
 function renderNewsCards() {
-  const data = [];
+  //  cтворюємо новий масив
+  const renderData = [];
+  // отримуємо масив даних з екземпляру класу
   const fetchData = fetchNews.getData();
-
+  // перебираємо маси та перші 8 елементів пушимо в renderData
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
-    data.push(fetchData[i]);
+    renderData.push(fetchData[i]);
   }
-
+  // створюємо строку розмітки
   const markUp = data.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
       <div class="news-card__img">
@@ -140,5 +142,6 @@ function renderNewsCards() {
     </div>`;
     return acc;
   }, ``);
+  // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
