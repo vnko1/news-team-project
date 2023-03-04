@@ -42,45 +42,7 @@ async function onFormSubmit(event) {
     fetchNews.setHits(response.meta.hits);
     // console.log(fetchNews.getHits());
     const { docs } = response;
-
-    docs.forEach(article => {
-      // article.multimedia.forEach(e => {
-      //   if (e.subType === 'xlarge') {
-      //     img = `https://www.nytimes.com/${e.url}`;
-      //   }
-      // });
-      //обрізаємо опис якщо більше 180 символів
-      const infoText = cutInfo(article.lead_paragraph);
-      //   console.log(infoText);
-      //приводимо дату до потрібного формату
-      const date = formatDate(article.pub_date);
-
-      //шукаємо картинку
-
-      const multimedia = article.multimedia.find(
-        media => media.subtype === 'xlarge'
-      );
-
-      const img = `https://www.nytimes.com/${multimedia.url}`;
-      // const img = multimedia
-      //   ? `<img  src="https://www.nytimes.com/${multimedia.url}" loading="lazy" width="100%">`
-      //   : `<img  src="https://klike.net/uploads/posts/2020-09/1599896421_21.jpg" loading="lazy" width="100%">`;
-
-      // console.log(img);
-
-      const obj = {
-        title: article.headline.main,
-        description: infoText,
-        category: article.section_name,
-        pubDate: date,
-        url: article.web_url,
-        img,
-        imgDescr: article.keywords[0].value,
-        id: article._id,
-      };
-      // console.log(obj);
-      pushData(obj);
-    });
+    saveData(docs);
     //очищаємо картки
     deleteCards();
 
@@ -104,6 +66,47 @@ function pushData(data) {
   fetchNews.addData(createObj(data));
 }
 
+function saveData(data) {
+  data.forEach(article => {
+    let img = null;
+    article.multimedia.forEach(e => {
+      if (e.subType === 'xlarge') {
+        img = `https://www.nytimes.com/${e.url}`;
+      }
+    });
+    //обрізаємо опис якщо більше 180 символів
+    const infoText = cutInfo(article.lead_paragraph);
+    //   console.log(infoText);
+    //приводимо дату до потрібного формату
+    const date = formatDate(article.pub_date);
+
+    //шукаємо картинку
+
+    // const multimedia = article.multimedia.find(
+    //   media => media.subtype === 'xlarge'
+    // );
+
+    // let img = `https://www.nytimes.com/${multimedia.url}`;
+    // const img = multimedia
+    //   ? `<img  src="https://www.nytimes.com/${multimedia.url}" loading="lazy" width="100%">`
+    //   : `<img  src="https://klike.net/uploads/posts/2020-09/1599896421_21.jpg" loading="lazy" width="100%">`;
+
+    // console.log(img);
+
+    const obj = {
+      title: article.headline.main,
+      description: infoText,
+      category: article.section_name,
+      pubDate: date,
+      url: article.web_url,
+      img,
+      imgDescr: article.keywords[0].value,
+      id: article._id,
+    };
+    // console.log(obj);
+    pushData(obj);
+  });
+}
 //робимо розмітку
 function renderCards() {
   const data = [];
