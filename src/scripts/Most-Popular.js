@@ -6,10 +6,10 @@ onLoad();
 
 async function onLoad() {
   const response = await fetchNews.fetchNewsByDate();
-
+  console.log(response);
   // normalizeData(response);
 
-  renderNewsCards();
+  // renderNewsCards();
   // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
 }
 

@@ -114,11 +114,9 @@ class FetchNews {
     this.setUrl(`${BASE_NEW}?${params}`);
     // запит на бекенд
     console.log(`${BASE_NEW}?${params}`);
-    const {
-      data: { response },
-    } = await axios.get(`${BASE_NEW}?${params}`);
+    const response = await axios.get(`${BASE_NEW}?${params}`);
     // повертає дані з бекенду
-    
+
     return response;
   }
 }
