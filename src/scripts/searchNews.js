@@ -25,9 +25,9 @@ async function onFormSubmit(event) {
     // console.log(query);
 
     fetchNews.setQuerySearch(query);
-
+    //робимо запит
     const response = await fetchNews.fetchNewsBySearch();
-
+    //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
       gallery.innerHTML = `
       <div>
@@ -36,6 +36,7 @@ async function onFormSubmit(event) {
       </div>
       `;
       console.log('нічого не знайдено');
+      form.reset();
       return;
     }
 
@@ -45,7 +46,7 @@ async function onFormSubmit(event) {
     const { docs } = response;
 
     docs.forEach(article => {
-      //обрізаємо опис якщо більше 200 символів
+      //обрізаємо опис якщо більше 180 символів
       const infoText = fetchNews.cutInfo(article.lead_paragraph);
       //   console.log(infoText);
       //приводимо дату до потрібного формату
@@ -70,19 +71,22 @@ async function onFormSubmit(event) {
         imgDescr: article.keywords[0].value,
         id: article._id,
       };
+      // console.log(obj);
       pushData(obj);
-      //   console.log(obj);
     });
     //очищаємо картки
     deleteCards();
+
     //пушимо розмітку
+
     renderCards();
+
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   } catch (error) {
     console.log;
   }
   form.reset();
-  //   console.log(fetchNews.getData());
+  // console.log(fetchNews.getData());
 }
 
 //очищаємо картки
@@ -104,6 +108,7 @@ function renderCards() {
     if (i >= 8) break;
     data.push(fetchData[i]);
   }
+  console.log(fetchNews.getData());
   const markUp = data.reduce((acc, el) => {
     acc += `
 <div class="news-card" news-id="${el.id}">
@@ -131,6 +136,6 @@ function renderCards() {
     </div>`;
     return acc;
   }, ``);
-  //пушимо розмітку на сторінку
+  // пушимо розмітку на сторінку
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
