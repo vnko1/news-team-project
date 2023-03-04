@@ -49,7 +49,9 @@ function renderNewsCards() {
 }
 
 function deleteNewsCards() {
+  // видаляє повністю розмітку і  календар також (тимчасовий код)
   gallery.innerHTML = '';
+  // видаляє тільки newsCards, погода щзалишається, але працюватиме тільки, якщо при завантаженні сторінки вже рендер карток новин
   // const newsCards = fetchNews.getNodeChild();
   // newsCards.forEach(el => el.remove());
 }
