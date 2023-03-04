@@ -44,6 +44,11 @@ async function onFormSubmit(event) {
     const { docs } = response;
 
     docs.forEach(article => {
+      // article.multimedia.forEach(e => {
+      //   if (e.subType === 'xlarge') {
+      //     img = `https://www.nytimes.com/${e.url}`;
+      //   }
+      // });
       //обрізаємо опис якщо більше 180 символів
       const infoText = cutInfo(article.lead_paragraph);
       //   console.log(infoText);
@@ -57,8 +62,11 @@ async function onFormSubmit(event) {
       );
 
       const img = `https://www.nytimes.com/${multimedia.url}`;
+      // const img = multimedia
+      //   ? `<img  src="https://www.nytimes.com/${multimedia.url}" loading="lazy" width="100%">`
+      //   : `<img  src="https://klike.net/uploads/posts/2020-09/1599896421_21.jpg" loading="lazy" width="100%">`;
 
-      console.log(img);
+      // console.log(img);
 
       const obj = {
         title: article.headline.main,
