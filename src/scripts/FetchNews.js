@@ -19,12 +19,23 @@ class FetchNews {
     this.counter = 0;
     // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
     this.url = '';
+    // буде зберігатись колекція елементів картки новин
+    this.nodeChild = null;
   }
+  // повертає масив елементів з селектором .news-card
+  getNodeChild() {
+    return this.nodeChild;
+  }
+  // записує масив елементів
+  setNodeChild(newNode) {
+    this.nodeChild = newNode;
+  }
+
   // присвоює нове значення
   setData(newData) {
     this.data = newData;
   }
-  // додає в масив нове значення
+  // додає в масив обʼєкт з даними
   addData(data) {
     this.data.push(data);
   }
@@ -88,7 +99,7 @@ class FetchNews {
   setUrl(newUrl) {
     this.url = newUrl;
   }
-  // повертає обʼєкт з даними для рендеру
+  // повертає обʼєкт з даними
   createObj({
     title = 'no data',
     description = 'no data',
@@ -99,9 +110,7 @@ class FetchNews {
     imgDescr = 'no data',
     id = 'no data',
   }) {
-    const imgUrl = img
-      ? `https://www.nytimes.com/${img}`
-      : 'https://unsplash.it/395';
+    const imgUrl = img ? img : 'https://unsplash.it/395';
 
     return {
       title,
@@ -115,7 +124,7 @@ class FetchNews {
     };
   }
   // метод запиту на бекенд
-  async fetchNewsByData() {
+  async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
