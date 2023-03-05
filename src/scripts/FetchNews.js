@@ -124,7 +124,7 @@ class FetchNews {
     // повертає дані з бекенду
 
     const response = await axios.get(`${pop_url}?${params}`);
-    console.log(response);
+
     return response;
   }
 }

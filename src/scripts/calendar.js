@@ -50,19 +50,24 @@ async function onDateClick(e) {
     try {
       const response = await fetchNews.fetchNewsByDate();
 
-      if (!response.docs.length) {
-        console.log('нічого не знайдено');
-        spinner.stop();
-        return;
-      }
+      const {
+        data: { results },
+      } = response;
+      console.log(results);
+      savePopularData(results);
+      // if (!response.docs.length) {
+      //   console.log('нічого не знайдено');
+      //   spinner.stop();
+      //   return;
+      // }
 
-      fetchNews.setHits(response.meta.hits);
+      // fetchNews.setHits(response.meta.hits);
 
-      const { docs } = response;
+      // const { docs } = response;
 
       // saveData(docs);
 
-      // renderNewsCards();
+      renderNewsCards();
       spinner.stop();
       // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     } catch (error) {
@@ -70,6 +75,33 @@ async function onDateClick(e) {
       spinner.stop();
     }
   }
+}
+
+function savePopularData(data) {
+  let img = null;
+  // let imgDescr = null;
+  data.forEach(element => {
+    const media = element.media;
+    media.forEach(e => {
+      img = e['media-metadata'][2].url;
+    });
+
+    const pubDate = element.published_date.split('-').reverse().join('/');
+    console.log(element);
+
+    //  imageDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+    const obj = {
+      title: element.title,
+      description: element.abstract,
+      category: element.section,
+      pubDate,
+      url: element.url,
+      img,
+      imgDescr: element.nytdsection,
+      id: element.id,
+    };
+    pushData(obj);
+  });
 }
 
 function saveData(data) {
