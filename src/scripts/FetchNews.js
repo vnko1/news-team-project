@@ -147,14 +147,12 @@ class FetchNews {
   setNodeChild(newNode) {
     this.nodeChild = newNode;
   }
+
   // метод запиту на бекенд
   async fetchNewsByPopular() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
-      // q: this.getQuerySearch(),
-      // begin_date: this.getDate(),
-      // end_date: this.getDate(),
     });
     // зберігаємо URL
     this.setUrl(`${POPULAR_URL}?${params}`);
