@@ -1,4 +1,4 @@
-import { fetchNews } from './fetchNews';
+import { fetchNews } from './FetchNews';
 
 const gallery = document.querySelector('.gallery-container');
 
