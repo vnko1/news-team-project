@@ -158,10 +158,7 @@ class FetchNews {
     this.setUrl(`${POPULAR_URL}?${params}`);
     this.setDateUrl(`${POPULAR_URL}?${params}`);
 
-    const response = await axios.get(`${POPULAR_URL}?${params}`);
-    // повертає дані з бекенду
-
-    // // зберігаємо URL
+    const response = await axios.get(`${POPULAR_URL}?${params}`);    
 
     // // повертає дані з бекенду
     return response;
