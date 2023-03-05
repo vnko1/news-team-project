@@ -1,5 +1,4 @@
 import { fetchNews } from './FetchNews';
-console.log(fetchNews);
 const gallery = document.querySelector('.gallery-container');
 
 // повертає обʼєкт з даними
@@ -199,30 +198,30 @@ function cutInfo(text) {
 
 // Вставить функцию в блок then(), после функции которая рендерит разметку!!!
 function addClassesForCoincidencesMarkupAndStorage() {
-  const favouriteList = getStorageList("favourites");
-  const labelsEl = document.querySelectorAll(".label-favorite");
+  const favouriteList = getStorageList('favourites');
+  const labelsEl = document.querySelectorAll('.label-favorite');
   const newArrOfBtn = [...labelsEl];
 
-  newArrOfBtn.filter((obj) => {
+  newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id === objOfFavourite.id) {
-        console.log(1)
-        obj.className = "label-favorite js-favourite-storage";
+        console.log(1);
+        obj.className = 'label-favorite js-favourite-storage';
         obj.parentNode.lastElementChild.checked = true;
       }
     }
   });
   //-----------------------------------------
-  const readMoreList = getStorageList("read more");
+  const readMoreList = getStorageList('read more');
   console.log(readMoreList);
-  const linkEl = document.querySelectorAll(".news-card__more");
+  const linkEl = document.querySelectorAll('.news-card__more');
   console.dir(linkEl);
   const newArrOfLinks = [...linkEl];
 
-  newArrOfLinks.filter((obj) => {
+  newArrOfLinks.filter(obj => {
     for (const objOfFavourite of readMoreList) {
       if (obj.id === objOfFavourite.id) {
-        obj.className = "news-card__more js-read-more-storage";
+        obj.className = 'news-card__more js-read-more-storage';
       }
     }
   });
