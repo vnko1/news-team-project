@@ -13,6 +13,8 @@
     background-size: cover;
     background-position: center;
 
+    font-family: 'Roboto', sans-serif;
+
     @include tablet {
         max-width: 353px;
         max-height: 675px;
@@ -32,9 +34,57 @@
 }
 
 .weather-card__temp {
-    font-size: 55px;
-    line-height: 1.16;
-    border-right: solid 1px black;
+    font-size: 64px;
+    line-height: 1.17;
+
+    color: #FFFFFF;
+    border-right: solid 1px white;
+}
+
+.weather-card__now {
+    font-size: 36px;
+    line-height: 1.17;
+
+    color: #FFFFFF;
+}
+
+.weather-card__locate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 17px;
+    cursor: pointer;
+    background-color: $secondary-border-color;
+    border-radius: 10px;
+    border: none;
+
+    font-size: 20px;
+    line-height: 23px;
+
+    color: #FFFFFF;
+}
+
+.weather-card__locate-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.weather-card__locate-icon {
+    width: 30px;
+    height: 30px;
+    color: currentColor;
+}
+
+.weather-card__locate-place {
+    font-size: 20px;
+    line-height: 1.15;
+
+    color: #FFFFFF;
 }
 
 .weather-card__bottom {
