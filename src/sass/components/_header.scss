@@ -1,15 +1,16 @@
-.header {
-    outline: solid red 1px;
+.header-logo {
+    margin-right: auto;
 }
+
 .nav {
     display: flex;
-    gap: 14px;
     padding-top: 24px;
     padding-bottom: 24px;
+    align-items: center;
+
 
     @include tablet {
         justify-content: space-between;
-        align-items: center;
     }
 }
 
@@ -35,18 +36,113 @@
 
 }
 
-.search-form {
+// .search-form {
+//     position: absolute;
+//     position: fixed;
+//     top: -20px;
+//     left: 50%;
+//     transform:  translate(-50%,50%);
+//     background: #2f3640;
+//     height: 60px;
+//     border-radius: 40px;
+//     padding: 10px;
+
+// }
+
+// .search-input {
+//     border:none;
+//     background: none;
+//     outline:none;
+//     float:right;
+//     padding: 0;
+//     color: white;
+//     font-size: 16px;
+//     transition: 0.4s;
+//     line-height: 40px;
+//     width: 0px;
+// }
+
+// .query-btn {
+//     color: white;
+//     float: right;
+//     width: 40px;
+//     height: 40px;
+//     border-radius: 50%;
+//     background: #f4f4f4;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     transition: 0.4s;
+//         &:hover .search-input {
+//         max-width: 173px;
+//         height: 31px;
+
+//     }
+
+// }
+.search-box {
     position: relative;
-}
-.search-input {
-    max-width: 173px;
+    width: 173px;
     height: 31px;
-    padding-left: 60px;
+} 
+#search-form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    &:hover > .search-input {
+        transform:  translateX(0%);
+
+
+    }
+    &:hover > .query-btn {
+        transform:  translateX(-60px);
+        // left: 20px;
+    }
 }
 
 .query-btn {
-    position: absolute;
-    left: 0;
-
+    padding: 0;
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    transform: translateX(350%);
 }
+
+.search-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    outline:none;
+    float: left;
+    height: 100%;
+    border: 1px green solid;
+    border-radius: 20px;
+    color: currentColor;
+    font-size: 16px;
+    transition: 0.4s;
+    width: 100%;
+    padding: 5px 5px 5px 48px;
+    transform: translateX(100%);
+
+    font-family: 'Poppins';
+    font-size: 12px;
+    line-height: 1.75;
+    letter-spacing: 0.02em;
+
+    }
 

@@ -1,6 +1,16 @@
 .menu-toggle {
-    display: block;
+    min-height: 24px;
+    min-width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 14px;
+    padding: 0;
     cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: $primary-bg-color;
+
     @include tablet {
         display: none;
     }
@@ -49,4 +59,10 @@
 
 .menu-bar__icon-arrow {
     margin-left: auto;
+    rotate: 90deg;
+    color: currentColor;
+}
+
+.menu-toggle__icons {
+    color: currentColor;
 }

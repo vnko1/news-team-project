@@ -7,20 +7,18 @@
                 <li class="header-list__item"><a href="/src/favorite.html" class="header-list__link">Favorite</a></li>
                 <li class="header-list__item"><a href="/src/read.html" class="header-list__link">Read</a></li>
             </ul>
-            <form class="search-form" id="search-form">
-                <button class="query-btn" id="queryBtn" type="submit">
-                    <i class="material-icons">
-                        search
-                    </i></button>
-                <input class="search-input"
-                    type="text"
-                    name="searchQuery"
-                    autocomplete="off"
-                    placeholder="Search |"
-                />
-            </form>
+                <div class="search-box">
+                    <form class="search-form" id="search-form">
+                        <input class="search-input" type="text" name="searchQuery" autocomplete="off" placeholder="Search |" />
+                        <button class="query-btn" id="queryBtn" type="submit">
+                            <svg class="query-btn-icon" width="20px" height="20px" aria-label="Input search news">
+                                <use class="menu-toggle__search" href="/src/images/icons.svg#icon-search"></use>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
             <button class="menu-toggle js-open-menu" type="button" aria-expanded="false" aria-controls="mobile-menu">
-                <svg class="menu-toggle__icons" width="24" height="24" aria-label="Перемикач мобільного меню">
+                <svg class="menu-toggle__icons" width="24px" height="24px" aria-label="Switcher mobile menu">
                     <use class="menu-toggle__menu" href="/src/images/icons.svg#icon-menu"></use>
                 </svg>
             </button>
