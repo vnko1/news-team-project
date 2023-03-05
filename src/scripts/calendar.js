@@ -1,12 +1,13 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+import axios from 'axios';
 const uniq = require('lodash.uniq');
 import { spinner } from './Spinner';
 import { fetchNews } from './fetchNews';
 import {
-  createObj,
   renderNewsCards,
   deleteNewsCards,
   saveSearchData,
+  savePopularData,
 } from './CommonFunctions';
 
 const calendar = new VanillaCalendar('#calendar');
@@ -34,6 +35,17 @@ function onWindowClick(e) {
     document.removeEventListener('click', onWindowClick);
   }
 }
+// ------------------!!--------------------------->
+getPop();
+async function getPop() {
+  const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json';
+  const params = new URLSearchParams({
+    'api-key': API_KEY,
+  });
+  const res = await axios.get(`${url}?params`);
+  console.log(res);
+}
+// ------------------!!--------------------------->
 
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
