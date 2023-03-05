@@ -1,5 +1,5 @@
 import { fetchNews } from './FetchNews';
-import { cutInfo, createObj, formatDate } from './CommonFunctions';
+import { cutInfo, createObj, formatDate, AddClassesForCoincidencesMarkupAndStorage} from './CommonFunctions';
 import { spinner } from './Libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
@@ -66,7 +66,7 @@ async function onFormSubmit(event) {
     //пушимо розмітку
     renderCards();
     spinner.stop();
-
+    AddClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);

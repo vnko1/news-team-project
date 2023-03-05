@@ -1,5 +1,5 @@
-import { fetchNews } from './fetchNews';
-
+import { fetchNews } from './FetchNews';
+console.log(fetchNews);
 const gallery = document.querySelector('.gallery-container');
 
 // повертає обʼєкт з даними
@@ -183,6 +183,20 @@ function pushData(data) {
   fetchNews.addStorageData(createObj(data));
 }
 
+//приводимо дату до потрібного формату
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0'); // додаємо нуль, якщо число менше 10
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // додаємо нуль, якщо місяць менше 10
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+//обрізаємо опис якщо більше 180 символів
+function cutInfo(text) {
+  return text.length <= 180 ? text : text.slice(0, 180) + '...';
+}
+
 // Вставить функцию в блок then(), после функции которая рендерит разметку!!!
 function AddClassesForCoincidencesMarkupAndStorage() {
   const favouriteList = getStorageList("favourites");
@@ -192,12 +206,14 @@ function AddClassesForCoincidencesMarkupAndStorage() {
   newArrOfBtn.filter((obj) => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id === objOfFavourite.id) {
+        console.log(1)
         obj.className = "label-favorite js-favourite-storage";
+        obj.parentNode.lastElementChild.checked = true;
       }
     }
   });
   //-----------------------------------------
-  const readMoreList = getStorageList("Read more");
+  const readMoreList = getStorageList("read more");
   console.log(readMoreList);
   const linkEl = document.querySelectorAll(".news-card__more");
   console.dir(linkEl);
@@ -217,19 +233,6 @@ function getStorageList(valueOfKeyStorage) {
   return JSON.parse(localStorage.getItem(valueOfKeyStorage));
 }
 
-//приводимо дату до потрібного формату
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const day = date.getDate().toString().padStart(2, '0'); // додаємо нуль, якщо число менше 10
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // додаємо нуль, якщо місяць менше 10
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
-
-//обрізаємо опис якщо більше 180 символів
-function cutInfo(text) {
-  return text.length <= 180 ? text : text.slice(0, 180) + '...';
-}
 export {
   cutInfo,
   formatDate,
@@ -239,8 +242,6 @@ export {
   saveCategoryData,
   savePopularData,
   saveSearchData,
-  AddClassesForCoincidencesMarkupAndStorage,
   getStorageList,
-  formatDate,
-  cutInfo
+  AddClassesForCoincidencesMarkupAndStorage,
 };
