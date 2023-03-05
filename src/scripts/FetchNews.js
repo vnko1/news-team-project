@@ -147,33 +147,27 @@ class FetchNews {
   setNodeChild(newNode) {
     this.nodeChild = newNode;
   }
+
   // метод запиту на бекенд
   async fetchNewsByPopular() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
-      // q: this.getQuerySearch(),
-      // begin_date: this.getDate(),
-      // end_date: this.getDate(),
     });
     // зберігаємо URL
     this.setUrl(`${BASE_NEW}?${params}`);
     // запит на бекенд
     console.log(`${BASE_NEW}?${params}`);
+    this.setUrl(`${this.getDateUrl()}&${params}`);
+
     const response = await axios.get(`${BASE_NEW}?${params}`);
     // повертає дані з бекенду
-  
-    begin_date: this.getDate(),
-      end_datel: this.getDate(),
-      // 'api-key': API_KEY,
-    
+
     // зберігаємо URL
-    this.setUrl(`${this.getDateUrl()}&${params}`);
-    // запит на бекенд
-    const response = await axios.get(`${this.getDateUrl()}&${params}`);
+
     // повертає дані з бекенду
     return response;
-}
+  }
 
   async fetchNewsBySearch() {
     //  обʼєкт параметрів для URL
@@ -193,4 +187,3 @@ class FetchNews {
 }
 
 export const fetchNews = new FetchNews();
-
