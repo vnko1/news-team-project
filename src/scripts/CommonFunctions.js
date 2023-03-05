@@ -12,6 +12,7 @@ function createObj({
   img,
   imgDescr = 'no data',
   id = 'no data',
+  urlCategory = '',
 }) {
   const imgUrl = img ? img : 'https://unsplash.it/395';
 
@@ -24,6 +25,7 @@ function createObj({
     imgUrl,
     imgDescr,
     id,
+    urlCategory,
   };
 }
 
