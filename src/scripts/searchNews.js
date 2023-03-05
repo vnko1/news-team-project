@@ -1,5 +1,6 @@
 import { fetchNews } from './FetchNews';
 import { cutInfo, createObj, formatDate } from './CommonFunctions';
+// import { Spinner } from './Libraries';
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
