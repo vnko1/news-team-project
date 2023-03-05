@@ -49,17 +49,18 @@ async function onFormSubmit(event) {
     const { docs } = response;
 
     saveData(docs);
+
     //очищаємо картки
     deleteCards();
 
     //пушимо розмітку
     renderCards();
-
     // записує масив елементів
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   } catch (error) {
     console.log;
   }
+
   //скидаємо форму
   form.reset();
 
@@ -118,7 +119,7 @@ function saveData(data) {
 //робимо розмітку
 function renderCards() {
   const data = [];
-
+  // console.log(data);
   const fetchData = fetchNews.getData();
 
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
@@ -126,7 +127,7 @@ function renderCards() {
     if (i >= 8) break;
     data.push(fetchData[i]);
   }
-  console.log(fetchData);
+  console.log(data);
   const markUp = data.reduce((acc, el) => {
     acc += `
 <div class="news-card" news-id="${el.id}">
@@ -156,6 +157,7 @@ function renderCards() {
     </div>`;
     return acc;
   }, ``);
+
   // пушимо розмітку на сторінку
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
