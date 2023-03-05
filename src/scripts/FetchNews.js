@@ -3,6 +3,8 @@ import axios from 'axios';
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const pop_url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
+const category_url =
+  'https://api.nytimes.com/svc/news/v3/content/inyt/automobiles.json';
 
 class FetchNews {
   constructor() {
@@ -115,12 +117,12 @@ class FetchNews {
     });
     // зберігаємо URL
 
-    this.setUrl(`${BASE_URL}?${params}`);
+    this.setUrl(`${category_url}?${params}`);
 
     // this.setUrl(`${pop_url}?${params}`);
 
     // запит на бекенд
-    const response = await axios.get(`${BASE_URL}?${params}`);
+    const response = await axios.get(`${category_url}?${params}`);
     // повертає дані з бекенду
     return response;
   }

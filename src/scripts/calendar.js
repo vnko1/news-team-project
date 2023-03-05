@@ -49,7 +49,7 @@ async function onDateClick(e) {
     spinner.spin(document.body);
     try {
       const response = await fetchNews.fetchNewsByDate();
-
+      console.log(response);
       if (fetchNews.getUrl().includes('mostpopular')) {
         console.log('yes');
         if (!response.data.results.length) {
@@ -77,6 +77,7 @@ async function onDateClick(e) {
         } = response;
 
         saveData(docs);
+      } else {
       }
 
       renderNewsCards();
