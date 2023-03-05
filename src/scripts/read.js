@@ -8,7 +8,8 @@ form.addEventListener('submit', onSubmit);
 window.addEventListener('click', onClick);
 parseBtn.addEventListener('click', onParse);
 
-// ---------------создаем пустое хранилище
+// ---------------создаем пустое хранилище для теста уведомления-----------------
+
 // try {
 //   localStorage.setItem('Read more', JSON.stringify([]));
 // } catch (err) {
@@ -36,8 +37,6 @@ function onSubmit(e) {
         else if (i % 3 === 0) obj.date = dateNow.getTime() - 181000000;
         else obj.date = dateNow.getTime() - 360000000;
 
-        console.log(obj.date);
-
         obj.img = `https://www.nytimes.com/${a.multimedia[0].url}`;
         obj.descr = a.abstract;
         obj.title = a.headline.main;
@@ -52,8 +51,6 @@ function onSubmit(e) {
         i += 1;
       }
 
-      console.log('получился массив статей    ', articles);
-
       try {
         localStorage.setItem('Read more', JSON.stringify(articles));
       } catch (err) {
@@ -66,8 +63,10 @@ function onParse() {
   try {
     const unparsed = localStorage.getItem('Read more');
     const parsed = JSON.parse(unparsed);
-    if(parsed.length === 0) console.log("ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ");
-    else if (parsed !== null) {
+  
+    if (parsed === null) return;
+    else if(parsed.length === 0) console.log("ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ");
+    else {
       renderMarkup(parsed);
     }
   } catch (err) {
@@ -134,7 +133,6 @@ function renderMarkup(array) {
                    <svg class="arrow-read visually-hidden js-toggle_hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M1.762 0 0 1.713 7.5 9 15 1.713 13.238 0 7.5 5.563 1.763 0Z" fill="#111321"/>
                    </svg>
-                </p>
             </div>
             <div class="news-wrap">`;
     
