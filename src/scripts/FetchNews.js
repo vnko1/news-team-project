@@ -102,7 +102,7 @@ class FetchNews {
   }
 
   // метод запиту на бекенд
-  async fetchNewsByDate() {
+  async fetchNewsByPopular() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
