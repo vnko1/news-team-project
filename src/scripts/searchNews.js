@@ -86,7 +86,6 @@ function saveData(data) {
     });
     //обрізаємо опис якщо більше 180 символів
     const infoText = cutInfo(article.lead_paragraph);
-    //   console.log(infoText);
     //приводимо дату до потрібного формату
     const date = formatDate(article.pub_date);
 
