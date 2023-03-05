@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+const pop_url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 
 class FetchNews {
   constructor() {
@@ -109,8 +110,8 @@ class FetchNews {
     const params = new URLSearchParams({
       'api-key': API_KEY,
 
-      begin_date: this.getDate(),
-      end_date: this.getDate(),
+      // begin_date: this.getDate(),
+      // end_date: this.getDate(),
     });
     // зберігаємо URL
 
@@ -119,7 +120,7 @@ class FetchNews {
     // запит на бекенд
     const {
       data: { response },
-    } = await axios.get(`${BASE_URL}?${params}`);
+    } = await axios.get(`${pop_url}?${params}`);
     // повертає дані з бекенду
 
     return response;
