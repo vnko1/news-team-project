@@ -155,11 +155,10 @@ class FetchNews {
       'api-key': API_KEY,
     });
     // зберігаємо URL
-    this.setUrl(`${POPULAR_URL}?${params}`);
-    // запит на бекенд
-    console.log(`${POPULAR_URL}?${params}`);
-    this.setUrl(`${this.getDateUrl()}&${params}`);
-    const response = await axios.get(`${POPULAR_URL}?${params}`);
+    this.setUrl(`${BASE_NEW}?${params}`);
+    this.setDateUrl(`${BASE_NEW}?${params}`);
+
+    const response = await axios.get(`${BASE_NEW}?${params}`);
     // повертає дані з бекенду
 
     // // зберігаємо URL
