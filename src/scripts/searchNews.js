@@ -1,6 +1,7 @@
 import { fetchNews } from './FetchNews';
 import { cutInfo, createObj, formatDate } from './CommonFunctions';
-// import { Spinner } from './Libraries';
+import { spinner } from './Libraries';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
@@ -17,13 +18,15 @@ async function onFormSubmit(event) {
 
   fetchNews.resetData();
   event.preventDefault();
+  spinner.spin(document.body);
   try {
     //присвоюємо запиту значення інпуту
     const query = inputField.value;
     //якщо нічого не ввели в інпут
 
     if (!query) {
-      alert('Please enter a search term.');
+      Report.failure('Please enter a search term.');
+      spinner.stop();
       return;
     }
     // console.log(query);
@@ -42,8 +45,10 @@ async function onFormSubmit(event) {
       <img src='https://klike.net/uploads/posts/2020-09/1599896421_21.jpg'>
       </div>
       `;
+
       console.log('нічого не знайдено');
       form.reset();
+      spinner.stop();
       return;
     }
 
@@ -61,6 +66,7 @@ async function onFormSubmit(event) {
 
     //пушимо розмітку
     renderCards();
+    spinner.stop();
     // записує масив елементів
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   } catch (error) {
