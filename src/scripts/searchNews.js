@@ -13,12 +13,14 @@ form.addEventListener('submit', onFormSubmit);
 //сабмітимо форму
 async function onFormSubmit(event) {
   //очищуємо масив даних
+
   fetchNews.resetData();
   event.preventDefault();
   try {
     //присвоюємо запиту значення інпуту
     const query = inputField.value;
     //якщо нічого не ввели в інпут
+
     if (!query) {
       alert('Please enter a search term.');
       return;
@@ -26,8 +28,11 @@ async function onFormSubmit(event) {
     // console.log(query);
     // приcвоює нове значення пошуковуму параметру
     fetchNews.setQuerySearch(query);
+
     //робимо запит
     const response = await fetchNews.fetchNewsBySearch();
+    console.log(event);
+    console.log(response);
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
       gallery.innerHTML = `
