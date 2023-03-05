@@ -1,5 +1,5 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
-import axios from 'axios';
+
 const uniq = require('lodash.uniq');
 
 import { spinner } from './Spinner';
@@ -37,23 +37,23 @@ function onWindowClick(e) {
   }
 }
 // ------------------!!--------------------------->
-getPop();
-async function getPop() {
-  const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
+// getPop();
+// async function getPop() {
+//   const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 
-  const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json';
-  const params = new URLSearchParams({
-    'api-key': API_KEY,
-  });
-  const res = await axios.get(`${url}?${params}`);
-  const {
-    data: { results },
-  } = res;
-  fetchNews.setFilterParams('popular');
+//   const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json';
+//   const params = new URLSearchParams({
+//     'api-key': API_KEY,
+//   });
+//   const res = await axios.get(`${url}?${params}`);
+//   const {
+//     data: { results },
+//   } = res;
+//   fetchNews.setFilterParams('popular');
 
-  savePopularData(results);
-  renderNewsCards(fetchNews.getStorageData());
-}
+//   savePopularData(results);
+//   renderNewsCards(fetchNews.getStorageData());
+// }
 // ------------------!!--------------------------->
 
 async function onDateClick(e) {
