@@ -95,6 +95,7 @@ async function onDateClick(e) {
         spinner.stop();
         fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
         fetchNews.setIsUrlRequest(true);
+        // ----------> логіка localestorage
       } catch (error) {
         console.log(error);
         spinner.stop();
@@ -117,6 +118,7 @@ async function onDateClick(e) {
       renderFiltredNewsCardByData(fetchNews.getFiltredStorageData());
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(false);
+       // ----------> логіка localestorage
     }
     spinner.stop();
   }
