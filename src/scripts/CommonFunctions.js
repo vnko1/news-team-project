@@ -83,4 +83,107 @@ function deleteNewsCards() {
   // newsCards.forEach(el => el.remove());
 }
 
-export { createObj, renderNewsCards, deleteNewsCards };
+function saveCategoryData(data) {
+  console.log(data);
+  let img = null;
+  let imgDescr = null;
+  data.forEach(el => {
+    // console.log(el);
+    el.multimedia.forEach(e => {
+      if (e.format.includes('440')) {
+        img = e.url;
+        imgDescr = e.caption;
+      }
+    });
+
+    const pubDate = new Date(el.published_date)
+      .toLocaleString()
+      .split(',')
+      .splice(0, 1)
+      .join('')
+      .replaceAll('.', '/');
+
+    const obj = {
+      title: el.title,
+      description: el.abstract,
+      category: el.section,
+      pubDate,
+      url: el.url,
+      img,
+      imgDescr,
+      id: el.uri,
+    };
+    pushData(obj);
+  });
+}
+
+function savePopularData(data) {
+  let img = null;
+
+  data.forEach(element => {
+    const media = element.media;
+    media.forEach(e => {
+      img = e['media-metadata'][2].url;
+    });
+
+    const pubDate = element.published_date.split('-').reverse().join('/');
+
+    const obj = {
+      title: element.title,
+      description: element.abstract,
+      category: element.section,
+      pubDate,
+      url: element.url,
+      img,
+      imgDescr: element.nytdsection,
+      id: element.id,
+    };
+    pushData(obj);
+  });
+}
+
+function saveSearchData(data) {
+  let img = null;
+
+  data.forEach(element => {
+    element.multimedia.forEach(e => {
+      if (e.subType === 'xlarge') {
+        img = `https://www.nytimes.com/${e.url}`;
+      }
+    });
+
+    const pubDate = new Date(element.pub_date)
+      .toLocaleString()
+      .split(',')
+      .splice(0, 1)
+      .join('')
+      .replaceAll('.', '/');
+
+    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+    const obj = {
+      title: element.headline.main,
+      description: element.lead_paragraph,
+      category: element.section_name,
+      pubDate,
+      url: element.web_url,
+      img,
+      imgDescr,
+      id: element._id,
+    };
+    pushData(obj);
+  });
+}
+
+function pushData(data) {
+  fetchNews.addData(createObj(data));
+  fetchNews.addStorageData(createObj(data));
+}
+
+export {
+  createObj,
+  renderNewsCards,
+  deleteNewsCards,
+  saveCategoryData,
+  savePopularData,
+  saveSearchData,
+};
