@@ -177,6 +177,21 @@ class FetchNews {
     } = await axios.get(`${SEARCH_URL}?${params}`);
     return response;
   }
+
+  async fetchNewsByDate() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+      begin_date: this.getDate(),
+      end_date: this.getDate(),
+      // 'api-key': API_KEY,
+    });
+    // зберігаємо URL
+    this.setUrl(`${this.getDateUrl()}&${params}`);
+    // запит на бекенд
+    const response = await axios.get(`${this.getDateUrl()}&${params}`);
+    // повертає дані з бекенду
+    return response;
+  }
 }
 
 export const fetchNews = new FetchNews();
