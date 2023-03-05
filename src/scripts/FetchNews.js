@@ -5,10 +5,15 @@ const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 
 class FetchNews {
   constructor() {
+    this.isUrlRequest = true;
     // масив, в якому зберігаються обʼєкти з обраними властивостями з бекенду. використовувати для рендеру і на кожному запиті його треба очищати
     this.data = [];
     // масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі одані з обраними властивостями з бекенду на поточній сесії. Але фактично, він не потрібен.
     this.storageData = [];
+
+    this.filtredStorageData = null;
+
+    this.filterParams = '';
     //  обрана в календарі дата
     this.date = '';
     // пошуковий параметр
@@ -24,6 +29,15 @@ class FetchNews {
     // буде зберігатись колекція елементів картки новин
     this.nodeChild = null;
   }
+
+  getIsUrlRequest() {
+    return this.isUrlRequest;
+  }
+
+  setIsUrlRequest(newUrlRequest) {
+    this.isUrlRequest = newUrlRequest;
+  }
+
   // повертає масив елементів з селектором .news-card
   getNodeChild() {
     return this.nodeChild;
@@ -56,6 +70,15 @@ class FetchNews {
   addStorageData(data) {
     this.storageData.push(data);
   }
+
+  getfiltredStorageData() {
+    return this.filtredStorageData;
+  }
+
+  setfiltredStorageData(newfiltredStorageData) {
+    thsi.filtredStorageData = newfiltredStorageData;
+  }
+
   // присвоює нове значення даті
   setDate(newDate) {
     this.date = newDate;

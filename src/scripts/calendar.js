@@ -48,8 +48,8 @@ async function onDateClick(e) {
     deleteNewsCards();
     fetchNews.setDate(date.split('-').join(''));
 
-    const normalDate = date.split('-').reverse().join('/');
-    inputEl.value = normalDate;
+    const normaliseDate = date.split('-').reverse().join('/');
+    inputEl.value = normaliseDate;
     calendarContainer.classList.add('is-hidden');
 
     spinner.spin(document.body);
@@ -75,8 +75,10 @@ async function onDateClick(e) {
         renderNewsCards();
         spinner.stop();
         fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+        fetchNews.setIsUrlRequest(true);
       } catch (error) {
         console.log(error);
+        spinner.stop();
       }
     } else {
       if (!fetchNews.getStorageData().length) {
@@ -86,11 +88,12 @@ async function onDateClick(e) {
       }
       const filtredData = fetchNews
         .getStorageData()
-        .filter(el => el.pubDate === normalDate);
-      const uniqData = uniq(filtredData);
+        .filter(el => el.pubDate === normaliseDate);
+      fetchNews.setfiltredStorageData(uniq(filtredData));
 
-      renderFilterfNewsCardByData(uniqData);
+      renderFilterfNewsCardByData(fetchNews.getfiltredStorageData());
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+      fetchNews.setIsUrlRequest(false);
     }
     spinner.stop();
   }
