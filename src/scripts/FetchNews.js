@@ -180,11 +180,11 @@ class FetchNews {
       q: this.getQuerySearch(),
     });
     // зберігаємо URL
-    this.setUrl(`${BASE_URL}?${params}`);
+    this.setUrl(`${SEARCH_URL}?${params}`);
     // запит на бекенд
     const {
       data: { response },
-    } = await axios.get(`${BASE_URL}?${params}`);
+    } = await axios.get(`${SEARCH_URL}?${params}`);
     console.log(response);
     return response;
   }
