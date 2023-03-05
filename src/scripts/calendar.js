@@ -1,7 +1,13 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+const uniq = require('lodash.uniq');
 import { spinner } from './Spinner';
 import { fetchNews } from './fetchNews';
-import { createObj, renderNewsCards, deleteNewsCards } from './CommonFunctions';
+import {
+  createObj,
+  renderNewsCards,
+  deleteNewsCards,
+  saveSearchData,
+} from './CommonFunctions';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
@@ -9,7 +15,7 @@ calendar.init();
 const inputEl = document.querySelector('#date');
 const calendarContainer = document.querySelector('#calendar-container');
 const calendarEl = document.querySelector('#calendar');
-// const gallery = document.querySelector('.gallery-container');
+const gallery = document.querySelector('.gallery-container');
 const dateContainer = document.querySelector('.date-container');
 
 inputEl.addEventListener('click', onInputElClick);
@@ -42,28 +48,16 @@ async function onDateClick(e) {
     deleteNewsCards();
     fetchNews.setDate(date.split('-').join(''));
 
-    inputEl.value = date.split('-').reverse().join('/');
+    const normalDate = date.split('-').reverse().join('/');
+    inputEl.value = normalDate;
     calendarContainer.classList.add('is-hidden');
-    fetchNews.resetData();
-    // console.log(fetchNews.getUrl());
-    spinner.spin(document.body);
-    try {
-      const response = await fetchNews.fetchNewsByDate();
-      console.log(response);
-      if (fetchNews.getUrl().includes('mostpopular')) {
-        console.log('yes');
-        if (!response.data.results.length) {
-          console.log('нічого не знайдено');
-          spinner.stop();
-          return;
-        }
-        const {
-          data: { results },
-        } = response;
-        fetchNews.setHits(response.data.num_results);
 
-        savePopularData(results);
-      } else if (fetchNews.getUrl().includes('articlesearch')) {
+    spinner.spin(document.body);
+    if (fetchNews.getUrl().includes('articlesearch')) {
+      fetchNews.resetData();
+      try {
+        const response = await fetchNews.fetchNewsByDate();
+
         if (!response.data.response.docs.length) {
           console.log('нічого не знайдено');
           spinner.stop();
@@ -76,77 +70,75 @@ async function onDateClick(e) {
           },
         } = response;
 
-        saveData(docs);
-      } else {
-      }
+        saveSearchData(docs);
 
-      renderNewsCards();
-      spinner.stop();
+        renderNewsCards();
+        spinner.stop();
+        fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      if (!fetchNews.getStorageData().length) {
+        console.log('нічого не знайдено');
+        spinner.stop();
+        return;
+      }
+      const filtredData = fetchNews
+        .getStorageData()
+        .filter(el => el.pubDate === normalDate);
+      const uniqData = uniq(filtredData);
+
+      renderFilterfNewsCardByData(uniqData);
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-    } catch (error) {
-      console.log(error);
-      spinner.stop();
     }
+    spinner.stop();
   }
 }
 
-function savePopularData(data) {
-  let img = null;
-  // let imgDescr = null;
-  data.forEach(element => {
-    const media = element.media;
-    media.forEach(e => {
-      img = e['media-metadata'][2].url;
-    });
+function renderFilterfNewsCardByData(data) {
+  const renderData = [];
 
-    const pubDate = element.published_date.split('-').reverse().join('/');
-    //  imageDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
-    const obj = {
-      title: element.title,
-      description: element.abstract,
-      category: element.section,
-      pubDate,
-      url: element.url,
-      img,
-      imgDescr: element.nytdsection,
-      id: element.id,
-    };
-    pushData(obj);
-  });
-}
+  // перебираємо маси та перші 8 елементів пушимо в renderData
+  for (let i = 0; i < data.length; i++) {
+    if (i >= 8) break;
+    renderData.push(data[i]);
+  }
 
-function saveData(data) {
-  let img = null;
-
-  data.forEach(element => {
-    element.multimedia.forEach(e => {
-      if (e.subType === 'xlarge') {
-        img = `https://www.nytimes.com/${e.url}`;
-      }
-    });
-
-    const pubDate = new Date(element.pub_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
-
-    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
-    const obj = {
-      title: element.headline.main,
-      description: element.lead_paragraph,
-      category: element.section_name,
-      pubDate,
-      url: element.web_url,
-      img,
-      imgDescr,
-      id: element._id,
-    };
-    pushData(obj);
-  });
-}
-
-function pushData(data) {
-  fetchNews.addData(createObj(data));
+  // створюємо строку розмітки
+  const markUp = renderData.reduce((acc, el) => {
+    acc += `<div class="news-card" news-id="${el.id}">
+      <div class="news-card__img">
+        <p class="news-card__theme">${el.category}</p>
+        <img
+          class="news-card__item"
+          src="${el.imgUrl}"
+          alt="${el.imgDescr ? el.imgDescr : 'photo'}"
+          loading="lazy"
+          width="395"
+        />
+        <div class="news-card__favorite">
+          <label for="favorite" id="${
+            el.id
+          }" class="label-favorite">Add to favorite</label>
+          <input type="checkbox" class="input-favorite" id="favorite"/>
+        </div>
+      </div>
+      <h2 class="news-card__info-title">${el.title}</h2>
+      <p class="news-card__info-text">${
+        el.description.length > 180
+          ? el.description.slice(0, 180) + '...'
+          : el.description
+      }</p>
+      <div class="news-card__additional">
+        <p class="news-card__date">${el.pubDate}</p>
+        <a class="news-card__more" href="${el.url}" id="${
+      el.id
+    }"target="_blank" rel="noreferrer noopener">Read more</a>
+      </div>
+    </div>`;
+    return acc;
+  }, ``);
+  // додоємо створену розмітку в DOM
+  gallery.insertAdjacentHTML('beforeend', markUp);
 }
