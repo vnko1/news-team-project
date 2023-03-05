@@ -109,7 +109,7 @@ function saveData(data) {
       pubDate: date,
       url: article.web_url,
       img,
-      imgDescr: article.keywords[0].value,
+      imgDescr: article.keywords[0]?.value ? article.keywords[0].value : '',
       id: article._id,
     };
     console.log(obj);
@@ -125,6 +125,7 @@ function renderCards() {
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
+    console.log(i);
     data.push(fetchData[i]);
   }
   console.log(data);
