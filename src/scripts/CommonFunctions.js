@@ -198,7 +198,7 @@ function cutInfo(text) {
 }
 
 // Вставить функцию в блок then(), после функции которая рендерит разметку!!!
-function AddClassesForCoincidencesMarkupAndStorage() {
+function addClassesForCoincidencesMarkupAndStorage() {
   const favouriteList = getStorageList("favourites");
   const labelsEl = document.querySelectorAll(".label-favorite");
   const newArrOfBtn = [...labelsEl];
@@ -243,5 +243,5 @@ export {
   savePopularData,
   saveSearchData,
   getStorageList,
-  AddClassesForCoincidencesMarkupAndStorage,
+  addClassesForCoincidencesMarkupAndStorage,
 };
