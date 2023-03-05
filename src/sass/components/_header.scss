@@ -1,9 +1,17 @@
 .header-logo {
-font-family: 'Manrope', sans-serif;
-font-weight: 700;
-font-size: 24px;
-line-height: 1.38;
-color: #111321;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.38;
+    color: $primary-text-color;
+    @include tablet {
+        font-size: 32px;
+    }
+    @include desktop {
+        font-size: 42px;
+        line-height: 1.36;
+    }
+
 }
 
 .nav {
@@ -30,6 +38,20 @@ color: #111321;
 
     @include desktop {
         gap: 69px;
+    }
+}
+
+.header-list__link {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.38;
+    color: $primary-text-color;
+
+    @include desktop {
+        font-size: 18px;
+        line-height: 1.39;
+
     }
 }
 
@@ -110,7 +132,6 @@ color: #111321;
     height: 100%;
     border: 1px $primary-border-color solid;
     border-radius: 20px;
-    color: currentColor;
     font-size: 16px;
     transition: 0.4s;
     width: 100%;
@@ -119,13 +140,17 @@ color: #111321;
     scale: 0;
     transition: scale $duration $cubic;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     line-height: 1.75;
     letter-spacing: 0.02em;
+    color: $primary-text-color;
+    opacity: 0.4;
 
     @include tablet {
         scale: 1;
+        font-size: 14px;
+        line-height: 1.71;
     }
 }
 
