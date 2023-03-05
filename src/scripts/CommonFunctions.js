@@ -183,7 +183,22 @@ function pushData(data) {
   fetchNews.addStorageData(createObj(data));
 }
 
+//приводимо дату до потрібного формату
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0'); // додаємо нуль, якщо число менше 10
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // додаємо нуль, якщо місяць менше 10
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+//обрізаємо опис якщо більше 180 символів
+function cutInfo(text) {
+  return text.length <= 180 ? text : text.slice(0, 180) + '...';
+}
 export {
+  cutInfo,
+  formatDate,
   createObj,
   renderNewsCards,
   deleteNewsCards,
