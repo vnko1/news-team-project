@@ -1,5 +1,9 @@
 .header-logo {
-    margin-right: auto;
+font-family: 'Manrope', sans-serif;
+font-weight: 700;
+font-size: 24px;
+line-height: 1.38;
+color: #111321;
 }
 
 .nav {
@@ -7,6 +11,8 @@
     padding-top: 24px;
     padding-bottom: 24px;
     align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
 
     @include tablet {
@@ -33,57 +39,20 @@
     @include tablet {
         display: block;
     }
-
 }
 
-// .search-form {
-//     position: absolute;
-//     position: fixed;
-//     top: -20px;
-//     left: 50%;
-//     transform:  translate(-50%,50%);
-//     background: #2f3640;
-//     height: 60px;
-//     border-radius: 40px;
-//     padding: 10px;
-
-// }
-
-// .search-input {
-//     border:none;
-//     background: none;
-//     outline:none;
-//     float:right;
-//     padding: 0;
-//     color: white;
-//     font-size: 16px;
-//     transition: 0.4s;
-//     line-height: 40px;
-//     width: 0px;
-// }
-
-// .query-btn {
-//     color: white;
-//     float: right;
-//     width: 40px;
-//     height: 40px;
-//     border-radius: 50%;
-//     background: #f4f4f4;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     transition: 0.4s;
-//         &:hover .search-input {
-//         max-width: 173px;
-//         height: 31px;
-
-//     }
-
-// }
 .search-box {
     position: relative;
     width: 173px;
     height: 31px;
+
+    @include tablet {
+        width: 213px;
+    }
+
+    @include desktop {
+        width: 288px;
+    }
 } 
 #search-form {
     position: absolute;
@@ -97,8 +66,8 @@
     align-items: center;
     background: none;
     &:hover > .search-input {
-        transform:  translateX(0%);
-
+        // transform:  translateX(0%);
+        scale: 1;
 
     }
     &:hover > .query-btn {
@@ -120,6 +89,15 @@
     align-items: center;
     transition: 0.4s;
     transform: translateX(350%);
+    transition: transform $duration $cubic;
+
+    @include tablet {
+        transform:  translateX(-80px);
+    }
+
+    @include desktop {
+        transform:  translateX(-110px);
+    }
 }
 
 .search-input {
@@ -130,19 +108,24 @@
     outline:none;
     float: left;
     height: 100%;
-    border: 1px green solid;
+    border: 1px $primary-border-color solid;
     border-radius: 20px;
     color: currentColor;
     font-size: 16px;
     transition: 0.4s;
     width: 100%;
     padding: 5px 5px 5px 48px;
-    transform: translateX(100%);
+    // transform: translateX(100%);
+    scale: 0;
+    transition: scale $duration $cubic;
 
     font-family: 'Poppins';
     font-size: 12px;
     line-height: 1.75;
     letter-spacing: 0.02em;
 
+    @include tablet {
+        scale: 1;
     }
+}
 
