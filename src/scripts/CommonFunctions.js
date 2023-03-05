@@ -13,7 +13,8 @@ function createObj({
   imgDescr = 'no data',
   id = 'no data',
 }) {
-  const imgUrl = img ? img : 'https://unsplash.it/395';
+  // const imgUrl = img ? img : 'https://unsplash.it/395';
+  const imgUrl = img;
 
   return {
     title,
