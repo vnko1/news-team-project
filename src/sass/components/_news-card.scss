@@ -1,5 +1,4 @@
 .news-card {
-    // position: relative;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -58,24 +57,3 @@
     justify-content: space-between;
 
 }
-
-// .js-read-more-storage::before {
-//     position: absolute;
-//     top:0;
-//     right: 10px;
-//     content: "Have read \2714";
-//     font-size: 20px;
-//     color: green;
-//     display: inline-block;
-//   }
-
-// .js-read-more-storage::after {
-//     position: absolute;
-//     display: inline-block;
-//     content: "";
-//     top:0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     background-color: rgba(244, 244, 244, 0.4);
-//   }
