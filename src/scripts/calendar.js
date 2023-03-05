@@ -1,15 +1,12 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 import { Report } from 'notiflix/build/notiflix-report-aio';
-
 const uniq = require('lodash.uniq');
-
 import { spinner } from './Libraries';
-import { fetchNews } from './fetchNews';
+import { fetchNews } from './FetchNews';
 import {
   renderNewsCards,
   deleteNewsCards,
   saveSearchData,
-  savePopularData,
 } from './CommonFunctions';
 
 const calendar = new VanillaCalendar('#calendar');

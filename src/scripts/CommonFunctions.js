@@ -205,7 +205,6 @@ function addClassesForCoincidencesMarkupAndStorage() {
   newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id === objOfFavourite.id) {
-        console.log(1);
         obj.className = 'label-favorite js-favourite-storage';
         obj.parentNode.lastElementChild.checked = true;
       }
@@ -213,9 +212,9 @@ function addClassesForCoincidencesMarkupAndStorage() {
   });
   //-----------------------------------------
   const readMoreList = getStorageList('read more');
-  console.log(readMoreList);
+
   const linkEl = document.querySelectorAll('.news-card__more');
-  console.dir(linkEl);
+
   const newArrOfLinks = [...linkEl];
 
   newArrOfLinks.filter(obj => {
