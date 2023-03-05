@@ -85,109 +85,17 @@ function deleteNewsCards() {
   // newsCards.forEach(el => el.remove());
 }
 
-function saveCategoryData(data) {
-  console.log(data);
-  let img = null;
-  let imgDescr = null;
-  data.forEach(el => {
-    // console.log(el);
-    el.multimedia.forEach(e => {
-      if (e.format.includes('440')) {
-        img = e.url;
-        imgDescr = e.caption;
-      }
-    });
-
-    const pubDate = new Date(el.published_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
-
-    const obj = {
-      title: el.title,
-      description: el.abstract,
-      category: el.section,
-      pubDate,
-      url: el.url,
-      img,
-      imgDescr,
-      id: el.uri,
-      urlCategory: fetchNews.getFilterParams(),
-    };
-    pushData(obj);
-  });
+//приводимо дату до потрібного формату
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0'); // додаємо нуль, якщо число менше 10
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // додаємо нуль, якщо місяць менше 10
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 }
 
-function savePopularData(data) {
-  let img = null;
-
-  data.forEach(element => {
-    const media = element.media;
-    media.forEach(e => {
-      img = e['media-metadata'][2].url;
-    });
-
-    const pubDate = element.published_date.split('-').reverse().join('/');
-
-    const obj = {
-      title: element.title,
-      description: element.abstract,
-      category: element.section,
-      pubDate,
-      url: element.url,
-      img,
-      imgDescr: element.nytdsection,
-      id: element.id,
-      urlCategory: fetchNews.getFilterParams(),
-    };
-    pushData(obj);
-  });
+//обрізаємо опис якщо більше 180 символів
+function cutInfo(text) {
+  return text.length <= 180 ? text : text.slice(0, 180) + '...';
 }
-
-function saveSearchData(data) {
-  let img = null;
-
-  data.forEach(element => {
-    element.multimedia.forEach(e => {
-      if (e.subType === 'xlarge') {
-        img = `https://www.nytimes.com/${e.url}`;
-      }
-    });
-
-    const pubDate = new Date(element.pub_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
-
-    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
-    const obj = {
-      title: element.headline.main,
-      description: element.lead_paragraph,
-      category: element.section_name,
-      pubDate,
-      url: element.web_url,
-      img,
-      imgDescr,
-      id: element._id,
-    };
-    pushData(obj);
-  });
-}
-
-function pushData(data) {
-  fetchNews.addData(createObj(data));
-  fetchNews.addStorageData(createObj(data));
-}
-
-export {
-  createObj,
-  renderNewsCards,
-  deleteNewsCards,
-  saveCategoryData,
-  savePopularData,
-  saveSearchData,
-};
+export { cutInfo, formatDate, createObj, renderNewsCards, deleteNewsCards };
