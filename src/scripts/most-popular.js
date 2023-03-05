@@ -1,6 +1,10 @@
 import { fetchNews } from './FetchNews';
 
-import { renderNewsCards, savePopularData } from './CommonFunctions';
+import {
+  renderNewsCards,
+  savePopularData,
+  addClassesForCoincidencesMarkupAndStorage,
+} from './CommonFunctions';
 
 onLoad();
 
@@ -15,6 +19,7 @@ async function onLoad() {
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);
     // логіка localstorage
+    addClassesForCoincidencesMarkupAndStorage();
   } catch (error) {
     console.log(error);
   }
