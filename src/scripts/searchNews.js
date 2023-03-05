@@ -15,9 +15,9 @@ form.addEventListener('submit', onFormSubmit);
 //сабмітимо форму
 async function onFormSubmit(event) {
   //очищуємо масив даних
-
-  fetchNews.resetData();
   event.preventDefault();
+  fetchNews.resetData();
+
   spinner.spin(document.body);
   try {
     //присвоюємо запиту значення інпуту
@@ -35,8 +35,7 @@ async function onFormSubmit(event) {
 
     //робимо запит
     const response = await fetchNews.fetchNewsBySearch();
-    console.log(event);
-    console.log(response);
+
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
       gallery.innerHTML = `
@@ -46,7 +45,7 @@ async function onFormSubmit(event) {
       </div>
       `;
 
-      console.log('нічого не знайдено');
+      // console.log('нічого не знайдено');
       form.reset();
       spinner.stop();
       return;
@@ -67,8 +66,11 @@ async function onFormSubmit(event) {
     //пушимо розмітку
     renderCards();
     spinner.stop();
+
     // записує масив елементів
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+    fetchNews.setIsUrlRequest(true);
+    // !!! ----------------> Сюди буде додана логіка localstorage
   } catch (error) {
     console.log;
   }
@@ -76,16 +78,19 @@ async function onFormSubmit(event) {
   //скидаємо форму
   form.reset();
 
-  console.log(fetchNews.getData());
+  // console.log(fetchNews.getData());
 }
 
 //очищаємо картки
 function deleteCards() {
   gallery.innerHTML = '';
+  // const newsCards = fetchNews.getNodeChild();
+  // newsCards.forEach(el => el.remove());
 }
 //пушимо дані в екземпляр класу
 function pushData(data) {
   fetchNews.addData(createObj(data));
+  fetchNews.addStorageData(createObj(data));
 }
 //приводимо отримані дані до потрібного нам формату
 function saveData(data) {
@@ -114,7 +119,7 @@ function saveData(data) {
       imgDescr: article.keywords[0]?.value ? article.keywords[0].value : '', //
       id: article._id,
     };
-    console.log(obj);
+
     pushData(obj);
   });
 }
@@ -127,10 +132,10 @@ function renderCards() {
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
-    console.log(i);
+    // console.log(i);
     data.push(fetchData[i]);
   }
-  console.log(data);
+  // console.log(data);
   const markUp = data.reduce((acc, el) => {
     acc += `
 <div class="news-card" news-id="${el.id}">
@@ -153,9 +158,9 @@ function renderCards() {
       <p class="news-card__info-text">${el.description}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
-        <a class="news-card__more" href="${
-          el.url
-        }" target='_blanc'>Read more</a>
+      <a class="news-card__more" href="${el.url}" id="${
+      el.id
+    }"target="_blank" rel="noreferrer noopener">Read more</a>
       </div>
     </div>`;
     return acc;
