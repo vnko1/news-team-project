@@ -1,5 +1,4 @@
 import { fetchNews } from './FetchNews';
-console.log(fetchNews);
 const gallery = document.querySelector('.gallery-container');
 
 // повертає обʼєкт з даними
