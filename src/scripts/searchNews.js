@@ -1,5 +1,10 @@
 import { fetchNews } from './FetchNews';
-import { cutInfo, createObj, formatDate, addClassesForCoincidencesMarkupAndStorage} from './CommonFunctions';
+import {
+  cutInfo,
+  createObj,
+  formatDate,
+  addClassesForCoincidencesMarkupAndStorage,
+} from './CommonFunctions';
 import { spinner } from './Libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
@@ -83,9 +88,9 @@ async function onFormSubmit(event) {
 
 //очищаємо картки
 function deleteCards() {
-  gallery.innerHTML = '';
-  // const newsCards = fetchNews.getNodeChild();
-  // newsCards.forEach(el => el.remove());
+  // gallery.innerHTML = '';
+  const newsCards = fetchNews.getNodeChild();
+  newsCards.forEach(el => el.remove());
 }
 //пушимо дані в екземпляр класу
 function pushData(data) {
