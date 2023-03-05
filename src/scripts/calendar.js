@@ -1,4 +1,5 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const uniq = require('lodash.uniq');
 
@@ -118,7 +119,7 @@ async function onDateClick(e) {
       renderFiltredNewsCardByData(fetchNews.getFiltredStorageData());
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(false);
-       // ----------> логіка localestorage
+      // ----------> логіка localestorage
     }
     spinner.stop();
   }
