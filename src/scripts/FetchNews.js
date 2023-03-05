@@ -68,7 +68,7 @@ class FetchNews {
   }
   // записує новий масив відфільтрованих даних
   setFiltredStorageData(newfiltredStorageData) {
-    thsi.filtredStorageData = newfiltredStorageData;
+    this.filtredStorageData = newfiltredStorageData;
   }
   //повертає параметр для фільтрації по даті
   getFilterParams() {

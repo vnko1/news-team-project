@@ -12,6 +12,7 @@ function createObj({
   img,
   imgDescr = 'no data',
   id = 'no data',
+  urlCategory = '',
 }) {
   const imgUrl = img ? img : 'https://unsplash.it/395';
 
@@ -24,6 +25,7 @@ function createObj({
     imgUrl,
     imgDescr,
     id,
+    urlCategory,
   };
 }
 
@@ -112,6 +114,7 @@ function saveCategoryData(data) {
       img,
       imgDescr,
       id: el.uri,
+      urlCategory: fetchNews.getFilterParams(),
     };
     pushData(obj);
   });
@@ -137,6 +140,7 @@ function savePopularData(data) {
       img,
       imgDescr: element.nytdsection,
       id: element.id,
+      urlCategory: fetchNews.getFilterParams(),
     };
     pushData(obj);
   });

@@ -1,6 +1,7 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 import axios from 'axios';
 const uniq = require('lodash.uniq');
+
 import { spinner } from './Spinner';
 import { fetchNews } from './fetchNews';
 import {
@@ -38,12 +39,20 @@ function onWindowClick(e) {
 // ------------------!!--------------------------->
 getPop();
 async function getPop() {
+  const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
+
   const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json';
   const params = new URLSearchParams({
     'api-key': API_KEY,
   });
-  const res = await axios.get(`${url}?params`);
-  console.log(res);
+  const res = await axios.get(`${url}?${params}`);
+  const {
+    data: { results },
+  } = res;
+  fetchNews.setFilterParams('popular');
+
+  savePopularData(results);
+  renderNewsCards(fetchNews.getStorageData());
 }
 // ------------------!!--------------------------->
 
@@ -57,22 +66,21 @@ async function onDateClick(e) {
       console.log('введіть сьоднішню дату');
       return;
     }
-    deleteNewsCards();
-    fetchNews.setDate(date.split('-').join(''));
 
+    fetchNews.setDate(date.split('-').join(''));
     const normaliseDate = date.split('-').reverse().join('/');
     inputEl.value = normaliseDate;
     calendarContainer.classList.add('is-hidden');
-
+    deleteNewsCards();
     spinner.spin(document.body);
+
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
-          console.log('нічого не знайдено');
-          spinner.stop();
+          logMessage();
           return;
         }
         fetchNews.setHits(response.data.response.meta.hits);
@@ -83,7 +91,6 @@ async function onDateClick(e) {
         } = response;
 
         saveSearchData(docs);
-
         renderNewsCards();
         spinner.stop();
         fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
@@ -93,17 +100,21 @@ async function onDateClick(e) {
         spinner.stop();
       }
     } else {
-      if (!fetchNews.getStorageData().length) {
-        console.log('нічого не знайдено');
-        spinner.stop();
+      const filtredData = fetchNews.getStorageData().filter(el => {
+        return (
+          normaliseDate === el.pubDate &&
+          el.urlCategory === fetchNews.getFilterParams()
+        );
+      });
+
+      if (!filtredData.length) {
+        logMessage();
         return;
       }
-      const filtredData = fetchNews
-        .getStorageData()
-        .filter(el => el.pubDate === normaliseDate);
-      fetchNews.setfiltredStorageData(uniq(filtredData));
+      const uniqData = uniq(filtredData);
 
-      renderFilterfNewsCardByData(fetchNews.getfiltredStorageData());
+      fetchNews.setFiltredStorageData(uniqData);
+      renderFiltredNewsCardByData(fetchNews.getFiltredStorageData());
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(false);
     }
@@ -111,7 +122,12 @@ async function onDateClick(e) {
   }
 }
 
-function renderFilterfNewsCardByData(data) {
+function logMessage() {
+  console.log('нічого не знайдено');
+  spinner.stop();
+}
+
+function renderFiltredNewsCardByData(data) {
   const renderData = [];
 
   // перебираємо маси та перші 8 елементів пушимо в renderData
