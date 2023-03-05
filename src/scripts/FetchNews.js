@@ -162,18 +162,18 @@ class FetchNews {
     console.log(`${BASE_NEW}?${params}`);
     const response = await axios.get(`${BASE_NEW}?${params}`);
     // повертає дані з бекенду
-
-      begin_date: this.getDate(),
-      end_date: this.getDate(),
+  
+    begin_date: this.getDate(),
+      end_datel: this.getDate(),
       // 'api-key': API_KEY,
-    });
+    
     // зберігаємо URL
     this.setUrl(`${this.getDateUrl()}&${params}`);
     // запит на бекенд
     const response = await axios.get(`${this.getDateUrl()}&${params}`);
     // повертає дані з бекенду
     return response;
-  }
+}
 
   async fetchNewsBySearch() {
     //  обʼєкт параметрів для URL
