@@ -1,34 +1,34 @@
 import {getStorageList} from './CommonFunctions'
 
+const gallery = document.querySelector('.gallery-container');
 
-// Вставить после рендера страницы
 if (localStorage.getItem("favourites") === null) {
   addEmptyArrtoStorage("favourites");
 }
 
-if (localStorage.getItem("Read more") === null) {
-  addEmptyArrtoStorage("Read more");
+if (localStorage.getItem("read more") === null) {
+  addEmptyArrtoStorage("read more");
 }
 
-// gallery.addEventListener("click", onClick); // повесить слушателя на галерею
+gallery.addEventListener("click", onClick); // повесить слушателя на галерею
 
 function onClick(event) {
   //--------------------Favourites--------------------------------
   if (event.target.type === "checkbox") {
-// console.dir(event.target.parentNode.children[0])
+
     event.target.parentNode.children[0].classList.toggle("js-favourite-storage");
 
     const arrayChildren = event.target.parentNode.parentNode.parentNode;
-    console.dir(arrayChildren.children[0].children[1].src)
-    // console.dir(arrayChildren)
 
     const newObj = {
       id: arrayChildren.attributes[1].nodeValue,
       img: arrayChildren.children[0].children[1].src,
+      alt: arrayChildren.children[0].children[1].alt,
       title: arrayChildren.children[1].textContent,
       descr: arrayChildren.children[2].textContent,
       dateArticle: arrayChildren.children[3].children[0].textContent,
       link: arrayChildren.children[3].children[1].href,
+      category: arrayChildren.children[0].children[0].textContent,
     };
 
     const favouriteLinks = getStorageList("favourites");
@@ -38,7 +38,7 @@ function onClick(event) {
   }
 
   //--------------------Read more--------------------------------
-  
+
   if (event.target.textContent === "Read more") {
     // event.preventDefault();
     event.target.classList.add("js-read-more-storage");
@@ -49,10 +49,12 @@ function onClick(event) {
       date: getDateForCreateObjToStorage(),
       id: arrayChildren.attributes[1].nodeValue,
       img: arrayChildren.children[0].children[1].src,
+      alt: arrayChildren.children[0].children[1].alt,
       title: arrayChildren.children[1].textContent,
       descr: arrayChildren.children[2].textContent,
       dateArticle: arrayChildren.children[3].children[0].textContent,
       link: arrayChildren.children[3].children[1].href,
+      category: arrayChildren.children[0].children[0].textContent,
     };
 
     const readMoreList = getStorageList("read more");
@@ -94,12 +96,8 @@ function addEmptyArrtoStorage(valueOfKeyStorage) {
   localStorage.setItem(valueOfKeyStorage, JSON.stringify([]));
 }
 
-// function getStorageList(valueOfKeyStorage) {
-//   return JSON.parse(localStorage.getItem(valueOfKeyStorage));
-// }
-
 function getDateForCreateObjToStorage() {
-  const date = new Date()
-  // return new Date();
-  return `${String(date.getDate()).padStart(2, 0)}/${String(date.getMonth() + 1).padStart(2, 0)}/${String(date.getFullYear())}`;
+  const date = new Date();
+
+  return date.getTime();
 }
