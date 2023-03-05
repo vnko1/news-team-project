@@ -172,22 +172,6 @@ class FetchNews {
     } = await axios.get(`${SEARCH_URL}?${params}`);
     return response;
   }
-
-  async fetchNewsBySearch() {
-    //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      'api-key': API_KEY,
-      q: this.getQuerySearch(),
-    });
-    // зберігаємо URL
-    this.setUrl(`${BASE_URL}?${params}`);
-    // запит на бекенд
-    const {
-      data: { response },
-    } = await axios.get(`${BASE_URL}?${params}`);
-    console.log(response);
-    return response;
-  }
 }
 
 export const fetchNews = new FetchNews();
