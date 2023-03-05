@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-// const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const POPULAR_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 
@@ -158,7 +157,7 @@ class FetchNews {
     this.setUrl(`${POPULAR_URL}?${params}`);
     this.setDateUrl(`${POPULAR_URL}?${params}`);
 
-    const response = await axios.get(`${POPULAR_URL}?${params}`);    
+    const response = await axios.get(`${POPULAR_URL}?${params}`);
 
     // // повертає дані з бекенду
     return response;
