@@ -45,31 +45,43 @@ async function onDateClick(e) {
     inputEl.value = date.split('-').reverse().join('/');
     calendarContainer.classList.add('is-hidden');
     fetchNews.resetData();
-
+    // console.log(fetchNews.getUrl());
     spinner.spin(document.body);
     try {
       const response = await fetchNews.fetchNewsByDate();
 
-      const {
-        data: { results },
-      } = response;
-      console.log(results);
-      savePopularData(results);
-      // if (!response.docs.length) {
-      //   console.log('нічого не знайдено');
-      //   spinner.stop();
-      //   return;
-      // }
+      if (fetchNews.getUrl().includes('mostpopular')) {
+        console.log('yes');
+        if (!response.data.results.length) {
+          console.log('нічого не знайдено');
+          spinner.stop();
+          return;
+        }
+        const {
+          data: { results },
+        } = response;
+        fetchNews.setHits(response.data.num_results);
 
-      // fetchNews.setHits(response.meta.hits);
+        savePopularData(results);
+      } else if (fetchNews.getUrl().includes('articlesearch')) {
+        if (!response.data.response.docs.length) {
+          console.log('нічого не знайдено');
+          spinner.stop();
+          return;
+        }
+        fetchNews.setHits(response.data.response.meta.hits);
+        const {
+          data: {
+            response: { docs },
+          },
+        } = response;
 
-      // const { docs } = response;
-
-      // saveData(docs);
+        saveData(docs);
+      }
 
       renderNewsCards();
       spinner.stop();
-      // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     } catch (error) {
       console.log(error);
       spinner.stop();
@@ -87,8 +99,6 @@ function savePopularData(data) {
     });
 
     const pubDate = element.published_date.split('-').reverse().join('/');
-    console.log(element);
-
     //  imageDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
     const obj = {
       title: element.title,
