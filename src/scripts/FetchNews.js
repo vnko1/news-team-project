@@ -126,9 +126,7 @@ class FetchNews {
     // зберігаємо URL
     this.setUrl(`${this.getDateUrl()}&${params}`);
     // запит на бекенд
-    const {
-      data: { response },
-    } = await axios.get(`${this.getDateUrl()}&${params}`);
+    const response = await axios.get(`${this.getDateUrl()}&${params}`);
     // повертає дані з бекенду
     return response;
   }
