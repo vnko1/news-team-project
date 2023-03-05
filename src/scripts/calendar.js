@@ -2,7 +2,7 @@ import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 
 const uniq = require('lodash.uniq');
 
-import { spinner } from './Spinner';
+import { spinner } from './Libraries';
 import { fetchNews } from './fetchNews';
 import {
   renderNewsCards,
