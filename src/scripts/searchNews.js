@@ -88,9 +88,6 @@ function saveData(data) {
     // );
 
     // img = `https://www.nytimes.com/${multimedia.url}`;
-    // const img = multimedia
-    //   ? `<img  src="https://www.nytimes.com/${multimedia.url}" loading="lazy" width="100%">`
-    //   : `<img  src="https://klike.net/uploads/posts/2020-09/1599896421_21.jpg" loading="lazy" width="100%">`;
 
     // console.log(img);
 
