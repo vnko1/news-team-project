@@ -5,7 +5,7 @@ const parseBtn = document.getElementById('parseBtn');
 let articles = [];
 
 form.addEventListener('submit', onSubmit);
-window.addEventListener('click', onClick);
+// window.addEventListener('click', onClick);
 parseBtn.addEventListener('click', onParse);
 
 // ---------------создаем пустое хранилище для теста уведомления-----------------
@@ -134,7 +134,8 @@ function renderMarkup(array) {
                      <path d="M1.762 0 0 1.713 7.5 9 15 1.713 13.238 0 7.5 5.563 1.763 0Z" fill="#111321"/>
                    </svg>
             </div>
-            <div class="news-wrap">`;
+            <div class="news-item">
+                <div class="news-wrap">`;
     
     // ---------------рендер карточек новостей согласно прочитанной дате в заголовке---------
     
@@ -170,9 +171,20 @@ function renderMarkup(array) {
       </div>
     </div>`;
       });
-    cardMarkup += cardMarkupLi + cardMarkupDiv.join('') + '</div></li>';
+    cardMarkup += cardMarkupLi + cardMarkupDiv.join('') + '</div></div></li>';
   }
   cardList.innerHTML = cardMarkup;
+  
+  document.querySelectorAll('.news-item').forEach(el => el.style.maxHeight = el.scrollHeight + 'px');
+  document
+    .querySelectorAll('.cards-date')
+    .forEach(el => el.addEventListener('click', () => {
+      const newsItem = el.parentNode.nextElementSibling;
+      if (newsItem.style.maxHeight !== '0px') newsItem.style.maxHeight = '0px';
+      else newsItem.style.maxHeight = newsItem.scrollHeight + 'px';}));
+  // document
+  //   .querySelectorAll('.news-item')
+  //   .forEach(el => (el.style.maxHeight = null));
 }
 
 function onClick(e) {
@@ -185,7 +197,13 @@ function onClick(e) {
   ) {
     const svg = e.target.children;
     for (let itemsvg of svg) itemsvg.classList.toggle('visually-hidden');
-    e.target.parentNode.nextElementSibling.classList.toggle('visually-hidden');
+
+    const newsItem = e.target.parentNode.nextElementSibling;
+    if (newsItem.style.maxHeight !== '0px') newsItem.style.maxHeight = '0px'; else
+      newsItem.style.maxHeight = newsItem.scrollHeight + 'px';
+    
+    newsItem.classList.toggle('decr');
+    newsItem.firstElementChild.classList.toggle('hide');
   } else if (
     e.target.tagName === 'svg' &&
     e.target.classList.contains('js-toggle_hidden')
