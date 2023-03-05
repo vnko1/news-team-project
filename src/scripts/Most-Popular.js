@@ -1,69 +1,21 @@
 import { fetchNews } from './FetchNews';
 
-import {createObj, renderNewsCards} from './CommonFunctions'
-
-// const gallery = document.querySelector('.gallery-container');
+import { renderNewsCards, savePopularData } from './CommonFunctions';
 
 onLoad();
 
 async function onLoad() {
-  const response = await fetchNews.fetchNewsByPopular();
-  // console.log(response.data.results);
-  normalizeData(response.data.results);
+  try {
+    const response = await fetchNews.fetchNewsByPopular();
+    fetchNews.setHits(response.data.num_results);
+    fetchNews.setFilterParams('popular');
+    savePopularData(response.data.results);
 
-  renderNewsCards();
-  // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+    renderNewsCards();
+    fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+    fetchNews.setIsUrlRequest(true);
+    // логіка localstorage
+  } catch (error) {
+    console.log(error);
+  }
 }
-
-function normalizeData(data) {
-  let img = null;
-  const imageDescr = 'alt';
-  data.forEach(element => {
-    const media = element.media;
-    media.forEach(e => {
-      img = e['media-metadata'][2].url;
-    });
-
-    const pubDate = element.published_date.split('-').reverse().join('/');
-    // console.log(element);
-
-    // imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
-
-    pushData(
-      element.title,
-      element.abstract,
-      element.section,
-      pubDate,
-      element.url,
-      img,
-      imageDescr,
-      element.id
-    );
-  });
-}
-
-function pushData(
-  title,
-  description,
-  category,
-  pubDate,
-  url,
-  img,
-  imgDescr,
-  id
-) {
-  fetchNews.addData(
-    createObj({
-      title,
-      description,
-      category,
-      pubDate,
-      url,
-      img,
-      imgDescr,
-      id,
-    })
-  );
-}
-
-
