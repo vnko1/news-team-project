@@ -115,14 +115,16 @@ class FetchNews {
     });
     // зберігаємо URL
 
-    this.setUrl(`${BASE_URL}?${params}`);
+    // this.setUrl(`${BASE_URL}?${params}`);
 
     // запит на бекенд
-    const {
-      data: { response },
-    } = await axios.get(`${pop_url}?${params}`);
+    // const {
+    //   data: { response },
+    // } = await axios.get(`${pop_url}?${params}`);
     // повертає дані з бекенду
 
+    const response = await axios.get(`${pop_url}?${params}`);
+    console.log(response);
     return response;
   }
 }

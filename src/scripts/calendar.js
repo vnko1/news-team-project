@@ -60,11 +60,11 @@ async function onDateClick(e) {
 
       const { docs } = response;
 
-      saveData(docs);
+      // saveData(docs);
 
-      renderNewsCards();
+      // renderNewsCards();
       spinner.stop();
-      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+      // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     } catch (error) {
       console.log(error);
       spinner.stop();
