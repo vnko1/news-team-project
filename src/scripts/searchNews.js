@@ -1,7 +1,6 @@
 import { fetchNews } from './FetchNews';
 import { cutInfo, createObj, formatDate } from './CommonFunctions';
 
-// const submitBtn = document.getElementById('queryBtn');
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
 // const gallery = document.querySelector('.gallery-container');
@@ -11,17 +10,21 @@ const gallery = document.querySelector('.gallery >.container');
 
 form.addEventListener('submit', onFormSubmit);
 
+//сабмітимо форму
 async function onFormSubmit(event) {
+  //очищуємо масив даних
   fetchNews.resetData();
   event.preventDefault();
   try {
+    //присвоюємо запиту значення інпуту
     const query = inputField.value;
+    //якщо нічого не ввели в інпут
     if (!query) {
       alert('Please enter a search term.');
       return;
     }
     // console.log(query);
-
+    // приcвоює нове значення пошуковуму параметру
     fetchNews.setQuerySearch(query);
     //робимо запит
     const response = await fetchNews.fetchNewsBySearch();
@@ -39,8 +42,10 @@ async function onFormSubmit(event) {
     }
 
     // console.log(response.docs);
+    //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
     // console.log(fetchNews.getHits());
+
     const { docs } = response;
 
     saveData(docs);
@@ -50,11 +55,14 @@ async function onFormSubmit(event) {
     //пушимо розмітку
     renderCards();
 
+    // записує масив елементів
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   } catch (error) {
     console.log;
   }
+  //скидаємо форму
   form.reset();
+
   console.log(fetchNews.getData());
 }
 
@@ -62,7 +70,7 @@ async function onFormSubmit(event) {
 function deleteCards() {
   gallery.innerHTML = '';
 }
-
+//пушимо дані в екземпляр класу
 function pushData(data) {
   fetchNews.addData(createObj(data));
 }
