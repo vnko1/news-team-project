@@ -21,6 +21,7 @@
     "axios": "^1.3.4",
     "body-scroll-lock": "^4.0.0-beta.0",
     "calendar-dates": "^2.7.2",
+    "lodash.uniq": "^4.5.0",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6",
     "spin.js": "^4.1.1"
