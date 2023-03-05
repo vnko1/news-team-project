@@ -1,10 +1,7 @@
 import axios from 'axios';
 
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-const pop_url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
-const category_url =
-  'https://api.nytimes.com/svc/news/v3/content/inyt/world.json';
+const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 
 class FetchNews {
   constructor() {
@@ -22,6 +19,8 @@ class FetchNews {
     this.counter = 0;
     // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
     this.url = '';
+    // URL запиту на бекенд з усіма параметрами (для фільтрації зв датою)
+    this.dateUrl = '';
     // буде зберігатись колекція елементів картки новин
     this.nodeChild = null;
   }
@@ -33,7 +32,6 @@ class FetchNews {
   setNodeChild(newNode) {
     this.nodeChild = newNode;
   }
-
   // присвоює нове значення
   setData(newData) {
     this.data = newData;
@@ -66,7 +64,6 @@ class FetchNews {
   getDate() {
     return this.date;
   }
-
   resetDate() {
     this.date = '';
   }
@@ -106,28 +103,49 @@ class FetchNews {
   setUrl(newUrl) {
     this.url = newUrl;
   }
+
+  setDateUrl(newDateUrl) {
+    this.dateUrl = newDateUrl;
+  }
+  // повертає дату
+  getDateUrl() {
+    return this.dateUrl;
+  }
+
+  resetDateUrl() {
+    this.dateUrl = '';
+  }
   // метод запиту на бекенд
   async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
-      'api-key': API_KEY,
-
       begin_date: this.getDate(),
       end_date: this.getDate(),
+      // 'api-key': API_KEY,
     });
     // зберігаємо URL
-
-    this.setUrl(`${pop_url}?${params}`);
-
-    // this.setUrl(`${pop_url}?${params}`);
-
+    this.setUrl(`${this.getDateUrl()}&${params}`);
     // запит на бекенд
-    const response = await axios.get(`${pop_url}?${params}`);
+    const response = await axios.get(`${this.getDateUrl()}&${params}`);
     // повертає дані з бекенду
+    return response;
+  }
+
+  async fetchNewsBySearch() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+      q: this.getQuerySearch(),
+      'api-key': API_KEY,
+    });
+    // зберігаємо URL
+    this.setUrl(`${SEARCH_URL}?${params}`);
+    this.setDateUrl(`${SEARCH_URL}?${params}`);
+    // запит на бекенд
+    const {
+      data: { response },
+    } = await axios.get(`${SEARCH_URL}?${params}`);
     return response;
   }
 }
 
 export const fetchNews = new FetchNews();
-
-// добавлять дату как параметр запроса ко всем запросам, но с помощью чего ее обнулить? Использовать параметры предыдущего запроса для фильтрации по дате
