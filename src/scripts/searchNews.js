@@ -1,7 +1,7 @@
 import { fetchNews } from './FetchNews';
 import { cutInfo, createObj, formatDate } from './CommonFunctions';
 import { spinner } from './Libraries';
-import { Report } from 'notiflix/build/notiflix-report-aio';
+import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
