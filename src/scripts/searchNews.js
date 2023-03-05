@@ -79,7 +79,7 @@ function pushData(data) {
 function saveData(data) {
   let img = null;
   data.forEach(article => {
-    //шукаємо картинку
+    // шукаємо картинку
     article.multimedia.forEach(media => {
       if (media.subType === 'xlarge') {
         img = `https://www.nytimes.com/${media.url}`;
@@ -90,16 +90,6 @@ function saveData(data) {
     //приводимо дату до потрібного формату
     const date = formatDate(article.pub_date);
 
-    //шукаємо картинку
-    // let img = null;
-    // const multimedia = article.multimedia.find(
-    //   media => media.subtype === 'xlarge'
-    // );
-    // const img = multimedia
-    //   ? `<img  src="https://www.nytimes.com/${multimedia.url}" loading="lazy" width="100%">`
-    //   : `<img  src="https://klike.net/uploads/posts/2020-09/1599896421_21.jpg" loading="lazy" width="100%">`;
-    // img = `https://www.nytimes.com/${multimedia.url}`;
-
     // console.log(img);
 
     const obj = {
@@ -109,7 +99,7 @@ function saveData(data) {
       pubDate: date,
       url: article.web_url,
       img,
-      imgDescr: article.keywords[0]?.value ? article.keywords[0].value : '',
+      imgDescr: article.keywords[0]?.value ? article.keywords[0].value : '', //
       id: article._id,
     };
     console.log(obj);
