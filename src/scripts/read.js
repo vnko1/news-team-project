@@ -1,3 +1,6 @@
+import Report from './Libraries';
+import spinner from './Libraries'
+
 const form = document.getElementById('read-search-form');
 const search = document.getElementById('read-input');
 const cardList = document.getElementById('ul-gallery');
@@ -10,11 +13,11 @@ parseBtn.addEventListener('click', onParse);
 
 // ---------------создаем пустое хранилище для теста уведомления-----------------
 
-// try {
-//   localStorage.setItem('Read more', JSON.stringify([]));
-// } catch (err) {
-//   console.error(err);
-// }
+try {
+  localStorage.setItem('read more', JSON.stringify([]));
+} catch (err) {
+  console.error(err);
+}
 
 onParse();
 
@@ -52,7 +55,7 @@ function onSubmit(e) {
       }
 
       try {
-        localStorage.setItem('Read more', JSON.stringify(articles));
+        localStorage.setItem('read more', JSON.stringify(articles));
       } catch (err) {
         console.error(err);
       }
@@ -61,11 +64,14 @@ function onSubmit(e) {
 
 function onParse() {
   try {
-    const unparsed = localStorage.getItem('Read more');
+    const unparsed = localStorage.getItem('read more');
     const parsed = JSON.parse(unparsed);
   
     if (parsed === null) return;
-    else if(parsed.length === 0) console.log("ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ");
+    else if (parsed.length === 0) {
+      console.log("ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ");
+      Report.info('Notiflix Info', 'ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ', 'Okay');
+    } 
     else {
       renderMarkup(parsed);
     }
@@ -126,11 +132,11 @@ function renderMarkup(array) {
     // --------------рендер заголовка с датой прочтения новостей-----------------
     const cardMarkupLi = `<li>
             <div class="date-wrap">
-                <p class="cards-date js-toggle_hidden">${date}
-                   <svg class="arrow-read js-toggle_hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <p class="cards-date">${date}
+                   <svg class="arrow-read" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M1.762 9 0 7.287 7.5 0 15 7.287 13.238 9 7.5 3.437 1.763 9Z" fill="#111321"/>
                    </svg>
-                   <svg class="arrow-read visually-hidden js-toggle_hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <svg class="arrow-read visually-hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M1.762 0 0 1.713 7.5 9 15 1.713 13.238 0 7.5 5.563 1.763 0Z" fill="#111321"/>
                    </svg>
             </div>
@@ -174,17 +180,21 @@ function renderMarkup(array) {
     cardMarkup += cardMarkupLi + cardMarkupDiv.join('') + '</div></div></li>';
   }
   cardList.innerHTML = cardMarkup;
+
+  // --проставляю всем контейнерам с новостями высоту по занимаемому контенту-------------------------
   
   document.querySelectorAll('.news-item').forEach(el => el.style.maxHeight = el.scrollHeight + 'px');
+  
+  // --делаю выпадающий список с новостями по датам - accordion-------------------
   document
     .querySelectorAll('.cards-date')
     .forEach(el => el.addEventListener('click', () => {
+      const svg = el.children;
+      for (let itemsvg of svg) itemsvg.classList.toggle('visually-hidden');
+
       const newsItem = el.parentNode.nextElementSibling;
       if (newsItem.style.maxHeight !== '0px') newsItem.style.maxHeight = '0px';
       else newsItem.style.maxHeight = newsItem.scrollHeight + 'px';}));
-  // document
-  //   .querySelectorAll('.news-item')
-  //   .forEach(el => (el.style.maxHeight = null));
 }
 
 function onClick(e) {
