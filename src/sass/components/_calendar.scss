@@ -16,7 +16,7 @@
   border: none;
   background: none;
   margin-left: auto;
-
+  margin-top: 24px;
 }
 
 #calendar-container {
@@ -938,8 +938,12 @@
   letter-spacing: 0.02em;
   color: $primary-text-color;
   opacity: 0.4;
-  transition-duration: 0.5;
-  
+  &:focus {
+    background-color: #4440f6;
+    opacity: 1;
+    border: none;
+    color: white;
+  }
 }
 
 .calendar-svg {
