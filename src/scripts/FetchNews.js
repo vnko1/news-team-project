@@ -219,6 +219,23 @@ class FetchNews {
     return response;
   }
 
+  async fetchNewsByFilter() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+      'api-key': API_KEY,
+    });
+    // зберігаємо URL
+    this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
+    this.setDateUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
+
+    const response = await axios.get(
+      `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
+    );
+
+    // // повертає дані з бекенду
+    return response;
+  }
+
   async fetchPagination() {
     const params = new URLSearchParams({ page: this.getPage() });
     const response = await axios.get(`${this.getUrl()}&${params}`);
