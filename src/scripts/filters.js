@@ -7,6 +7,7 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
 
+
 const loadBtn = document.getElementById('load');
 const categoryContainer = document.querySelector('.filters .container');
 const selectedList = document.querySelector('.js-select');
@@ -22,6 +23,8 @@ async function onChooseCategoryBtn(e) {
     if(e.target.nodeName === "BUTTON") {
       const query = (e.target.innerText).toLowerCase();
       console.log(query)
+      fetchNews.setFilterQuery(query);
+  
     fetchNews.setFilterQuery(query);
     deleteNewsCards();
     const response = await fetchNews.fetchNewsByFilter();
@@ -44,9 +47,9 @@ async function onChooseCategoryBtn(e) {
 }
 
 
+
 async function fetchCategoryNames() {
   try {
-    const categoryResults = await fetchNews.getCategoryNames();
     const categoryWithShortName = categoryResults
       .filter(result => result.display_name.length <= 10)
       .sort();
@@ -74,7 +77,7 @@ async function fetchCategoryNames() {
   } catch (error) {
     console.error(error.message);
   } 
-}
+  }
 
 function createSelectedList({ section, display_name }) {
   return `<option value="${section}">${display_name}</option>`;

@@ -3,12 +3,11 @@ import axios from 'axios';
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const POPULAR_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-const CATEGORY_NAMES = 'https://api.nytimes.com/svc/news/v3/content/section-list.json';
 const FILTER_URL = 'https://api.nytimes.com/svc/news/v3/content/inyt/';
+const CATEGORY_NAMES =
+  'https://api.nytimes.com/svc/news/v3/content/section-list.json';
 
 // const SEARCH_BY_CATEGORIES = 'https://api.nytimes.com/svc/news/v3/content/nyt/arts.json?'
-
-
 
 class FetchNews {
   constructor() {
@@ -222,19 +221,16 @@ class FetchNews {
     return response;
   }
 
-
   async getCategoryNames() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
-       'api-key': API_KEY,
-    });    
+      'api-key': API_KEY,
+    });
     // запит на бекенд
     const response = await axios.get(`${CATEGORY_NAMES}?${params}`);
     // повертає назви категорій з бекенду
     return response.data.results;
   }
 }
-
-
 
 export const fetchNews = new FetchNews();
