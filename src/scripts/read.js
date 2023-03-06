@@ -113,7 +113,7 @@ function renderMarkup(array) {
   const arrayConverDates = array.reduce((acc, obj) => {
     const newObj = {};
     const dateStamp = new Date(obj.date);
-    const pubDateStamp = new Date(obj.dateArticle);
+    // const pubDateStamp = new Date(obj.dateArticle);
 
     newObj.date = `${String(dateStamp.getDate()).padStart(2, 0)}/${String(
       dateStamp.getMonth() + 1
@@ -125,12 +125,14 @@ function renderMarkup(array) {
     newObj.alt = obj.alt;
     newObj.category = obj.category;
     newObj.id = obj.id;
-    newObj.dateArticle = `${String(pubDateStamp.getDate()).padStart(
-      2,
-      0
-    )}/${String(pubDateStamp.getMonth() + 1).padStart(2, 0)}/${String(
-      pubDateStamp.getFullYear()
-    )}`;
+    newObj.dateArticle = obj.dateArticle;
+
+    // newObj.dateArticle = `${String(pubDateStamp.getDate()).padStart(
+    //   2,
+    //   0
+    // )}/${String(pubDateStamp.getMonth() + 1).padStart(2, 0)}/${String(
+    //   pubDateStamp.getFullYear()
+    // )}`;
     acc.push(newObj);
     return acc;
   }, []);
