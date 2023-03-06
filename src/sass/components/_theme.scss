@@ -8,6 +8,7 @@
 
 .label-theme {
   position: relative;
+  cursor: pointer;
   &::before {
     display: block;
     content: '';
