@@ -81,6 +81,8 @@ function deleteNewsCards() {
   // gallery.innerHTML = '';
   // видаляє тільки newsCards, погода щзалишається, але працюватиме тільки, якщо при завантаженні сторінки вже рендер карток новин
   const newsCards = fetchNews.getNodeChild();
+  console.log('💛💙💪  newsCards:', newsCards);
+
   newsCards.forEach(el => el.remove());
 }
 
