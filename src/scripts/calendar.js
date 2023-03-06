@@ -56,6 +56,7 @@ async function onDateClick(e) {
 
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
+      fetchNews.resetStorageData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 
@@ -76,7 +77,6 @@ async function onDateClick(e) {
         fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
         fetchNews.setIsUrlRequest(true);
         addClassesForCoincidencesMarkupAndStorage();
-        // ----------> логіка localestorage
       } catch (error) {
         console.log(error);
         spinner.stop();
