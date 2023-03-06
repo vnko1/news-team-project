@@ -54,6 +54,7 @@ async function callback() {
   fetchNews.setHits(response.data.num_results);
   fetchNews.setFilterParams(fetchNews.getFilterParams());
   saveCategoryData(results);
+  console.log(fetchNews.getCategoryData());
   renderNewsCards();
 
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
