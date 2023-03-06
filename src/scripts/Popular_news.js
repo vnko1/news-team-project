@@ -13,6 +13,7 @@ async function onLoad() {
 
   renderNewsCards();
   spinner.stop();
+  addClassesForCoincidencesMarkupAndStorage();
 
   // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
 }
