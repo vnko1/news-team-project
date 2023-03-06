@@ -1,9 +1,28 @@
+.filters {
+  & .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 24px;
+  }
+}
+
 .date-container {
   position: relative;
+  width: 151px;
+  height: 31px;
+  outline: none;
+  border: none;
+  background: none;
+  margin-left: auto;
+
 }
 
 #calendar-container {
   position: absolute;
+  top: 31px;
+  right: 0;
   z-index: 999;
 }
 
@@ -903,4 +922,55 @@
       }
     }
   }
+}
+
+.input-calendar {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid $primary-border-color;
+  border-radius: 20px;
+  text-align: center;
+
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  line-height: 1.75px;
+  letter-spacing: 0.02em;
+  color: $primary-text-color;
+  opacity: 0.4;
+  transition-duration: 0.5;
+  
+}
+
+.calendar-svg {
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  width: 19px;
+  height: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.calendar-svg__icon {
+  width: 100%;
+  height: 100%;
+}
+
+.calendar-arrow {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  width: 19px;
+  height: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+.calendar-arrow__icon {
+  width: 100%;
+  height: 100%;
 }
