@@ -11,12 +11,3 @@ body {
   @include desktop {
   }
 }
-
-body.dark-theme-site {
-  background-color: #686868;
-  color: #f4f4f4;
-}
-
-body {
-  transition: background-color 250ms linear;
-}
