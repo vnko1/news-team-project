@@ -23,3 +23,7 @@
         @content;
     }
 }
+
+@mixin animation($property) {
+    transition: $property $duration $cubic;
+}
