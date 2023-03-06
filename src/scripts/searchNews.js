@@ -22,6 +22,7 @@ async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
   fetchNews.resetData();
+  fetchNews.resetStor
 
   spinner.spin(document.body);
   try {
