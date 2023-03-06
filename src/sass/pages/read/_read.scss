@@ -1,0 +1,86 @@
+.cards-date {
+ 
+    @media screen and (min-width: 320px) {
+        padding-top: 40px;
+    }
+
+    @media screen and (min-width: 768px) {
+        padding-top: 48px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        padding-top: 60px;
+    }
+
+    padding-bottom: 12px;
+    
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  color: #111321;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+  }
+}
+
+.news-wrap {
+  
+    @media screen and (min-width: 320px) {
+        padding-top: 28px;
+    }
+
+    @media screen and (min-width: 768px) {
+        padding-top: 30px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        padding-top: 40px;
+    }
+  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  width: 100%;
+}
+
+.date-wrap {
+  position: relative;
+  border-bottom: 1px solid #929292;
+}
+
+.clicker {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.arrow-read {
+   margin-left: 18px;
+}
+
+.news-item {
+  transition: max-height 300ms ease-in-out;
+  overflow: hidden;
+}
+
+.spinner-container {
+  width: 100%;
+  @media screen and (min-width: 320px) {
+        height: 140px;
+    }
+
+    @media screen and (min-width: 768px) {
+        height: 180px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        height: 210px;
+    }
+}
