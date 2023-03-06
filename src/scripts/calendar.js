@@ -36,6 +36,31 @@ function onWindowClick(e) {
   }
 }
 
+const btn = document.querySelector('.btn');
+btn.addEventListener('click', callback);
+
+callback();
+//  це функція яка викликатиметься при натисканні на фільтр,
+async function callback() {
+  fetchNews.resetData();
+  fetchNews.setFilterQuery('arts');
+  deleteNewsCards();
+  const response = await fetchNews.fetchNewsByFilter();
+  console.log(response);
+  const {
+    data: { results },
+  } = response;
+
+  fetchNews.setHits(response.data.num_results);
+  fetchNews.setFilterParams(fetchNews.getFilterParams());
+  saveCategoryData(results);
+  renderNewsCards();
+
+  fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+  fetchNews.setIsUrlRequest(true);
+  addClassesForCoincidencesMarkupAndStorage();
+}
+
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
