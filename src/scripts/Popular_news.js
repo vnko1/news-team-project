@@ -3,7 +3,7 @@ import { spinner } from './Libraries';
 import { createObj, renderNewsCards } from './CommonFunctions';
 
 // const gallery = document.querySelector('.gallery-container');
-
+spinner.spin(document.body);
 onLoad();
 
 async function onLoad() {
@@ -12,7 +12,8 @@ async function onLoad() {
   normalizeData(response.data.results);
 
   renderNewsCards();
-  spinner.spin(document.body);
+  spinner.stop();
+
   // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
 }
 
