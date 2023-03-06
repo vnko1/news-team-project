@@ -86,10 +86,6 @@ class FetchNews {
   setDate(newDate) {
     this.date = newDate;
   }
-  // приcвоює нове значення пошуковуму параметру
-  setQuerySearch(newQuerySearch) {
-    this.querySearch = newQuerySearch;
-  }
   // повертає значення пошукового параметру
   getQuerySearch() {
     return this.querySearch;
