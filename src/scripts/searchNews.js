@@ -18,6 +18,7 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
+
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
