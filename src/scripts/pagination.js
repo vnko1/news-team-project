@@ -28,8 +28,6 @@ async function onHandlePaginationClick() {
       } = response;
 
       saveSearchData(docs);
-      console.log(fetchNews.getData());
-      console.log(fetchNews.getStorageData());
       renderNewsCards();
 
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
