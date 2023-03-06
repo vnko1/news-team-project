@@ -157,3 +157,5 @@ function renderFiltredNewsCardByData(data) {
   // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
+
+
