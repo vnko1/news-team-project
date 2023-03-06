@@ -18,4 +18,20 @@
 
         }
     }
+    .container.gallery-container {
+        @include tablet {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding-top: 48px;
+        }
+
+        @include desktop {
+            gap: 32px;
+            padding-top: 60px;
+
+        }
+
+    }
+
 }
