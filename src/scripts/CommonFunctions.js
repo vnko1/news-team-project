@@ -75,7 +75,6 @@ function renderNewsCards() {
   // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
-
 function deleteNewsCards() {
   // видаляє повністю розмітку і  календар також (тимчасовий код)
   // gallery.innerHTML = '';
