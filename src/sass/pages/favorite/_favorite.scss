@@ -1,5 +1,5 @@
-.favorite-gallery {
-    .favorite-container {
+.gallery {
+    & .container.gallery-container.fav {
         display: flex;
         flex-direction: column;
         gap: 28px;
@@ -15,7 +15,6 @@
         @include desktop {
             gap: 32px;
             padding-top: 60px;
-
         }
     }
 }
