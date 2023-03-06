@@ -182,6 +182,7 @@ class FetchNews {
     const {
       data: { response },
     } = await axios.get(`${SEARCH_URL}?${params}`);
+    console.log(fetchNews.getUrl());
     return response;
   }
 
