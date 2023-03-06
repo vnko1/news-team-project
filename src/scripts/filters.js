@@ -20,22 +20,26 @@ fetchCategoryNames();
 async function onChooseCategoryBtn(e) {
   try {
     if (e.target.nodeName === 'BUTTON') {
+      fetchNews.resetData();
+      fetchNews.resetStorageData();
       const query = e.target.innerText.toLowerCase();
-      console.log('💛💙💪  query:', query);
+      // console.log('💛💙💪  query:', query);
 
-      
-       fetchNews.setFilterQuery(query);
+      fetchNews.setFilterQuery(query);
 
       deleteNewsCards();
-      const response = await fetchNews.fetchNewsByFilter();    
+      const response = await fetchNews.fetchNewsByFilter();
 
       const {
         data: { results },
       } = response;
+      console.log(response);
+      fetchNews.setHits(20);
 
-      fetchNews.setHits(response.data.num_results);
       fetchNews.setFilterParams(fetchNews.getFilterParams());
       saveCategoryData(results);
+      console.log(fetchNews.getData());
+      console.log(fetchNews.getStorageData());
       renderNewsCards();
 
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
