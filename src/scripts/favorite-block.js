@@ -1,12 +1,12 @@
-import {getStorageList} from './CommonFunctions' // імпорт моєї функції для взяття ваших данних з сториджу
-​
+import {getStorageList, addClassesForCoincidencesMarkupAndStorage} from './CommonFunctions' // імпорт моєї функції для взяття ваших данних з сториджу
+
 // gallery-container - додатковий класс на контейнер в якому малюється розмітка
 const gallery = document.querySelector('.gallery-container');
-​
+
 function renderFavouriteCardFromStorage() {
   // моя функція для отримання масиву з сториджа
   const arrFavourites = getStorageList("favourites")
-​
+  console.log(arrFavourites)
   // створюємо строку розмітки
   const markUp = arrFavourites.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
@@ -14,8 +14,8 @@ function renderFavouriteCardFromStorage() {
         <p class="news-card__theme">${el.category}</p>
         <img
           class="news-card__item"
-          src="${el.imgUrl}"
-          alt="${el.imgDescr ? el.imgDescr : 'photo'}"
+          src="${el.img}"
+          alt="${el.alt ? el.alt : 'photo'}"
           loading="lazy"
           width="395"
         />
@@ -28,17 +28,18 @@ function renderFavouriteCardFromStorage() {
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
       <p class="news-card__info-text">${
-        el.description.length > 180
-          ? el.description.slice(0, 180) + '...'
-          : el.description
+        el.descr.length > 180
+          ? el.descr.slice(0, 180) + '...'
+          : el.descr
       }</p>
       <div class="news-card__additional">
-        <p class="news-card__date">${el.pubDate}</p>
-        <a class="news-card__more" href="${el.url}" id="${el.id}"}>Read more</a>
+        <p class="news-card__date">${el.dateArticle}</p>
+        <a class="news-card__more" href="${el.link}" id="${el.id}"}>Read more</a>
       </div>
     </div>`;
     return acc;
   }, ``);
+
   // додоємо створену розмітку в DOM є 2 варіанти
   // 1
   gallery.insertAdjacentHTML('beforeend', markUp);
@@ -46,7 +47,9 @@ function renderFavouriteCardFromStorage() {
   // gallery.innerHTML = markUp;
 }
 
-addClassesForCoincidencesMarkupAndStorage()
+renderFavouriteCardFromStorage();
+
+addClassesForCoincidencesMarkupAndStorage();
 
 
 
