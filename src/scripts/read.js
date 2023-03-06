@@ -1,6 +1,6 @@
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { spinner } from './Libraries';
-import { AddClassesForCoincidencesMarkupAndStorage } from './CommonFunctions';
+import { addClassesForCoincidencesMarkupAndStorage } from './CommonFunctions';
 
 // const form = document.getElementById('read-search-form');
 // const search = document.getElementById('read-input');
@@ -76,8 +76,8 @@ function onParse() {
 
     if (parsed === null) {
       spinner.stop();
-      return; } 
-    else if (parsed.length === 0) {
+      return;
+    } else if (parsed.length === 0) {
       spinner.stop();
       Report.info('There are no news You have read');
     } else {
@@ -215,7 +215,6 @@ function renderMarkup(array) {
   );
 }
 
-
 // document.addEventListener('keydown', event => {
 //   event.preventDefault();
 
@@ -277,4 +276,4 @@ function renderMarkup(array) {
 //   }
 // }
 
-AddClassesForCoincidencesMarkupAndStorage();
+addClassesForCoincidencesMarkupAndStorage();
