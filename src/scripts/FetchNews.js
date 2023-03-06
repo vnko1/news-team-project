@@ -234,8 +234,7 @@ class FetchNews {
     const response = await axios.get(
       `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
     );
-    console.log(this.getUrl());
-    // // повертає дані з бекенду
+       // // повертає дані з бекенду
     return response;
   }
 

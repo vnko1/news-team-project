@@ -1,37 +1,25 @@
 <section class="filters">
-    <div class="container">
-        <ul class="filters__list">
-          <li class="filters__item">
-            <button type="button" class="filters__button"></button>
-          </li>
-          <li class="filters__item">
-            <button type="button" class="filters__button"></button>
-          </li>
-          <li class="filters__item">
-            <button type="button" class="filters__button"></button>
-          </li>
-          <li class="filters__item">
-            <button type="button" class="filters__button"></button>
-          </li>
-          <li class="filters__item">
-            <button type="button" class="filters__button"></button>
-          </li>
-          <li class="filters__item">
-            <button type="button" class="filters__button"></button>
-          </li>
-         <li class="filters__item">
-          <form action="">
-           <select name="other_filter" id="other_filter" class="filters__button js-select">
-            <option value="Others">Others...</option>  
-            </select>
-            </form>
-         </li>
-        </ul>
+  <div class="container filters_wrap">
+    <div class="filters__button-wrap">
+      <button type="button" class="filters__button">No data</button>
+      <button type="button" class="filters__button">No data</button>
+      <button type="button" class="filters__button">No data</button>
+      <button type="button" class="filters__button">No data</button>
+      <button type="button" class="filters__button">No data</button>
+      <button type="button" class="filters__button">No data</button>
+    </div>
 
-        
-    </div>  
+    <div class="selected_container">
+      <button type="button" class="filters__button filters__button-active">
+        Others...
+      </button>
+
+      <div class="selected_list">
+        <!-- рендер нових категорій -->
+      </div>
+    </div>
+  </div>
 </section>
-
 
 <!-- "Зверстати блок зі списком категорій для пошуку тематичних новин по відповідній категорії  (мобільна, планшет та десктопна версії)
 Блок в себе включає список з категоріями новин

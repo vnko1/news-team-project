@@ -6,24 +6,44 @@ import {
   deleteNewsCards,
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
+import Notiflix, { Notify } from 'notiflix';
+import { spinner } from './Libraries';
 
-const loadBtn = document.getElementById('load');
+Notify.init({
+  width: '400px',
+  cssAnimation: true,
+  cssAnimationDuration: 400,
+  cssAnimationStyle: 'fade',
+  borderRadius: '10px',
+  position: 'center-top',
+  closeButton: false,
+  timeout: 1500,
+});
+
+const galleryContainer = document.querySelector('.gallery-container');
 const categoryContainer = document.querySelector('.filters .container');
-const selectedList = document.querySelector('.js-select');
+const filterBtnsWrap = document.querySelector('.filters__button-wrap');
+const selectedList = document.querySelector('.selected_list');
 const filterCategory = document.querySelectorAll('.filters__button');
-categoryContainer.addEventListener('click', onChooseCategoryBtn);
-selectedList.addEventListener('click', onChooseCategoryFromSelect);
+const otherCategoriesBtn = document.querySelector(
+  '.selected_container .filters__button'
+);
+
+// categoryContainer.addEventListener('click', onClickCategoryBtn);
+filterBtnsWrap.addEventListener('click', onClickCategoryBtn);
+otherCategoriesBtn.addEventListener('click', onClickOthersBtn);
+selectedList.addEventListener('click', onClickOtherCategory);
 
 fetchCategoryNames();
 
-//  це функція яка викликатиметься при натисканні на фільтр,
-async function onChooseCategoryBtn(e) {
+//  це функція яка викликатиметься при натисканні на кнопку - фільтр,
+async function onClickCategoryBtn(e) {
   try {
     if (e.target.nodeName === 'BUTTON') {
+      spinner.spin(document.body);
+      const query = e.target.innerText.toLowerCase();
       fetchNews.resetData();
       fetchNews.resetStorageData();
-      const query = e.target.innerText.toLowerCase();
-      // console.log('💛💙💪  query:', query);
 
       fetchNews.setFilterQuery(query);
 
@@ -33,19 +53,72 @@ async function onChooseCategoryBtn(e) {
       const {
         data: { results },
       } = response;
-      console.log(response);
+      spinner.stop();
+      if (results === null) {
+        fetchNews.resetData();
+        fetchNews.resetStorageData();
+        deleteNewsCards();
+        Notify.failure('We haven’t found news from this category');
+        // appendNotFoundImage();
+        return;
+      }
+      deleteNewsCards();
       fetchNews.setHits(20);
 
       fetchNews.setFilterParams(fetchNews.getFilterParams());
       saveCategoryData(results);
-      console.log(fetchNews.getData());
-      console.log(fetchNews.getStorageData());
+      // console.log(fetchNews.getData());
+      // console.log(fetchNews.getStorageData());
       renderNewsCards();
 
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(true);
       addClassesForCoincidencesMarkupAndStorage();
     }
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+async function onClickOtherCategory(e) {
+  spinner.spin(document.body);
+  e.preventDefault();
+  selectedList.classList.remove('shown');
+  const query = e.target.textContent;
+  otherCategoriesBtn.innerText = query;
+  try {
+    fetchNews.resetData();
+    fetchNews.resetStorageData();
+
+    fetchNews.setFilterQuery(query.toLowerCase());
+
+    deleteNewsCards();
+    const response = await fetchNews.fetchNewsByFilter();
+
+    const {
+      data: { results },
+    } = response;
+    spinner.stop();
+    if (results === null) {
+      fetchNews.resetData();
+      fetchNews.resetStorageData();
+      deleteNewsCards();
+      Notify.failure('We haven’t found news from this category');
+      // appendNotFoundImage();
+      return;
+    }
+    deleteNewsCards();
+    fetchNews.setHits(20);
+
+    fetchNews.setFilterParams(fetchNews.getFilterParams());
+    saveCategoryData(results);
+    // console.log(fetchNews.getData());
+    // console.log(fetchNews.getStorageData());
+    renderNewsCards();
+
+    fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+    fetchNews.setIsUrlRequest(true);
+    addClassesForCoincidencesMarkupAndStorage();
   } catch (error) {
     console.error(error.message);
   }
@@ -83,23 +156,21 @@ async function fetchCategoryNames() {
   }
 }
 
-function createSelectedList({ section, display_name }) {
-  return `<option value="${section}">${display_name}</option>`;
+function createSelectedList({ display_name }) {
+  return `<a class="selected__item" href="">${display_name}</a>`;
 }
 
 function appendSelectedList(murkupForSelectedList) {
   selectedList.insertAdjacentHTML('afterbegin', murkupForSelectedList);
 }
 
-async function onChooseCategoryFromSelect(e) {
-  try {
-    if (e.target.nodeName === 'SELECT') {
-      console.log('search: ', e.target.value);
-      const q = e.target.value;
-      fetchNews.querySearch = q;
-      const secondResponse = await fetchNews.fetchNewsByCategory();
-    }
-  } catch (error) {
-    console.error(error.message);
-  }
+function appendNotFoundImage() {
+  const image = document.createElement('img');
+  image.src = '';
+  image.alt = 'We haven’t found news from this category';
+  galleryContainer.append(image);
+}
+
+function onClickOthersBtn() {
+  selectedList.classList.add('shown');
 }
