@@ -1,4 +1,7 @@
-import {getStorageList, addClassesForCoincidencesMarkupAndStorage} from './CommonFunctions' // імпорт  функції для взяття  данних з сториджу
+import {
+  getStorageList,
+  addClassesForCoincidencesMarkupAndStorage,
+} from './CommonFunctions'; // імпорт  функції для взяття  данних з сториджу
 
 // gallery-container - додатковий класс на контейнер в якому малюється розмітка
 const gallery = document.querySelector('.gallery-container');
@@ -7,11 +10,10 @@ renderFavouriteCardFromStorage();
 
 addClassesForCoincidencesMarkupAndStorage();
 
-
 function renderFavouriteCardFromStorage() {
   //  функція для отримання масиву з сториджа
-  const arrFavourites = getStorageList("favourites")
-  console.log(arrFavourites)
+  const arrFavourites = getStorageList('favourites');
+
   // створюємо строку розмітки
   const markUp = arrFavourites.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
@@ -33,19 +35,17 @@ function renderFavouriteCardFromStorage() {
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
       <p class="news-card__info-text">${
-        el.descr.length > 180
-          ? el.descr.slice(0, 180) + '...'
-          : el.descr
+        el.descr.length > 180 ? el.descr.slice(0, 180) + '...' : el.descr
       }</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.dateArticle}</p>
-        <a class="news-card__more" href="${el.link}" id="${el.id}"}>Read more</a>
+        <a class="news-card__more" href="${el.link}" id="${
+      el.id
+    }" target="_blank" rel="noreferrer noopener"}>Read more</a>
       </div>
     </div>`;
     return acc;
   }, ``);
 
-gallery.insertAdjacentHTML('beforeend', markUp);
-
+  gallery.insertAdjacentHTML('beforeend', markUp);
 }
-
