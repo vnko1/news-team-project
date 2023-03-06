@@ -12,17 +12,20 @@ btn.addEventListener('click', onHandlePaginationClick);
 
 async function onHandlePaginationClick() {
   fetchNews.incrementPage();
-
   deleteNewsCards();
+
   if (fetchNews.getUrl().includes('articlesearch')) {
     fetchNews.resetData();
     fetchNews.resetStorageData();
+
     try {
       const response = await fetchNews.fetchPagination();
+
       if (!response.data.response.docs.length) {
         console.log('закінчились новини');
         return;
       }
+
       const {
         data: {
           response: { docs },
@@ -31,7 +34,6 @@ async function onHandlePaginationClick() {
 
       saveSearchData(docs);
       renderNewsCards();
-
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(true);
       addClassesForCoincidencesMarkupAndStorage();
@@ -40,17 +42,18 @@ async function onHandlePaginationClick() {
     }
   } else {
     if (!fetchNews.isUrlRequest) {
+      const data = fetchNews.getFiltredStorageData();
+      renderPerPageNewsCardByData(data);
+      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+      fetchNews.setIsUrlRequest(false);
+      addClassesForCoincidencesMarkupAndStorage();
     } else {
       const data = fetchNews.getStorageData();
-
       renderPerPageNewsCardByData(data);
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(true);
-
       addClassesForCoincidencesMarkupAndStorage();
     }
-    // console.log(fetchNews.getData());
-    // console.log(fetchNews.getStorageData());
   }
 }
 
@@ -58,7 +61,6 @@ function renderPerPageNewsCardByData(data) {
   const array = [...data];
   const subArray = breakUp(array);
   const renderData = [];
-  console.log(fetchNews.getPage());
   // перебираємо маси та перші 8 елементів пушимо в renderData
   for (let i = 0; i < array.length; i++) {
     if (!subArray[fetchNews.getPage()][i]) {
