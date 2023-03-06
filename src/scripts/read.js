@@ -1,5 +1,6 @@
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { spinner } from './Libraries';
+import { AddClassesForCoincidencesMarkupAndStorage } from './CommonFunctions';
 
 // const form = document.getElementById('read-search-form');
 // const search = document.getElementById('read-input');
@@ -275,3 +276,5 @@ function renderMarkup(array) {
 //     console.error(err);
 //   }
 // }
+
+AddClassesForCoincidencesMarkupAndStorage();
