@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+const CATEGORY_NAMES = 'https://api.nytimes.com/svc/news/v3/content/section-list.json';
+const SEARCH_BY_CATEGORIES = 'https://api.nytimes.com/svc/news/v3/content/nyt/arts.json?'
 
 class FetchNews {
   constructor() {
@@ -176,6 +178,38 @@ class FetchNews {
     } = await axios.get(`${SEARCH_URL}?${params}`);
     return response;
   }
+
+
+  async getCategoryNames() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+       'api-key': API_KEY,
+    });    
+    // запит на бекенд
+    const response = await axios.get(`${CATEGORY_NAMES}?${params}`);
+    // повертає назви категорій з бекенду
+    return response.data.results;
+  }
+
+
+async fetchNewsByCategory() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+      // q: this.getQuerySearch(),
+      'api-key': API_KEY,
+    });
+    this.setQuerySearch('arts');
+    // зберігаємо URL
+    this.setUrl(`'https://api.nytimes.com/svc/news/v3/content/nyt/${this.querySearch}.json?${params}'`);
+    this.setDateUrl(`'https://api.nytimes.com/svc/news/v3/content/nyt/${this.querySearch}.json?${params}'`);
+    // // запит на бекенд
+      const {
+      data: { response },
+    } = await axios.get(`'https://api.nytimes.com/svc/news/v3/content/nyt/${this.querySearch}.json?${params}'`);
+    return response;
+  }
 }
+
+
 
 export const fetchNews = new FetchNews();

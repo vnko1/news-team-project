@@ -1,29 +1,34 @@
 <section class="filters">
     <div class="container">
-        <form action="">
-            <input type="radio" id="filter_1" name="news_category" value="1">
-        <label for="javascript">1</label>
-        <input type="radio" id="filter_1" name="news_category" value="2">
-        <label for="javascript">2</label>
-        <input type="radio" id="filter_1" name="news_category" value="3">
-        <label for="javascript">3</label>
-        <input type="radio" id="filter_1" name="news_category" value="4">
-        <label for="javascript">4</label>
-        <input type="radio" id="filter_1" name="news_category" value="5">
-        <label for="javascript">5</label>
-        <input type="radio" id="filter_1" name="news_category" value="6">
-        <label for="javascript">6</label>
-        </form>
-
-        <form action="">
-            <label for="other_filter">Others...</label>
-            <select name="other_filter" id="other_filter">
-              <option value="">7</option>
-              <option value="">8</option>
-              <option value="">9</option>
-              <option value="">10</option>
+        <ul class="filters__list">
+          <li class="filters__item">
+            <button type="button" class="filters__button"></button>
+          </li>
+          <li class="filters__item">
+            <button type="button" class="filters__button"></button>
+          </li>
+          <li class="filters__item">
+            <button type="button" class="filters__button"></button>
+          </li>
+          <li class="filters__item">
+            <button type="button" class="filters__button"></button>
+          </li>
+          <li class="filters__item">
+            <button type="button" class="filters__button"></button>
+          </li>
+          <li class="filters__item">
+            <button type="button" class="filters__button"></button>
+          </li>
+         <li class="filters__item">
+          <form action="">
+           <select name="other_filter" id="other_filter" class="filters__button js-select">
+            <option value="Others">Others...</option>  
             </select>
-          </form>
+            </form>
+         </li>
+        </ul>
+
+        
     </div>  
 </section>
 

@@ -1,47 +1,77 @@
 import axios from 'axios';
+import { fetchNews } from './FetchNews';
 
 const loadBtn = document.getElementById('load');
 const categoryContainer = document.querySelector('.filters .container');
-console.log(categoryContainer);
+const selectedList = document.querySelector('.js-select');
+const filterCategory = document.querySelectorAll('.filters__button');
+categoryContainer.addEventListener('click', onChooseCategoryBtn);
+selectedList.addEventListener('click', onChooseCategoryFromSelect )
 
-loadBtn.addEventListener('click', onLoadClick);
+fetchCategoryNames();
 
-function onLoadClick(e) {
-  fetchCategories().finally(() => console.log('finally'));
-}
-
-async function getCategories() {
-  const URL =
-    'https://api.nytimes.com/svc/news/v3/content/section-list.json?api-key=6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-
-  const response = await axios.get(URL);
-  return response.data.results;
-}
-
-async function fetchCategories() {
+async function fetchCategoryNames() {
   try {
-    const categoryResults = await getCategories();
-    const categoryWithShortName = categoryResults.filter(
-      result => result.display_name.length <= 10
-    );
-    
-    
-    const murkup = categoryWithShortName.reduce(
-      (murkup, result) => createElementForOneCategory(result) + murkup,
+    const categoryResults = await fetchNews.getCategoryNames();
+    const categoryWithShortName = categoryResults
+      .filter(result => result.display_name.length <= 10)
+      .sort();
+
+    const firstSixCategory = [];
+    const otherCategoryNames = [];
+
+    for (let i = 0; i <= 5; i += 1) {
+      firstSixCategory.push(categoryWithShortName[i]);
+    }
+    for (let i = 6; i < categoryWithShortName.length; i += 1) {
+      otherCategoryNames.push(categoryWithShortName[i]);
+    }
+
+    for (let i = 0; i < firstSixCategory.length; i += 1) {
+      filterCategory[i].innerText = firstSixCategory[i].display_name;
+    }
+
+    const murkupForSelectedList = otherCategoryNames.reduce(
+      (murkup, result) => murkup + createSelectedList(result),
       ''
     );
 
-
-    appendCategoryFilters(murkup);
-  } catch (error) {
-    console.error(error);
-  }
+    appendSelectedList(murkupForSelectedList);
+  } 
 }
 
-function createElementForOneCategory({ section, display_name }) {
-  return `<button type="button" class="js_filter-button" value='${section}' id="filter_">${display_name}</button>`;
+function createSelectedList({ section, display_name }) {
+  return `<option value="${section}">${display_name}</option>`;
 }
 
-function appendCategoryFilters(markup) {
-  categoryContainer.insertAdjacentHTML('beforeend', markup);
+function appendSelectedList(murkupForSelectedList) {
+  selectedList.insertAdjacentHTML('afterbegin', murkupForSelectedList);
+}
+
+
+async function onChooseCategoryBtn (e) {
+try{
+  if(e.target.nodeName === "BUTTON") {
+      const query = e.target.innerText;
+     fetchNews.querySearch = query;
+const response = await fetchNews.fetchNewsByCategory();
+console.log('💛💙💪  response:', response);
+
+}} catch (error) {
+  console.error(error.message);
+} 
+}
+
+
+
+async function onChooseCategoryFromSelect (e) {
+try{
+  if (e.target.nodeName === "SELECT") {
+    console.log("search: ", e.target.value)
+    const q = e.target.value;
+     fetchNews.querySearch = q;
+const secondResponse = await fetchNews.fetchNewsByCategory();
+}} catch (error) {
+  console.error(error.message);
+} 
 }
