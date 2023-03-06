@@ -1,5 +1,6 @@
 const refs = {
   checkbox: document.getElementById('theme'),
+  mobileMenu: document.querySelector('.menu-container'),
   lightLabel: document.querySelector('.light-label'),
   darkLabel: document.querySelector('.dark-label'),
   searchInput: document.querySelector('.search-input'),
@@ -21,6 +22,7 @@ if (savedCheckboxState === 'true') {
   refs.darkLabel.classList.add('dark-theme-site');
   refs.searchInput.classList.add('dark-theme-site');
   refs.queryBtn.classList.add('dark-theme-site');
+  refs.mobileMenu.classList.add('dark-theme-site');
 }
 
 refs.checkbox.addEventListener('change', function () {
@@ -29,6 +31,7 @@ refs.checkbox.addEventListener('change', function () {
   refs.darkLabel.classList.toggle('dark-theme-site');
   refs.searchInput.classList.toggle('dark-theme-site');
   refs.queryBtn.classList.toggle('dark-theme-site');
+  refs.mobileMenu.classList.toggle('dark-theme-site');
   changeTheme();
 });
 
