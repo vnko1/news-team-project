@@ -34,9 +34,7 @@ function renderFavouriteCardFromStorage() {
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${
-        el.descr.length > 180 ? el.descr.slice(0, 180) + '...' : el.descr
-      }</p>
+      <p class="news-card__info-text">${el.descr.limit(180)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.dateArticle}</p>
         <a class="news-card__more" href="${el.link}" id="${

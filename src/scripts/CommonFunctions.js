@@ -1,6 +1,38 @@
 import { fetchNews } from './FetchNews';
 const gallery = document.querySelector('.gallery-container');
 
+String.prototype.limit = function (limit, userParams) {
+  let text = this,
+    options = {
+      ending: '...',
+      trim: true,
+      words: true,
+    },
+    prop,
+    lastSpace,
+    processed = false;
+
+  if (limit !== parseInt(limit) || limit <= 0) return this;
+
+  // применить userParams
+  if (typeof userParams == 'object') {
+    for (prop in userParams) {
+      if (userParams.hasOwnProperty.call(userParams, prop)) {
+        options[prop] = userParams[prop];
+      }
+    }
+  }
+  if (options.trim) text = text.trim();
+
+  if (text.length <= limit) return text; // по длине вписываемся и так
+  text = text.slice(0, limit); // тупо отрезать по лимиту
+  lastSpace = text.lastIndexOf(' ');
+  if (options.words && lastSpace > 0) {
+    text = text.substr(0, lastSpace);
+  }
+  return text + options.ending;
+};
+
 // повертає обʼєкт з даними
 function createObj({
   title = 'no data',
@@ -58,11 +90,7 @@ function renderNewsCards() {
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${
-        el.description.length > 180
-          ? el.description.slice(0, 180) + '...'
-          : el.description
-      }</p>
+      <p class="news-card__info-text">${el.description.limit(180)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
         <a class="news-card__more" href="${el.url}" id="${

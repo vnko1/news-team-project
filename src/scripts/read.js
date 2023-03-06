@@ -113,9 +113,7 @@ function renderMarkup(array) {
         </div>
       </div>
       <h2 class="news-card__info-title">${obj.title}</h2>
-      <p class="news-card__info-text">${
-        obj.descr.length > 180 ? obj.descr.slice(0, 180) + '...' : obj.descr
-      }</p>
+      <p class="news-card__info-text">${obj.descr.limit(180)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${obj.dateArticle}</p>
         <a class="news-card__more" href="${obj.link}" id="${

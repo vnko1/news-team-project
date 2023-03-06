@@ -143,7 +143,7 @@ function renderCards() {
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${el.description}</p>
+      <p class="news-card__info-text">${el.description.limi(180)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
       <a class="news-card__more" href="${el.url}" id="${
