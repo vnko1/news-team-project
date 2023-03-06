@@ -204,7 +204,6 @@ class FetchNews {
   async fetchPagination() {
     const params = new URLSearchParams({ page: this.getPage() });
     const response = await axios.get(`${this.getUrl()}&${params}`);
-    console.log(`${this.getUrl()}&${params}`);
     return response;
   }
 }
