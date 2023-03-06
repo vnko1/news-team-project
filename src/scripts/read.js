@@ -1,82 +1,91 @@
-import Report from './Libraries';
-import spinner from './Libraries'
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import { spinner } from './Libraries';
 
-const form = document.getElementById('read-search-form');
-const search = document.getElementById('read-input');
+// const form = document.getElementById('read-search-form');
+// const search = document.getElementById('read-input');
 const cardList = document.getElementById('ul-gallery');
-const parseBtn = document.getElementById('parseBtn');
-let articles = [];
+// const parseBtn = document.getElementById('parseBtn');
+const spinnerContainer = document.querySelector('.spinner-container');
+// let articles = [];
 
-form.addEventListener('submit', onSubmit);
-// window.addEventListener('click', onClick);
-parseBtn.addEventListener('click', onParse);
+// form.addEventListener('submit', onSubmit);
+
+// parseBtn.addEventListener('click', onParse);
 
 // ---------------создаем пустое хранилище для теста уведомления-----------------
 
-try {
-  localStorage.setItem('read more', JSON.stringify([]));
-} catch (err) {
-  console.error(err);
-}
+// try {
+//   localStorage.setItem('read more', JSON.stringify([]));
+// } catch (err) {
+//   console.error(err);
+// }
 
 onParse();
 
-function onSubmit(e) {
-  const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-  const querySearch = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${search.value}&api-key=${API_KEY}`;
+// function onSubmit(e) {
+//   const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
+//   const querySearch = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${search.value}&api-key=${API_KEY}`;
 
-  e.preventDefault();
+//   e.preventDefault();
 
-  fetch(querySearch)
-    .then(response => response.json())
-    .then(data => {
-      let i = 1;
-      for (let a of data.response.docs) {
-        const obj = {};
+//   spinner.spin(document.body);
 
-        const dateNow = new Date();
+//   fetch(querySearch)
+//     .then(response => response.json())
+//     .then(data => {
+//       let i = 1;
+//       for (let a of data.response.docs) {
+//         const obj = {};
 
-        if (i % 2 === 0) obj.date = dateNow.getTime();
-        else if (i % 3 === 0) obj.date = dateNow.getTime() - 181000000;
-        else obj.date = dateNow.getTime() - 360000000;
+//         const dateNow = new Date();
 
-        obj.img = `https://www.nytimes.com/${a.multimedia[0].url}`;
-        obj.descr = a.abstract;
-        obj.title = a.headline.main;
-        obj.link = a.web_url;
-        obj.dateArticle = a.pub_date;
-        obj.alt = a.news_desk;
-        obj.category = a.section_name;
-        obj.id = a._id;
+//         if (i % 2 === 0) obj.date = dateNow.getTime();
+//         else if (i % 3 === 0) obj.date = dateNow.getTime() - 181000000;
+//         else obj.date = dateNow.getTime() - 360000000;
 
-        articles.push(obj);
+//         obj.img = `https://www.nytimes.com/${a.multimedia[0].url}`;
+//         obj.descr = a.abstract;
+//         obj.title = a.headline.main;
+//         obj.link = a.web_url;
+//         obj.dateArticle = a.pub_date;
+//         obj.alt = a.news_desk;
+//         obj.category = a.section_name;
+//         obj.id = a._id;
 
-        i += 1;
-      }
+//         articles.push(obj);
 
-      try {
-        localStorage.setItem('read more', JSON.stringify(articles));
-      } catch (err) {
-        console.error(err);
-      }
-    });
-}
+//         i += 1;
+//       }
+
+//       try {
+//         localStorage.setItem('read more', JSON.stringify(articles));
+//         spinner.stop();
+//       } catch (err) {
+//         console.error(err);
+//         spinner.stop();
+//       }
+//     });
+// }
 
 function onParse() {
+  spinner.spin(document.body);
   try {
     const unparsed = localStorage.getItem('read more');
     const parsed = JSON.parse(unparsed);
-  
-    if (parsed === null) return;
+
+    if (parsed === null) {
+      spinner.stop();
+      return; } 
     else if (parsed.length === 0) {
-      console.log("ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ");
-      Report.info('Notiflix Info', 'ХРАНИЛИЩЕ ПУСТОЕ, НОВОСТЕЙ НЕТ', 'Okay');
-    } 
-    else {
+      spinner.stop();
+      Report.info('There are no news You have read');
+    } else {
       renderMarkup(parsed);
+      spinner.stop();
     }
   } catch (err) {
     console.error(err);
+    spinner.stop();
   }
 }
 
@@ -127,6 +136,7 @@ function renderMarkup(array) {
   }, []);
 
   //------- рендерим разметку по отсортированным уникальным датам---------
+  spinner.spin(spinnerContainer);
 
   for (let date of uniqueDates) {
     // --------------рендер заголовка с датой прочтения новостей-----------------
@@ -142,9 +152,9 @@ function renderMarkup(array) {
             </div>
             <div class="news-item">
                 <div class="news-wrap">`;
-    
+
     // ---------------рендер карточек новостей согласно прочитанной дате в заголовке---------
-    
+
     const cardMarkupDiv = arrayConverDates
       .filter(obj => obj.date === date)
       .map(obj => {
@@ -181,50 +191,85 @@ function renderMarkup(array) {
   }
   cardList.innerHTML = cardMarkup;
 
+  spinner.stop();
+
   // --проставляю всем контейнерам с новостями высоту по занимаемому контенту-------------------------
-  
-  document.querySelectorAll('.news-item').forEach(el => el.style.maxHeight = el.scrollHeight + 'px');
-  
-  // --делаю выпадающий список с новостями по датам - accordion-------------------
+
   document
-    .querySelectorAll('.cards-date')
-    .forEach(el => el.addEventListener('click', () => {
+    .querySelectorAll('.news-item')
+    .forEach(el => (el.style.maxHeight = el.scrollHeight + 'px'));
+
+  // --делаю выпадающий список с новостями по датам - accordion-------------------
+  document.querySelectorAll('.cards-date').forEach(el =>
+    el.addEventListener('click', () => {
       const svg = el.children;
       for (let itemsvg of svg) itemsvg.classList.toggle('visually-hidden');
 
       const newsItem = el.parentNode.nextElementSibling;
       if (newsItem.style.maxHeight !== '0px') newsItem.style.maxHeight = '0px';
-      else newsItem.style.maxHeight = newsItem.scrollHeight + 'px';}));
+      else newsItem.style.maxHeight = newsItem.scrollHeight + 'px';
+    })
+  );
 }
 
-function onClick(e) {
-  // ----присваиваем visually-hidden новостям выбранного заголовка с датой----
-  // ----ловим событие click отдельно на заголовке p, на svg и на path
 
-  if (
-    e.target.tagName === 'P' &&
-    e.target.classList.contains('js-toggle_hidden')
-  ) {
-    const svg = e.target.children;
-    for (let itemsvg of svg) itemsvg.classList.toggle('visually-hidden');
+// document.addEventListener('keydown', event => {
+//   event.preventDefault();
 
-    const newsItem = e.target.parentNode.nextElementSibling;
-    if (newsItem.style.maxHeight !== '0px') newsItem.style.maxHeight = '0px'; else
-      newsItem.style.maxHeight = newsItem.scrollHeight + 'px';
-    
-    newsItem.classList.toggle('decr');
-    newsItem.firstElementChild.classList.toggle('hide');
-  } else if (
-    e.target.tagName === 'svg' &&
-    e.target.classList.contains('js-toggle_hidden')
-  ) {
-    const p = e.target.parentNode;
-    for (let itemsvg of p.children) itemsvg.classList.toggle('visually-hidden');
-    p.parentNode.nextElementSibling.classList.toggle('visually-hidden');
-  } else if (e.target.tagName === 'path') {
-    const svg = e.target.parentNode;
-    const p = svg.parentNode;
-    for (let itemsvg of p.children) itemsvg.classList.toggle('visually-hidden');
-    p.parentNode.nextElementSibling.classList.toggle('visually-hidden');
-  }
-}
+//   if ((event.ctrlKey || event.metaKey) && event.code === 'KeyM') {
+//     console.log('нажал');
+//     onClick();
+//     console.log('перезаписал массив');
+//   }
+// });
+
+// function onClick() {
+//   try {
+//     const unparsed = localStorage.getItem('read more');
+//     const parsed = JSON.parse(unparsed);
+
+//     if (parsed === null) return;
+//     else if (parsed.length === 0)
+//       Report.info('There are no news You have read');
+//     else {
+//       let i = 1;
+//       const arrayChangedDates = parsed.reduce((acc, obj) => {
+//         const newObj = {};
+
+//         let dateNow = '';
+
+//         if (i % 2 === 0) dateNow = obj.date;
+//         else if (i % 3 === 0) dateNow = obj.date - 181000000;
+//         else dateNow = obj.date - 360000000;
+//         console.log(dateNow);
+
+//         const dateStamp = new Date(dateNow);
+//         const pubDateStamp = new Date(obj.dateArticle);
+
+//         newObj.date = `${String(dateStamp.getDate()).padStart(2, 0)}/${String(
+//           dateStamp.getMonth() + 1
+//         ).padStart(2, 0)}/${String(dateStamp.getFullYear())}`;
+//         newObj.img = obj.img;
+//         newObj.descr = obj.descr;
+//         newObj.title = obj.title;
+//         newObj.link = obj.link;
+//         newObj.alt = obj.alt;
+//         newObj.category = obj.category;
+//         newObj.id = obj.id;
+//         newObj.dateArticle = `${String(pubDateStamp.getDate()).padStart(
+//           2,
+//           0
+//         )}/${String(pubDateStamp.getMonth() + 1).padStart(2, 0)}/${String(
+//           pubDateStamp.getFullYear()
+//         )}`;
+//         acc.push(newObj);
+//         i += 1;
+//         return acc;
+//       }, []);
+
+//       renderMarkup(arrayChangedDates);
+//     }
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
