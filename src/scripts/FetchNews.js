@@ -12,6 +12,8 @@ class FetchNews {
     this.data = [];
     // масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
     this.storageData = [];
+    // масив в якому зберігаються дані бекенду по категоріям
+    this.categoryData = [];
     // відфільтрований масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
     this.filtredStorageData = null;
     // параметр для фільтрації по даті
@@ -39,6 +41,10 @@ class FetchNews {
   setIsUrlRequest(newUrlRequest) {
     this.isUrlRequest = newUrlRequest;
   }
+  //повертає масив даних
+  getData() {
+    return this.data;
+  }
   // присвоює нове значення
   setData(newData) {
     this.data = newData;
@@ -47,13 +53,25 @@ class FetchNews {
   addData(data) {
     this.data.push(data);
   }
-  //повертає масив даних
-  getData() {
-    return this.data;
-  }
   // очищає масив з даними
   resetData() {
     this.data = [];
+  }
+  //повертає масив даних
+  getCategoryData() {
+    return this.categoryData;
+  }
+  // присвоює нове значення
+  setCategoryData(newCategoryData) {
+    this.categoryData = newCategoryData;
+  }
+  // додає в масив обʼєкт з даними
+  addCategoryData(data) {
+    this.categoryData.push(data);
+  }
+  // очищає масив з даними
+  resetCategoryData() {
+    this.categoryData = [];
   }
   // повертає масив всіх даних
   getStorageData() {
