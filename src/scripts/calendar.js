@@ -65,6 +65,7 @@ async function onDateClick(e) {
           return;
         }
         fetchNews.setHits(response.data.response.meta.hits);
+
         const {
           data: {
             response: { docs },
@@ -157,5 +158,3 @@ function renderFiltredNewsCardByData(data) {
   // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
-
-

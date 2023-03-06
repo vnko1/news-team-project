@@ -54,6 +54,7 @@ async function onFormSubmit(event) {
     }
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
+
     const { docs } = response;
     saveData(docs);
     //очищаємо картки
