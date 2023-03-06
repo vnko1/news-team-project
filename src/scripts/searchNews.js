@@ -115,7 +115,7 @@ function saveData(data) {
 //робимо розмітку
 function renderCards() {
   const data = [];
-  console.log(1);
+
   const fetchData = fetchNews.getData();
 
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
