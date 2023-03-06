@@ -70,6 +70,9 @@ class FetchNews {
   addStorageData(data) {
     this.storageData.push(data);
   }
+  resetStorageData() {
+    this.storageData = [];
+  }
   // повертає масив відфільтрованих даних
   getFiltredStorageData() {
     return this.filtredStorageData;
@@ -216,12 +219,12 @@ class FetchNews {
     const response = await axios.get(
       `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
     );
+    console.log(this.getUrl());
     // // повертає дані з бекенду
     return response;
   }
 
-
-// повертає назви категорій з бекенду для подальшої фільтрації
+  // повертає назви категорій з бекенду для подальшої фільтрації
   async getCategoryNames() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
