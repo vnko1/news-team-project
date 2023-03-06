@@ -1,5 +1,11 @@
 import axios from 'axios';
 import { fetchNews } from './FetchNews';
+import {
+  saveCategoryData,
+  renderNewsCards,
+  deleteNewsCards,
+  addClassesForCoincidencesMarkupAndStorage,
+} from './CommonFunctions';
 
 const loadBtn = document.getElementById('load');
 const categoryContainer = document.querySelector('.filters .container');
@@ -9,6 +15,34 @@ categoryContainer.addEventListener('click', onChooseCategoryBtn);
 selectedList.addEventListener('click', onChooseCategoryFromSelect )
 
 fetchCategoryNames();
+
+//  це функція яка викликатиметься при натисканні на фільтр,
+async function onChooseCategoryBtn(e) {
+  try{
+    if(e.target.nodeName === "BUTTON") {
+      const query = (e.target.innerText).toLowerCase();
+      console.log(query)
+    fetchNews.setFilterQuery(query);
+    deleteNewsCards();
+    const response = await fetchNews.fetchNewsByFilter();
+    const {
+      data: { results },
+    } = response;
+  
+    fetchNews.setHits(response.data.num_results);
+    fetchNews.setFilterParams(fetchNews.getFilterParams());
+    saveCategoryData(results);
+    renderNewsCards();
+  
+    fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+    fetchNews.setIsUrlRequest(true);
+    addClassesForCoincidencesMarkupAndStorage();
+  }
+  } catch (error) {
+    console.error(error.message);
+  }  
+}
+
 
 async function fetchCategoryNames() {
   try {
@@ -37,6 +71,8 @@ async function fetchCategoryNames() {
     );
 
     appendSelectedList(murkupForSelectedList);
+  } catch (error) {
+    console.error(error.message);
   } 
 }
 
@@ -47,22 +83,6 @@ function createSelectedList({ section, display_name }) {
 function appendSelectedList(murkupForSelectedList) {
   selectedList.insertAdjacentHTML('afterbegin', murkupForSelectedList);
 }
-
-
-async function onChooseCategoryBtn (e) {
-try{
-  if(e.target.nodeName === "BUTTON") {
-      const query = e.target.innerText;
-     fetchNews.querySearch = query;
-const response = await fetchNews.fetchNewsByCategory();
-console.log('💛💙💪  response:', response);
-
-}} catch (error) {
-  console.error(error.message);
-} 
-}
-
-
 
 async function onChooseCategoryFromSelect (e) {
 try{
