@@ -23,7 +23,7 @@ class FetchNews {
     // зберігається кількість знайдених новин
     this.hits = null;
     // лічильник, на всякий випадок для пагінації
-    this.counter = 0;
+    this.page = 0;
     // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
     this.url = '';
     // URL запиту на бекенд з усіма параметрами (для фільтрації зв датою)
@@ -63,6 +63,9 @@ class FetchNews {
   addStorageData(data) {
     this.storageData.push(data);
   }
+  resetStorageData() {
+    this.storageData = [];
+  }
   // повертає масив відфільтрованих даних
   getFiltredStorageData() {
     return this.filtredStorageData;
@@ -86,10 +89,6 @@ class FetchNews {
   setDate(newDate) {
     this.date = newDate;
   }
-  // приcвоює нове значення пошуковуму параметру
-  setQuerySearch(newQuerySearch) {
-    this.querySearch = newQuerySearch;
-  }
   // повертає значення пошукового параметру
   getQuerySearch() {
     return this.querySearch;
@@ -106,17 +105,26 @@ class FetchNews {
   setHits(newHits) {
     this.hits = newHits;
   }
-  // повертає лічильник
-  getCounter() {
-    return this.counter;
+  // повертає значення
+  getPage() {
+    return this.page;
   }
-  // оновлює лічильник
-  updateCounter() {
-    this.counter += 1;
+  // присвоює нове значення
+  setPage(newPage) {
+    this.page = newPage;
   }
   //обнуляє лічильник
-  resetCounter() {
-    this.counter = 0;
+  resetPage() {
+    this.page = 0;
+  }
+  // додає лічильник
+  incrementPage() {
+    this.page += 1;
+  }
+  // зменшує лічильник
+  decrementPage() {
+    this.page -= 1;
+    if (this.page < 0) this.resetPage();
   }
   // повертає URL (потрібен для пагінації)
   getUrl() {
@@ -145,7 +153,6 @@ class FetchNews {
   setNodeChild(newNode) {
     this.nodeChild = newNode;
   }
-
   // метод запиту на бекенд
   async fetchNewsByPopular() {
     //  обʼєкт параметрів для URL
@@ -175,6 +182,7 @@ class FetchNews {
     const {
       data: { response },
     } = await axios.get(`${SEARCH_URL}?${params}`);
+    console.log(fetchNews.getUrl());
     return response;
   }
 
@@ -190,6 +198,12 @@ class FetchNews {
     // запит на бекенд
     const response = await axios.get(`${this.getDateUrl()}&${params}`);
     // повертає дані з бекенду
+    return response;
+  }
+
+  async fetchPagination() {
+    const params = new URLSearchParams({ page: this.getPage() });
+    const response = await axios.get(`${this.getUrl()}&${params}`);
     return response;
   }
 }

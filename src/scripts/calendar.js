@@ -7,6 +7,7 @@ import {
   renderNewsCards,
   deleteNewsCards,
   saveSearchData,
+  addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
 
 const calendar = new VanillaCalendar('#calendar');
@@ -34,25 +35,6 @@ function onWindowClick(e) {
     document.removeEventListener('click', onWindowClick);
   }
 }
-// ------------------!!--------------------------->
-// getPop();
-// async function getPop() {
-//   const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-
-//   const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json';
-//   const params = new URLSearchParams({
-//     'api-key': API_KEY,
-//   });
-//   const res = await axios.get(`${url}?${params}`);
-//   const {
-//     data: { results },
-//   } = res;
-//   fetchNews.setFilterParams('popular');
-
-//   savePopularData(results);
-//   renderNewsCards(fetchNews.getStorageData());
-// }
-// ------------------!!--------------------------->
 
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
@@ -74,6 +56,7 @@ async function onDateClick(e) {
 
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
+      fetchNews.resetStorageData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 
@@ -93,7 +76,7 @@ async function onDateClick(e) {
         spinner.stop();
         fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
         fetchNews.setIsUrlRequest(true);
-        // ----------> логіка localestorage
+        addClassesForCoincidencesMarkupAndStorage();
       } catch (error) {
         console.log(error);
         spinner.stop();
@@ -117,6 +100,7 @@ async function onDateClick(e) {
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(false);
       // ----------> логіка localestorage
+      addClassesForCoincidencesMarkupAndStorage();
     }
     spinner.stop();
   }
