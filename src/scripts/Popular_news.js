@@ -8,7 +8,7 @@ onLoad();
 
 async function onLoad() {
   const response = await fetchNews.fetchNewsByPopular();
-  // console.log(response.data.results);
+  console.log(response.data.results);
   normalizeData(response.data.results);
 
   renderNewsCards();
