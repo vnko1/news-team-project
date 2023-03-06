@@ -1,4 +1,3 @@
-import { Report } from 'notiflix/build/notiflix-report-aio';
 import { Spinner } from 'spin.js';
 import 'spin.js/spin.css';
 
