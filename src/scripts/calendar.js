@@ -140,11 +140,7 @@ function renderFiltredNewsCardByData(data) {
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${
-        el.description.length > 180
-          ? el.description.slice(0, 180) + '...'
-          : el.description
-      }</p>
+      <p class="news-card__info-text">${el.description.limit(180)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
         <a class="news-card__more" href="${el.url}" id="${
