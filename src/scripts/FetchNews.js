@@ -224,16 +224,13 @@ class FetchNews {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
+      limit: 500,
     });
-    // зберігаємо URL
     this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
     this.setDateUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
-
     const response = await axios.get(
       `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
     );
-
-    // // повертає дані з бекенду
     return response;
   }
 

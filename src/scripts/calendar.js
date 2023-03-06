@@ -39,14 +39,14 @@ function onWindowClick(e) {
 const btn = document.querySelector('.btn');
 btn.addEventListener('click', callback);
 
-callback();
 //  це функція яка викликатиметься при натисканні на фільтр,
 async function callback() {
   fetchNews.resetData();
+  fetchNews.resetCategoryData();
   fetchNews.setFilterQuery('arts');
   deleteNewsCards();
   const response = await fetchNews.fetchNewsByFilter();
-  console.log(response);
+
   const {
     data: { results },
   } = response;

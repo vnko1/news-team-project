@@ -88,7 +88,6 @@ function saveCategoryData(data) {
   let img = null;
   let imgDescr = null;
   data.forEach(el => {
-    // console.log(el);
     el.multimedia.forEach(e => {
       if (e.format.includes('440')) {
         img = e.url;
@@ -115,6 +114,7 @@ function saveCategoryData(data) {
       urlCategory: fetchNews.getFilterParams(),
     };
     pushData(obj);
+    fetchNews.addCategoryData(obj);
   });
 }
 
