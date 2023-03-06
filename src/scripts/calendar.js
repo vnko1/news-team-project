@@ -139,8 +139,10 @@ function renderFiltredNewsCardByData(data) {
           <input type="checkbox" class="input-favorite" id="favorite"/>
         </div>
       </div>
-      <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${el.description.limit(180)}</p>
+      <h2 class="news-card__info-title">${el.title.limit(50, {
+        ending: '',
+      })}</h2>
+      <p class="news-card__info-text">${el.description.limit(120)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
         <a class="news-card__more" href="${el.url}" id="${
