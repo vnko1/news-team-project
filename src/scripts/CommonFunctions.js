@@ -78,10 +78,10 @@ function renderNewsCards() {
 
 function deleteNewsCards() {
   // видаляє повністю розмітку і  календар також (тимчасовий код)
-  gallery.innerHTML = '';
+  // gallery.innerHTML = '';
   // видаляє тільки newsCards, погода щзалишається, але працюватиме тільки, якщо при завантаженні сторінки вже рендер карток новин
-  // const newsCards = fetchNews.getNodeChild();
-  // newsCards.forEach(el => el.remove());
+  const newsCards = fetchNews.getNodeChild();
+  newsCards.forEach(el => el.remove());
 }
 
 function saveCategoryData(data) {
@@ -195,6 +195,42 @@ function formatDate(dateString) {
 function cutInfo(text) {
   return text.length <= 180 ? text : text.slice(0, 180) + '...';
 }
+
+// Вставить функцию в блок then(), после функции которая рендерит разметку!!!
+function addClassesForCoincidencesMarkupAndStorage() {
+  const favouriteList = getStorageList('favourites');
+  const labelsEl = document.querySelectorAll('.label-favorite');
+  const newArrOfBtn = [...labelsEl];
+
+  newArrOfBtn.filter(obj => {
+    for (const objOfFavourite of favouriteList) {
+      if (obj.id === objOfFavourite.id) {
+        obj.className = 'label-favorite js-favourite-storage';
+        obj.parentNode.lastElementChild.checked = true;
+      }
+    }
+  });
+  //-----------------------------------------
+  const readMoreList = getStorageList('read more');
+
+  const linkEl = document.querySelectorAll('.news-card__more');
+
+  const newArrOfLinks = [...linkEl];
+
+  newArrOfLinks.filter(obj => {
+    for (const objOfFavourite of readMoreList) {
+      if (obj.id === objOfFavourite.id) {
+        obj.className = 'news-card__more js-read-more-storage';
+      }
+    }
+  });
+}
+
+// Взять данные с ЛОКАЛСТОРИДЖ
+function getStorageList(valueOfKeyStorage) {
+  return JSON.parse(localStorage.getItem(valueOfKeyStorage));
+}
+
 export {
   cutInfo,
   formatDate,
@@ -204,4 +240,6 @@ export {
   saveCategoryData,
   savePopularData,
   saveSearchData,
+  getStorageList,
+  addClassesForCoincidencesMarkupAndStorage,
 };

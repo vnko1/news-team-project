@@ -1,14 +1,16 @@
 import { fetchNews } from './FetchNews';
-import { cutInfo, createObj, formatDate } from './CommonFunctions';
+import {
+  cutInfo,
+  createObj,
+  formatDate,
+  addClassesForCoincidencesMarkupAndStorage,
+} from './CommonFunctions';
 import { spinner } from './Libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
-// const gallery = document.querySelector('.gallery-container');
 const gallery = document.querySelector('.gallery >.container');
-
-// console.log(gallery);
 
 form.addEventListener('submit', onFormSubmit);
 
@@ -17,7 +19,7 @@ async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
   fetchNews.resetData();
-
+  fetchNews.resetStorageData();
   spinner.spin(document.body);
   try {
     //присвоюємо запиту значення інпуту
@@ -29,7 +31,7 @@ async function onFormSubmit(event) {
       spinner.stop();
       return;
     }
-    // console.log(query);
+
     // приcвоює нове значення пошуковуму параметру
     fetchNews.setQuerySearch(query);
 
@@ -45,48 +47,37 @@ async function onFormSubmit(event) {
       </div>
       `;
 
-      // console.log('нічого не знайдено');
       form.reset();
       spinner.stop();
       return;
     }
-
-    // console.log(response.docs);
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
-    // console.log(fetchNews.getHits());
-
     const { docs } = response;
-
     saveData(docs);
-
     //очищаємо картки
     deleteCards();
-
     //пушимо розмітку
     renderCards();
     spinner.stop();
-
+    addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);
-    // !!! ----------------> Сюди буде додана логіка localstorage
   } catch (error) {
     console.log;
   }
 
   //скидаємо форму
   form.reset();
-
-  // console.log(fetchNews.getData());
 }
 
 //очищаємо картки
 function deleteCards() {
-  gallery.innerHTML = '';
-  // const newsCards = fetchNews.getNodeChild();
-  // newsCards.forEach(el => el.remove());
+  const newsCards = fetchNews.getNodeChild();
+  newsCards.forEach(el => el.remove());
 }
+
 //пушимо дані в екземпляр класу
 function pushData(data) {
   fetchNews.addData(createObj(data));
@@ -107,8 +98,6 @@ function saveData(data) {
     //приводимо дату до потрібного формату
     const date = formatDate(article.pub_date);
 
-    // console.log(img);
-
     const obj = {
       title: article.headline.main,
       description: infoText,
@@ -126,16 +115,15 @@ function saveData(data) {
 //робимо розмітку
 function renderCards() {
   const data = [];
-  // console.log(data);
+
   const fetchData = fetchNews.getData();
 
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
   for (let i = 0; i < fetchData.length; i++) {
     if (i >= 8) break;
-    // console.log(i);
+
     data.push(fetchData[i]);
   }
-  // console.log(data);
   const markUp = data.reduce((acc, el) => {
     acc += `
 <div class="news-card" news-id="${el.id}">
