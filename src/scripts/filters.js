@@ -156,6 +156,31 @@ async function fetchCategoryNames() {
   }
 }
 
+// async function createFilters (){
+//   try {
+//   const mediaQueryDesktop = window.matchMedia('(min-width: 1280px)')
+//   const mediaQueryTablet = window.matchMedia('(min-width: 768px) && (max-width: 1279px)');
+//   const mediaQueryMobile = window.matchMedia('(max-width: 767px)');
+
+
+// function handleViewportChange(e) {
+//   // Check if the media query is true
+//   if (e.matches) {
+//     // Then log the following message to the console
+//     Notify.info('Media query is allright'); 
+//   }
+//   Notify.failure('Media query is false')
+// }
+// // Register event listener
+// mediaQueryDesktop.addListener(handleTabletChange)
+
+// // Initial check
+// handleViewportChange(mediaQueryDesktop);
+//   } catch (error) {
+// console.log(error)
+//   }
+// }
+
 function createSelectedList({ display_name }) {
   return `<a class="selected__item" href="">${display_name}</a>`;
 }
