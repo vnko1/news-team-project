@@ -1,17 +1,3 @@
-// лінк на гугл іконки в index.html
-// <link
-//   rel="stylesheet"
-//   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-// />
-
-// В файл mostPopular, виклик ставила на 21 рядок
-// import { paginationByPopular } from './pagination';
-// paginationByPopular();
-
-// В файл searchNews, виклик ставила на 70 рядок
-// import { paginationBySearch } from './pagination';
-// paginationBySearch
-
 // В файл filters, виклик ставила на 70 рядок
 // import { paginationByFilter } from './pagination';
 // paginationByFilter();
