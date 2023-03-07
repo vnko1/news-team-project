@@ -1,5 +1,5 @@
 const refs = {
-  checkbox: document.getElementById('theme'),
+  checkboxMobile: document.getElementById('mobile-theme'),
   mobileMenu: document.querySelector('.menu-container'),
   lightLabel: document.querySelector('.light-label'),
   darkLabel: document.querySelector('.dark-label'),
@@ -7,16 +7,18 @@ const refs = {
   queryBtn: document.querySelector('.query-btn-icon'),
 };
 
-const savedTheme = localStorage.getItem('theme');
+const savedTheme = localStorage.getItem('theme-mobile');
 
 if (savedTheme) {
   document.body.classList.add(savedTheme + '-theme-site');
 }
 
-const savedCheckboxState = localStorage.getItem('theme-checkbox-state');
+const savedCheckboxMobileState = localStorage.getItem(
+  'theme-checkbox-state-mobile'
+);
 
-if (savedCheckboxState === 'true') {
-  refs.checkbox.checked = true;
+if (savedCheckboxMobileState === 'true') {
+  refs.checkboxMobile.checked = true;
   document.body.classList.add('dark-theme-site');
   refs.lightLabel.classList.add('light-theme-site');
   refs.darkLabel.classList.add('dark-theme-site');
@@ -25,23 +27,23 @@ if (savedCheckboxState === 'true') {
   refs.mobileMenu.classList.add('dark-theme-site');
 }
 
-refs.checkbox.addEventListener('change', function () {
+refs.checkboxMobile.addEventListener('change', function () {
   document.body.classList.toggle('dark-theme-site');
   refs.lightLabel.classList.toggle('light-theme-site');
   refs.darkLabel.classList.toggle('dark-theme-site');
   refs.searchInput.classList.toggle('dark-theme-site');
   refs.queryBtn.classList.toggle('dark-theme-site');
   refs.mobileMenu.classList.toggle('dark-theme-site');
-  changeThemeMobile();
+  changeTheme();
 });
 
-function changeThemeMobile() {
+function changeTheme() {
   const theme = document.body.classList.contains('dark-theme-site')
     ? 'dark'
     : 'light';
-  localStorage.setItem('theme', theme);
+  localStorage.setItem('theme-mobile', theme);
   // localStorage.setItem('theme', theme);
 
-  const checkboxState = refs.checkbox.checked;
-  localStorage.setItem('theme-checkbox-state', checkboxState);
+  const checkboxMobileState = refs.checkboxMobile.checked;
+  localStorage.setItem('theme-checkbox-state-mobile', checkboxMobileState);
 }
