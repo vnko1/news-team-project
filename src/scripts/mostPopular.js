@@ -1,5 +1,5 @@
-import { fetchNews } from './FetchNews';
-import { spinner } from './Libraries';
+import { fetchNews } from './fetchNews';
+import { spinner } from './libraries';
 import {
   renderNewsCards,
   savePopularData,

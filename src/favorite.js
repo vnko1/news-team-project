@@ -1,3 +1,3 @@
 import './scripts/mobileMenu';
-import './scripts/newsCard';
+import './scripts/newsCardFromStorage';
 import './scripts/favoriteBlock';

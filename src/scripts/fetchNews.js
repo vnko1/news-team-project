@@ -204,13 +204,23 @@ class FetchNews {
 
   async fetchNewsBySearch() {
     //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      q: this.getQuerySearch(),
-      'api-key': API_KEY,
-    });
+    let params = null;
+    if (this.getDate()) {
+      params = new URLSearchParams({
+        q: this.getQuerySearch(),
+        'api-key': API_KEY,
+        begin_date: this.getDate(),
+        end_date: this.getDate(),
+      });
+    } else {
+      params = new URLSearchParams({
+        q: this.getQuerySearch(),
+        'api-key': API_KEY,
+      });
+    }
     // зберігаємо URL
     this.setUrl(`${SEARCH_URL}?${params}`);
-    this.setDateUrl(`${SEARCH_URL}?${params}`);
+    this.setDateUrl(`${SEARCH_URL}?q=${this.getQuerySearch()}`);
     // запит на бекенд
     const {
       data: { response },
@@ -222,6 +232,7 @@ class FetchNews {
   async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
+      'api-key': API_KEY,
       begin_date: this.getDate(),
       end_date: this.getDate(),
       // 'api-key': API_KEY,
