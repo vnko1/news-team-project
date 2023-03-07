@@ -40,11 +40,10 @@ function onWindowClick(e) {
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
-    const unixDate = new Date();
+    const currentDate = new Date();
     const selectedDate = new Date(date);
-
-    if (selectedDate.getTime() > unixDate.getTime()) {
-      console.log('введіть сьоднішню дату');
+    if (selectedDate.getTime() > currentDate.getTime()) {
+      Report.info('Choose other date!');
       return;
     }
 
@@ -73,13 +72,7 @@ async function onDateClick(e) {
           },
         } = response;
 
-        saveSearchData(docs);
-        renderNewsCards();
-        spinner.stop();
-
-        fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-        fetchNews.setIsUrlRequest(true);
-        addClassesForCoincidencesMarkupAndStorage();
+        fromBackNewsCardsCreation(docs);
       } catch (error) {
         console.log(error);
         spinner.stop();
@@ -93,12 +86,7 @@ async function onDateClick(e) {
         logMessage();
         return;
       }
-
-      renderFiltredNewsCardByData(filtredData);
-
-      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-      fetchNews.setIsUrlRequest(false);
-      addClassesForCoincidencesMarkupAndStorage();
+      fromFrontNewsCardsCreation(filtredData);
     } else {
       const filtredData = fetchNews.getStorageData().filter(el => {
         return normalisedDate === el.pubDate;
@@ -109,14 +97,25 @@ async function onDateClick(e) {
         return;
       }
 
-      renderFiltredNewsCardByData(filtredData);
-
-      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-      fetchNews.setIsUrlRequest(false);
-      addClassesForCoincidencesMarkupAndStorage();
+      fromFrontNewsCardsCreation(filtredData);
     }
-    spinner.stop();
   }
+  spinner.stop();
+}
+
+function fromBackNewsCardsCreation(data) {
+  saveSearchData(data);
+  renderNewsCards();
+  fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+  fetchNews.setIsUrlRequest(true);
+  addClassesForCoincidencesMarkupAndStorage();
+}
+
+function fromFrontNewsCardsCreation(data) {
+  renderFiltredNewsCardByData(data);
+  fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+  fetchNews.setIsUrlRequest(false);
+  addClassesForCoincidencesMarkupAndStorage();
 }
 
 function logMessage() {
