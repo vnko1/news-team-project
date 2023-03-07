@@ -9,7 +9,7 @@ import {
   saveSearchData,
   saveCategoryData,
   addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions';
+} from './commonFunctions';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
