@@ -1,5 +1,5 @@
 import { fetchNews } from './FetchNews';
-
+import { spinner } from './Libraries';
 import {
   renderNewsCards,
   savePopularData,
@@ -9,6 +9,7 @@ import {
 onLoad();
 
 async function onLoad() {
+  spinner.spin(document.body);
   try {
     const response = await fetchNews.fetchNewsByPopular();
     fetchNews.setHits(response.data.num_results);
@@ -20,5 +21,7 @@ async function onLoad() {
     addClassesForCoincidencesMarkupAndStorage();
   } catch (error) {
     console.log(error);
+    spinner.stop();
   }
+  spinner.stop();
 }
