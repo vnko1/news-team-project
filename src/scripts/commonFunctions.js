@@ -230,6 +230,7 @@ function addClassesForCoincidencesMarkupAndStorage() {
       if (obj.id === objOfFavourite.id) {
         obj.className = 'label-favorite js-favourite-storage';
         obj.parentNode.lastElementChild.checked = true;
+        console.log(obj.parentNode.firstElementChild.textContent = 'Remove from favorite')
       }
     }
   });
