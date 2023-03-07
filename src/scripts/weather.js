@@ -25,7 +25,6 @@ async function showPosition(position) {
     weatherApiService.lat = position.coords.latitude;
     weatherApiService.lon = position.coords.longitude;
     loadWeathetData();
-    console.log(12345)
   } catch {}
 }
 
@@ -34,7 +33,6 @@ async function onError() {
     weatherApiService.lat = 50.4333;
     weatherApiService.lon = 30.5167;
     loadWeathetData();
-    console.log(12345)
   } catch {}
 }
 
@@ -49,15 +47,45 @@ async function loadWeathetData() {
 }
 
 function appendWeatherToCard(data) {
-  refs.weatherLocate.textContent = data.name;
-  refs.weatherTemp.textContent = Math.round(data.main.temp);
-  refs.weatherNow.textContent = data.weather[0].main;
-  refs.weatherImg.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-  console.log(222222222222222222222222)
+  refs.weatherCard.innerHTML = `
+  <div class="weather-card__top">
+        <div class="weather-card__temp">${Math.round(data.main.temp)}</div>
+        <div class="weather-card__top-right">
+          <p class="weather-card__now">${data.weather[0].main}</p>
+          <button class="weather-card__locate">
+            ${data.name}
+          </button>
+        </div>
+      </div>
+      <picture class="weather-picture">
+        <img class="img" src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="" width="165" />
+      </picture>
+      <div class="weather-card__bottom">
+        <p class="weather-card__date">
+          ${getDateToday(data)}
+        </p>
+        <button class="weather-card__week">
+          <a class="weather-card__week-link href=">weather for week</a>
+        </button>
+      </div>
+  `
+
+  const btnBtnEl = document.querySelector('.weather-card__week');
+  btnBtnEl.addEventListener('click', onWetherWeekCards);
+  // console.log(3)
+  // refs.weatherLocate.textContent = data.name;
+  // console.log(4)
+  // refs.weatherTemp.textContent = Math.round(data.main.temp);
+  // console.log(5)
+  // refs.weatherNow.textContent = data.weather[0].main;
+  // console.log(6)
+  // const icon = data.weather[0].icon;
+  // refs.weatherImg.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 }
 
 function getDateToday(data) {
   const timestamp = data.dt;
+  console.log(7)
   const date = new Date(timestamp * 1000);
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var monthsOfYear = [
