@@ -1,6 +1,6 @@
 import { Report } from 'notiflix/build/notiflix-report-aio';
-import { spinner } from './Libraries';
-import { addClassesForCoincidencesMarkupAndStorage } from './CommonFunctions';
+import { spinner } from './libraries';
+import { addClassesForCoincidencesMarkupAndStoragePages } from './commonFunctions';
 
 const cardList = document.getElementById('ul-gallery');
 const spinnerContainer = document.querySelector('.spinner-container');
@@ -112,10 +112,10 @@ function renderMarkup(array) {
           <input type="checkbox" class="input-favorite" id="favorite"/>
         </div>
       </div>
-      <h2 class="news-card__info-title">${obj.title}</h2>
-      <p class="news-card__info-text">${
-        obj.descr.length > 180 ? obj.descr.slice(0, 180) + '...' : obj.descr
-      }</p>
+      <h2 class="news-card__info-title">${obj.title.limit(50, {
+        ending: '',
+      })}</h2>
+      <p class="news-card__info-text">${obj.descr.limit(120)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${obj.dateArticle}</p>
         <a class="news-card__more" href="${obj.link}" id="${
@@ -194,4 +194,4 @@ function renderMarkup(array) {
 //   }
 // }
 
-addClassesForCoincidencesMarkupAndStorage();
+addClassesForCoincidencesMarkupAndStoragePages();

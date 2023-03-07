@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const POPULAR_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+const FILTER_URL = 'https://api.nytimes.com/svc/news/v3/content/inyt/';
 
 class FetchNews {
   constructor() {
@@ -12,8 +13,12 @@ class FetchNews {
     this.data = [];
     // масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
     this.storageData = [];
+    // масив в якому зберігаються дані бекенду по категоріям
+    this.categoryData = [];
     // відфільтрований масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
     this.filtredStorageData = null;
+
+    this.filterQuery = '';
     // параметр для фільтрації по даті
     this.filterParams = '';
     //  обрана в календарі дата
@@ -39,6 +44,10 @@ class FetchNews {
   setIsUrlRequest(newUrlRequest) {
     this.isUrlRequest = newUrlRequest;
   }
+  //повертає масив даних
+  getData() {
+    return this.data;
+  }
   // присвоює нове значення
   setData(newData) {
     this.data = newData;
@@ -47,13 +56,25 @@ class FetchNews {
   addData(data) {
     this.data.push(data);
   }
-  //повертає масив даних
-  getData() {
-    return this.data;
-  }
   // очищає масив з даними
   resetData() {
     this.data = [];
+  }
+  //повертає масив даних
+  getCategoryData() {
+    return this.categoryData;
+  }
+  // присвоює нове значення
+  setCategoryData(newCategoryData) {
+    this.categoryData = newCategoryData;
+  }
+  // додає в масив обʼєкт з даними
+  addCategoryData(data) {
+    this.categoryData.push(data);
+  }
+  // очищає масив з даними
+  resetCategoryData() {
+    this.categoryData = [];
   }
   // повертає масив всіх даних
   getStorageData() {
@@ -73,6 +94,9 @@ class FetchNews {
   // записує новий масив відфільтрованих даних
   setFiltredStorageData(newfiltredStorageData) {
     this.filtredStorageData = newfiltredStorageData;
+  }
+  addFiltredStorageData(data) {
+    this.filtredStorageData.push(data);
   }
   //повертає параметр для фільтрації по даті
   getFilterParams() {
@@ -96,6 +120,15 @@ class FetchNews {
   // привоює нове значення пошуковуму параметру
   setQuerySearch(newQuerySearch) {
     this.querySearch = newQuerySearch;
+  }
+
+  // повертає значення пошукового параметру
+  getFilterQuery() {
+    return this.filterQuery;
+  }
+  // привоює нове значення пошуковуму параметру
+  setFilterQuery(newQuery) {
+    this.filterQuery = newQuery;
   }
   // повертає кілкьість знайдених новин
   getHits() {
@@ -171,13 +204,23 @@ class FetchNews {
 
   async fetchNewsBySearch() {
     //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      q: this.getQuerySearch(),
-      'api-key': API_KEY,
-    });
+    let params = null;
+    if (this.getDate()) {
+      params = new URLSearchParams({
+        q: this.getQuerySearch(),
+        'api-key': API_KEY,
+        begin_date: this.getDate(),
+        end_date: this.getDate(),
+      });
+    } else {
+      params = new URLSearchParams({
+        q: this.getQuerySearch(),
+        'api-key': API_KEY,
+      });
+    }
     // зберігаємо URL
     this.setUrl(`${SEARCH_URL}?${params}`);
-    this.setDateUrl(`${SEARCH_URL}?${params}`);
+    this.setDateUrl(`${SEARCH_URL}?q=${this.getQuerySearch()}`);
     // запит на бекенд
     const {
       data: { response },
@@ -189,6 +232,7 @@ class FetchNews {
   async fetchNewsByDate() {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
+      'api-key': API_KEY,
       begin_date: this.getDate(),
       end_date: this.getDate(),
       // 'api-key': API_KEY,
@@ -198,6 +242,20 @@ class FetchNews {
     // запит на бекенд
     const response = await axios.get(`${this.getDateUrl()}&${params}`);
     // повертає дані з бекенду
+    return response;
+  }
+
+  async fetchNewsByFilter() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+      'api-key': API_KEY,
+      limit: 500,
+    });
+    this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
+    this.setDateUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
+    const response = await axios.get(
+      `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
+    );
     return response;
   }
 

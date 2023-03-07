@@ -1,11 +1,11 @@
-import { fetchNews } from './FetchNews';
+import { fetchNews } from './fetchNews';
 import {
   cutInfo,
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions';
-import { spinner } from './Libraries';
+} from './commonFunctions';
+import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
 const inputField = document.querySelector('.search-input');
@@ -54,6 +54,7 @@ async function onFormSubmit(event) {
     }
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
+
     const { docs } = response;
     saveData(docs);
     //очищаємо картки
@@ -143,8 +144,10 @@ function renderCards() {
           <input type="checkbox" class="input-favorite" id="favorite" />
         </div>
       </div>
-      <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${el.description}</p>
+      <h2 class="news-card__info-title">${el.title.limit(50, {
+        ending: '',
+      })}</h2>
+      <p class="news-card__info-text">${el.description.limit(120)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
       <a class="news-card__more" href="${el.url}" id="${

@@ -1,4 +1,4 @@
-import './scripts/mobile-menu';
-import './scripts/news-card';
+import './scripts/mobileMenu';
+import './scripts/newsCardFromStorage';
 import './scripts/read';
 import './scripts/current';
