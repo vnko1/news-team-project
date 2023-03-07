@@ -1,3 +1,4 @@
+import './scripts/current';
 import './scripts/mobileMenu';
 import './scripts/mostPopular';
 import './scripts/searchNews';

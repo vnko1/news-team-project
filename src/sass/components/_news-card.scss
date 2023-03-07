@@ -1,207 +1,209 @@
 .news-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    max-width: 320px;
-    max-height: 630px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 320px;
+  max-height: 630px;
 
-    @include tablet {
-        max-width: 353px;
-        max-height: 675px;
-    
-    }
+  @include tablet {
+    max-width: 353px;
+    max-height: 675px;
+  }
 
-    @include desktop {
-        max-width: 394px;
-    }
-
+  @include desktop {
+    max-width: 394px;
+  }
 }
 .news-card__img {
-    position: relative;
+  position: relative;
 }
 
 .news-card__item {
-    height: 395px;
-    object-fit: cover;
+  height: 395px;
+  object-fit: cover;
 }
 
 .news-card__theme {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    padding: 4px 8px;
-    width: fit-content;
-    height: fit-content;
-    background: rgba(68, 64, 247, 0.7);
-    border-radius: 0px 4px 4px 0px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  padding: 4px 8px;
+  width: fit-content;
+  height: fit-content;
+  z-index: 2;
 
-    font-family: 'Manrope', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.33;
+  background: rgba(68, 64, 247, 0.7);
+  border-radius: 0px 4px 4px 0px;
 
-    color: #FFFFFF;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+
+  color: #ffffff;
 }
 .news-card__favorite {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    bottom: 12px;
-    right: 8px;
-    padding: 6px 12px;
-    background: #FFFFFF;
-    border-radius: 20px;
-    width: fit-content;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  bottom: 12px;
+  right: 8px;
+  padding: 6px 12px;
+  background: #ffffff;
+  border-radius: 20px;
+  width: fit-content;
+  z-index: 2;
 
-    font-family: 'Manrope', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.33;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
 
-    color: $primary-text-color;
+  color: $primary-text-color;
 
+  cursor: pointer;
 }
 
 .news-card__info-title {
-    display: flex;
-    align-items: center;
-    height: 132px;
+  display: flex;
+  align-items: center;
+  height: 132px;
 
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 1.38;
-    letter-spacing: -0.01em;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.38;
+  letter-spacing: -0.01em;
 
-    color: $primary-text-color;
+  color: $primary-text-color;
 }
 
 .news-card__info-text {
-    height: 66px;
+  height: 66px;
 
-    font-family: 'Manrope';
-    font-size: 16px;
-    line-height: 1.38;
+  font-family: 'Manrope';
+  font-size: 16px;
+  line-height: 1.38;
 
-    color: $primary-text-color;
+  color: $primary-text-color;
 }
 
 .news-card__additional {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .news-card__date {
-    font-family: 'Manrope', sans-serif;
-    font-size: 16px;
-    line-height: 1.38;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 1.38;
 
-    color: $cardsdate-text-color;
+  color: $cardsdate-text-color;
 }
 
 .news-card__more {
-    font-family: 'Manrope', sans-serif;
-    font-size: 16px;
-    line-height: 1.38;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 1.38;
 
-    color: $secondary-text-color;
+  color: $secondary-text-color;
 }
 
 .callback__policy-input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
 
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 
-    &:checked + .callback__policy-box,
-    &:checked + .callback__policy-box .callback__policy-icon {
+  &:checked + .callback__policy-box,
+  &:checked + .callback__policy-box .callback__policy-icon {
     border-color: transparent;
     scale: 1;
-    }
+  }
 }
 
 .callback__policy-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 16px;
-    height: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 16px;
+  height: 15px;
 
-    border: 1px solid $primary-text-color;
-    border-radius: 2px;
-    border-color: $primary-text-color;
+  border: 1px solid $primary-text-color;
+  border-radius: 2px;
+  border-color: $primary-text-color;
 
-    transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .callback__policy-icon {
-    position: absolute;
-    scale: 0;
+  position: absolute;
+  scale: 0;
 
-    transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .callback__policy-title {
-    margin: 0 0.3em;
-    font-size: 12px;
-    line-height: 1.17;
-    letter-spacing: 0.03em;
+  margin: 0 0.3em;
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: 0.03em;
 
-    color: $primary-text-color;
+  color: $primary-text-color;
 }
 .callback__policy-link {
-    font-size: 12px;
-    line-height: 1.17;
-    letter-spacing: 0.03em;
-    text-decoration: none;
-    text-decoration-line: underline;
+  font-size: 12px;
+  line-height: 1.17;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  text-decoration-line: underline;
 
-    color: $primary-text-color;
+  color: $primary-text-color;
 }
 
 .js-read-more-storage::before {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    content: "Have read \2713";
-    font-size: 20px;
-    color: green;
-    display: inline-block;
-    pointer-events: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  content: 'Have read \2713';
+  font-size: 20px;
+  color: green;
+  display: inline-block;
+  pointer-events: none;
 }
 
 .js-read-more-storage::after {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    display: inline-block;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(244, 244, 244, 0.4);
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(244, 244, 244, 0.4);
 }
 
 .js-read-more-storage-pages::before {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    content: "Have read \2713";
-    font-size: 20px;
-    color: green;
-    display: inline-block;
-    pointer-events: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  content: 'Have read \2713';
+  font-size: 20px;
+  color: green;
+  display: inline-block;
+  pointer-events: none;
 }
