@@ -42,7 +42,8 @@ function onClick(event) {
 
   if (event.target.textContent === 'Read more') {
     // event.preventDefault();
-    event.target.classList.add('js-read-more-storage');
+    // event.target.classList.add('js-read-more-storage');
+    event.target.classList.add('js-read-more-storage-pages');
 
     const arrayChildren = event.target.parentNode.parentNode;
 

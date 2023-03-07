@@ -1,10 +1,10 @@
-import { fetchNews } from './FetchNews';
+import { fetchNews } from './fetchNews';
 import {
   cutInfo,
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions';
+} from './commonFunctions';
 import { spinner } from './Libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
