@@ -5,14 +5,16 @@ const refs = {
   darkLabel: document.querySelector('.dark-label'),
   searchInput: document.querySelector('.search-input'),
   queryBtn: document.querySelector('.query-btn-icon'),
+  //   cardsDate: document.querySelector('.cards-date'),
 };
 
+// перевірка локального сходице на наявність теми
 const savedTheme = localStorage.getItem('theme-mobile');
 
 if (savedTheme) {
   document.body.classList.add(savedTheme + '-theme-site');
 }
-
+// перевірка стану чекбокса
 const savedCheckboxMobileState = localStorage.getItem(
   'theme-checkbox-state-mobile'
 );
@@ -38,12 +40,13 @@ refs.checkboxMobile.addEventListener('change', function () {
 });
 
 function changeTheme() {
+  // перевірка класу на тегу body
   const theme = document.body.classList.contains('dark-theme-site')
     ? 'dark'
     : 'light';
   localStorage.setItem('theme-mobile', theme);
-  // localStorage.setItem('theme', theme);
 
+  // збереження стану чекбокса
   const checkboxMobileState = refs.checkboxMobile.checked;
   localStorage.setItem('theme-checkbox-state-mobile', checkboxMobileState);
 }
