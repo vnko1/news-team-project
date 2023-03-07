@@ -53,8 +53,8 @@ async function onFormSubmit(event) {
       return;
     }
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
+    console.log(response.meta.hits);
     fetchNews.setHits(response.meta.hits);
-
     const { docs } = response;
     saveData(docs);
     //очищаємо картки
