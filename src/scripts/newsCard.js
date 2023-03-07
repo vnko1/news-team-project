@@ -1,4 +1,4 @@
-import { getStorageList } from './CommonFunctions';
+import { getStorageList } from './commonFunctions';
 
 const gallery = document.querySelector('.gallery-container');
 
