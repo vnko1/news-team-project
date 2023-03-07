@@ -86,14 +86,17 @@ function deleteNewsCards() {
 function saveCategoryData(data) {
   let img = null;
   let imgDescr = null;
+  // console.log(!data[148].multimedia);
 
   data.forEach(el => {
-    el.multimedia.forEach(e => {
-      if (e.format.includes('440')) {
-        img = e.url;
-        imgDescr = e.caption;
-      }
-    });
+    if (el.multimedia) {
+      el.multimedia.forEach(e => {
+        if (e.format.includes('440')) {
+          img = e.url;
+          imgDescr = e.caption;
+        }
+      });
+    }
 
     const pubDate = formatDate(el.published_date);
     const obj = {
