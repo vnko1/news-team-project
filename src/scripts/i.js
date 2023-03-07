@@ -1,10 +1,3 @@
-import axios from 'axios';
-
-const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
-const POPULAR_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
-const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-const FILTER_URL = 'https://api.nytimes.com/svc/news/v3/content/inyt/';
-
 class FetchNews {
   constructor() {
     // дані прийшли з бекенду або з єкземпляру класу
@@ -254,5 +247,3 @@ class FetchNews {
     return response;
   }
 }
-
-export const fetchNews = new FetchNews();
