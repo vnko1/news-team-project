@@ -10,6 +10,7 @@ import {
   saveCategoryData,
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
+import { deletePagination } from './pagination';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
@@ -52,6 +53,7 @@ async function onDateClick(e) {
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
     deleteNewsCards();
+    deletePagination();
     spinner.spin(document.body);
 
     if (fetchNews.getUrl().includes('articlesearch')) {

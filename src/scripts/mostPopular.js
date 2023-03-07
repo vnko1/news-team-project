@@ -5,6 +5,7 @@ import {
   savePopularData,
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
+import { paginationByPopular } from './pagination';
 
 onLoad();
 
@@ -15,6 +16,7 @@ async function onLoad() {
     fetchNews.setHits(response.data.num_results);
     savePopularData(response.data.results);
     renderNewsCards();
+    paginationByPopular();
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);
     addClassesForCoincidencesMarkupAndStorage();

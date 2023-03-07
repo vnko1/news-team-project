@@ -1,8 +1,4 @@
 // лінк на гугл іконки в index.html
-// <link
-//   rel="stylesheet"
-//   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-// />
 
 // В файл mostPopular, виклик ставила на 21 рядок
 // import { paginationByPopular } from './pagination';
@@ -16,13 +12,13 @@
 // import { paginationByFilter } from './pagination';
 // paginationByFilter();
 
-import { fetchNews } from './FetchNews';
+import { fetchNews } from './fetchNews';
 import {
   saveSearchData,
   addClassesForCoincidencesMarkupAndStorage,
   renderNewsCards,
   deleteNewsCards,
-} from './CommonFunctions';
+} from './commonFunctions';
 
 const gallery = document.querySelector('.gallery-container');
 const prevCon = document.querySelector('.prev_container');
@@ -416,6 +412,12 @@ function element(totalPage, page) {
     return;
   }
   nextCon.classList.remove('inactiveCon');
+}
+
+export function deletePagination() {
+  prevCon.innerHTML = '';
+  nextCon.innerHTML = '';
+  itemCont.innerHTML = '';
 }
 
 // async function pag(a) {
