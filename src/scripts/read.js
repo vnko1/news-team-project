@@ -1,6 +1,6 @@
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { spinner } from './Libraries';
-import { addClassesForCoincidencesMarkupAndStorage } from './CommonFunctions';
+import { addClassesForCoincidencesMarkupAndStoragePages } from './CommonFunctions';
 
 const cardList = document.getElementById('ul-gallery');
 const spinnerContainer = document.querySelector('.spinner-container');
@@ -194,4 +194,4 @@ function renderMarkup(array) {
 //   }
 // }
 
-addClassesForCoincidencesMarkupAndStorage();
+addClassesForCoincidencesMarkupAndStoragePages();

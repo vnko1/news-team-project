@@ -170,3 +170,37 @@
 
     color: $primary-text-color;
 }
+
+.js-read-more-storage::before {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    content: "Have read \2713";
+    font-size: 20px;
+    color: green;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.js-read-more-storage::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    display: inline-block;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(244, 244, 244, 0.4);
+}
+
+.js-read-more-storage-pages::before {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    content: "Have read \2713";
+    font-size: 20px;
+    color: green;
+    display: inline-block;
+    pointer-events: none;
+}
