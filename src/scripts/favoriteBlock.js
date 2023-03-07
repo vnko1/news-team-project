@@ -1,7 +1,7 @@
 import {
   getStorageList,
-  addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions'; // імпорт  функції для взяття  данних з сториджу
+  addClassesForCoincidencesMarkupAndStoragePages,
+} from './commonFunctions'; // імпорт  функції для взяття  данних з сториджу
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { spinner } from './Libraries';
 
@@ -9,7 +9,7 @@ import { spinner } from './Libraries';
 const gallery = document.querySelector('.gallery-container');
 
 onLoadFavorite();
-addClassesForCoincidencesMarkupAndStorage();
+addClassesForCoincidencesMarkupAndStoragePages();
 
 function onLoadFavorite() {
   // функція загрузки зі сториджа та перевірки парсінгу

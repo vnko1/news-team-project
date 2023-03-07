@@ -2,13 +2,13 @@
 // import { paginationByFilter } from './pagination';
 // paginationByFilter();
 
-import { fetchNews } from './FetchNews';
+import { fetchNews } from './fetchNews';
 import {
   saveSearchData,
   addClassesForCoincidencesMarkupAndStorage,
   renderNewsCards,
   deleteNewsCards,
-} from './CommonFunctions';
+} from './commonFunctions';
 
 const gallery = document.querySelector('.gallery-container');
 const prevCon = document.querySelector('.prev_container');
@@ -402,6 +402,12 @@ function element(totalPage, page) {
     return;
   }
   nextCon.classList.remove('inactiveCon');
+}
+
+export function deletePagination() {
+  prevCon.innerHTML = '';
+  nextCon.innerHTML = '';
+  itemCont.innerHTML = '';
 }
 
 // async function pag(a) {

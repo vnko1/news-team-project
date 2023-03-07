@@ -1,8 +1,8 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 import { Report } from 'notiflix/build/notiflix-report-aio';
-const uniq = require('lodash.uniq');
-import { spinner } from './Libraries';
-import { fetchNews } from './FetchNews';
+
+import { spinner } from './libraries';
+import { fetchNews } from './fetchNews';
 import {
   renderNewsCards,
   deleteNewsCards,
@@ -10,6 +10,7 @@ import {
   saveCategoryData,
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
+import { deletePagination } from './pagination';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
@@ -52,6 +53,7 @@ async function onDateClick(e) {
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
     deleteNewsCards();
+    deletePagination();
     spinner.spin(document.body);
 
     if (fetchNews.getUrl().includes('articlesearch')) {

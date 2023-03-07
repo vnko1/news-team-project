@@ -1,4 +1,4 @@
-import { fetchNews } from './FetchNews';
+import { fetchNews } from './fetchNews';
 const gallery = document.querySelector('.gallery-container');
 
 String.prototype.limit = function (limit, userParams) {
@@ -249,6 +249,22 @@ function addClassesForCoincidencesMarkupAndStorage() {
   });
 }
 
+// функция для страниц fovorite и read more
+function addClassesForCoincidencesMarkupAndStoragePages() {
+  const favouriteList = getStorageList('favourites');
+  const labelsEl = document.querySelectorAll('.label-favorite');
+  const newArrOfBtn = [...labelsEl];
+  console.log(newArrOfBtn);
+  newArrOfBtn.filter(obj => {
+    for (const objOfFavourite of favouriteList) {
+      if (obj.id === objOfFavourite.id) {
+        obj.className = 'label-favorite js-favourite-storage';
+        obj.parentNode.lastElementChild.checked = true;
+      }
+    }
+  });
+}
+
 // Взять данные с ЛОКАЛСТОРИДЖ
 function getStorageList(valueOfKeyStorage) {
   return JSON.parse(localStorage.getItem(valueOfKeyStorage));
@@ -265,4 +281,5 @@ export {
   saveSearchData,
   getStorageList,
   addClassesForCoincidencesMarkupAndStorage,
+  addClassesForCoincidencesMarkupAndStoragePages,
 };
