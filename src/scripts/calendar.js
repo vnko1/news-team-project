@@ -52,13 +52,12 @@ async function callback() {
   const {
     data: { results },
   } = response;
-
+  // console.log(results);
   fetchNews.setHits(response.data.num_results);
   // fetchNews.setFilterParams(fetchNews.getFilterParams());
+
   saveCategoryData(results);
-  // console.log(fetchNews.getData());
-  // console.log(fetchNews.getStorageData());
-  // console.log(fetchNews.getCategoryData());
+
   renderNewsCards();
 
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
@@ -121,6 +120,7 @@ async function onDateClick(e) {
         logMessage();
         return;
       }
+
       renderFiltredNewsCardByData(filtredData);
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(false);
@@ -156,9 +156,8 @@ function renderFiltredNewsCardByData(data) {
   for (let i = 0; i < data.length; i++) {
     if (i >= 8) break;
     renderData.push(data[i]);
-    console.log(data[i]);
   }
-
+  console.log(renderData);
   // створюємо строку розмітки
   const markUp = renderData.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
@@ -193,6 +192,7 @@ function renderFiltredNewsCardByData(data) {
     </div>`;
     return acc;
   }, ``);
+
   // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }

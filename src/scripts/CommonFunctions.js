@@ -86,6 +86,7 @@ function deleteNewsCards() {
 function saveCategoryData(data) {
   let img = null;
   let imgDescr = null;
+
   data.forEach(el => {
     el.multimedia.forEach(e => {
       if (e.format.includes('440')) {
@@ -94,13 +95,7 @@ function saveCategoryData(data) {
       }
     });
 
-    const pubDate = new Date(el.published_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
-
+    const pubDate = formatDate(el.published_date);
     const obj = {
       title: el.title,
       description: el.abstract,
@@ -113,7 +108,7 @@ function saveCategoryData(data) {
     };
 
     pushData(obj);
-    fetchNews.addCategoryData(obj);
+    fetchNews.addCategoryData(createObj(obj));
   });
 }
 
@@ -137,7 +132,6 @@ function savePopularData(data) {
       img,
       imgDescr: element.nytdsection,
       id: element.id,
-      urlCategory: fetchNews.getFilterParams(),
     };
     pushData(obj);
   });
@@ -153,12 +147,7 @@ function saveSearchData(data) {
       }
     });
 
-    const pubDate = new Date(element.pub_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
+    const pubDate = formatDate(element.pub_date);
 
     imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
     const obj = {
@@ -176,7 +165,9 @@ function saveSearchData(data) {
 }
 
 function pushData(data) {
+  console.log(fetchNews.getData());
   fetchNews.addData(createObj(data));
+  // console.log(fetchNews.getData());
   fetchNews.addStorageData(createObj(data));
 }
 
