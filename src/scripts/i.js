@@ -1,249 +1,232 @@
-class FetchNews {
-  constructor() {
-    // дані прийшли з бекенду або з єкземпляру класу
-    this.isUrlRequest = true;
-    // масив, в якому зберігаються обʼєкти з обраними властивостями з бекенду. використовувати для рендеру і на кожному запиті його треба очищати
-    this.data = [];
-    // масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
-    this.storageData = [];
-    // масив в якому зберігаються дані бекенду по категоріям
-    this.categoryData = [];
-    // відфільтрований масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
-    this.filtredStorageData = null;
+import { fetchNews } from './FetchNews';
+const gallery = document.querySelector('.gallery-container');
 
-    this.filterQuery = '';
-    // параметр для фільтрації по даті
-    this.filterParams = '';
-    //  обрана в календарі дата
-    this.date = '';
-    // пошуковий параметр
-    this.querySearch = '';
-    // зберігається кількість знайдених новин
-    this.hits = null;
-    // лічильник, на всякий випадок для пагінації
-    this.page = 0;
-    // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
-    this.url = '';
-    // URL запиту на бекенд з усіма параметрами (для фільтрації зв датою)
-    this.dateUrl = '';
-    // буде зберігатись колекція елементів картки новин
-    this.nodeChild = null;
-  }
-  // повертає булеве значення про те чи дані прийшли з бекенду або  з єкземпляру класу
-  getIsUrlRequest() {
-    return this.isUrlRequest;
-  }
-  // змінює булеве значення
-  setIsUrlRequest(newUrlRequest) {
-    this.isUrlRequest = newUrlRequest;
-  }
-  //повертає масив даних
-  getData() {
-    return this.data;
-  }
-  // присвоює нове значення
-  setData(newData) {
-    this.data = newData;
-  }
-  // додає в масив обʼєкт з даними
-  addData(data) {
-    this.data.push(data);
-  }
-  // очищає масив з даними
-  resetData() {
-    this.data = [];
-  }
-  //повертає масив даних
-  getCategoryData() {
-    return this.categoryData;
-  }
-  // присвоює нове значення
-  setCategoryData(newCategoryData) {
-    this.categoryData = newCategoryData;
-  }
-  // додає в масив обʼєкт з даними
-  addCategoryData(data) {
-    this.categoryData.push(data);
-  }
-  // очищає масив з даними
-  resetCategoryData() {
-    this.categoryData = [];
-  }
-  // повертає масив всіх даних
-  getStorageData() {
-    return this.storageData;
-  }
-  // додає до масиву нові дані
-  addStorageData(data) {
-    this.storageData.push(data);
-  }
-  resetStorageData() {
-    this.storageData = [];
-  }
-  // повертає масив відфільтрованих даних
-  getFiltredStorageData() {
-    return this.filtredStorageData;
-  }
-  // записує новий масив відфільтрованих даних
-  setFiltredStorageData(newfiltredStorageData) {
-    this.filtredStorageData = newfiltredStorageData;
-  }
-  addFiltredStorageData(data) {
-    this.filtredStorageData.push(data);
-  }
-  //повертає параметр для фільтрації по даті
-  getFilterParams() {
-    return this.filterParams;
-  }
-  // присвоює новий параметр для фільтрації по даті
-  setFilterParams(newFilterParams) {
-    this.filterParams = newFilterParams;
-  }
-  // повертає дату
-  getDate() {
-    return this.date;
-  }
-  setDate(newDate) {
-    this.date = newDate;
-  }
-  // повертає значення пошукового параметру
-  getQuerySearch() {
-    return this.querySearch;
-  }
-  // привоює нове значення пошуковуму параметру
-  setQuerySearch(newQuerySearch) {
-    this.querySearch = newQuerySearch;
-  }
+// повертає обʼєкт з даними
+function createObj({
+  title = 'no data',
+  description = 'no data',
+  category = 'no data',
+  pubDate = 'no data',
+  url = 'no data',
+  img,
+  imgDescr = 'no data',
+  id = 'no data',
+  urlCategory = '',
+}) {
+  const imgUrl = img ? img : 'https://unsplash.it/395';
 
-  // повертає значення пошукового параметру
-  getFilterQuery() {
-    return this.filterQuery;
-  }
-  // привоює нове значення пошуковуму параметру
-  setFilterQuery(newQuery) {
-    this.filterQuery = newQuery;
-  }
-  // повертає кілкьість знайдених новин
-  getHits() {
-    return this.hits;
-  }
-  // присвоює нове значення кількості знайдених новин
-  setHits(newHits) {
-    this.hits = newHits;
-  }
-  // повертає значення
-  getPage() {
-    return this.page;
-  }
-  // присвоює нове значення
-  setPage(newPage) {
-    this.page = newPage;
-  }
-  //обнуляє лічильник
-  resetPage() {
-    this.page = 0;
-  }
-  // додає лічильник
-  incrementPage() {
-    this.page += 1;
-  }
-  // зменшує лічильник
-  decrementPage() {
-    this.page -= 1;
-    if (this.page < 0) this.resetPage();
-  }
-  // повертає URL (потрібен для пагінації)
-  getUrl() {
-    return this.url;
-  }
-  // присвоює нове значення URL (потрібен для пагінації)
-  setUrl(newUrl) {
-    this.url = newUrl;
-  }
-
-  // повертає дату
-  getDateUrl() {
-    return this.dateUrl;
-  }
-  setDateUrl(newDateUrl) {
-    this.dateUrl = newDateUrl;
-  }
-  resetDateUrl() {
-    this.dateUrl = '';
-  }
-  // повертає масив елементів з селектором .news-card
-  getNodeChild() {
-    return this.nodeChild;
-  }
-  // записує масив елементів
-  setNodeChild(newNode) {
-    this.nodeChild = newNode;
-  }
-  // метод запиту на бекенд
-  async fetchNewsByPopular() {
-    //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      'api-key': API_KEY,
-    });
-    // зберігаємо URL
-    this.setUrl(`${POPULAR_URL}?${params}`);
-    this.setDateUrl(`${POPULAR_URL}?${params}`);
-
-    const response = await axios.get(`${POPULAR_URL}?${params}`);
-
-    // // повертає дані з бекенду
-    return response;
-  }
-
-  async fetchNewsBySearch() {
-    //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      q: this.getQuerySearch(),
-      'api-key': API_KEY,
-    });
-    // зберігаємо URL
-    this.setUrl(`${SEARCH_URL}?${params}`);
-    this.setDateUrl(`${SEARCH_URL}?${params}`);
-    // запит на бекенд
-    const {
-      data: { response },
-    } = await axios.get(`${SEARCH_URL}?${params}`);
-
-    return response;
-  }
-
-  async fetchNewsByDate() {
-    //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      begin_date: this.getDate(),
-      end_date: this.getDate(),
-      // 'api-key': API_KEY,
-    });
-    // зберігаємо URL
-    this.setUrl(`${this.getDateUrl()}&${params}`);
-    // запит на бекенд
-    const response = await axios.get(`${this.getDateUrl()}&${params}`);
-    // повертає дані з бекенду
-    return response;
-  }
-
-  async fetchNewsByFilter() {
-    //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      'api-key': API_KEY,
-      limit: 500,
-    });
-    this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
-    this.setDateUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
-    const response = await axios.get(
-      `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
-    );
-    return response;
-  }
-
-  async fetchPagination() {
-    const params = new URLSearchParams({ page: this.getPage() });
-    const response = await axios.get(`${this.getUrl()}&${params}`);
-    return response;
-  }
+  return {
+    title,
+    description,
+    category,
+    pubDate,
+    url,
+    imgUrl,
+    imgDescr,
+    id,
+    urlCategory,
+  };
 }
+
+function renderNewsCards() {
+  //  cтворюємо новий масив
+  const renderData = [];
+  // отримуємо масив даних з екземпляру класу
+  const fetchData = fetchNews.getData();
+  // перебираємо маси та перші 8 елементів пушимо в renderData
+  for (let i = 0; i < fetchData.length; i++) {
+    if (i >= 8) break;
+    renderData.push(fetchData[i]);
+  }
+  // створюємо строку розмітки
+  const markUp = renderData.reduce((acc, el) => {
+    acc += `<div class="news-card" news-id="${el.id}">
+      <div class="news-card__img">
+        <p class="news-card__theme">${el.category}</p>
+        <img
+          class="news-card__item"
+          src="${el.imgUrl}"
+          alt="${el.imgDescr ? el.imgDescr : 'photo'}"
+          loading="lazy"
+          width="395"
+        />
+        <div class="news-card__favorite">
+          <label for="favorite" id="${
+            el.id
+          }" class="label-favorite">Add to favorite</label>
+          <input type="checkbox" class="input-favorite" id="favorite"/>
+        </div>
+      </div>
+      <h2 class="news-card__info-title">${el.title}</h2>
+      <p class="news-card__info-text">${
+        el.description.length > 180
+          ? el.description.slice(0, 180) + '...'
+          : el.description
+      }</p>
+      <div class="news-card__additional">
+        <p class="news-card__date">${el.pubDate}</p>
+        <a class="news-card__more" href="${el.url}" id="${
+      el.id
+    }"target="_blank" rel="noreferrer noopener">Read more</a>
+      </div>
+    </div>`;
+    return acc;
+  }, ``);
+  // додоємо створену розмітку в DOM
+  gallery.insertAdjacentHTML('beforeend', markUp);
+}
+function deleteNewsCards() {
+  // видаляє повністю розмітку і  календар також (тимчасовий код)
+  // gallery.innerHTML = '';
+  // видаляє тільки newsCards, погода щзалишається, але працюватиме тільки, якщо при завантаженні сторінки вже рендер карток новин
+  const newsCards = fetchNews.getNodeChild();
+  newsCards.forEach(el => el.remove());
+}
+
+function saveCategoryData(data) {
+  let img = null;
+  let imgDescr = null;
+
+  data.forEach(el => {
+    el.multimedia.forEach(e => {
+      if (e.format.includes('440')) {
+        img = e.url;
+        imgDescr = e.caption;
+      }
+    });
+
+    const pubDate = formatDate(el.published_date);
+    const obj = {
+      title: el.title,
+      description: el.abstract,
+      category: el.section,
+      pubDate,
+      url: el.url,
+      img,
+      imgDescr,
+      id: el.uri,
+    };
+
+    pushData(obj);
+    fetchNews.addCategoryData(createObj(obj));
+  });
+}
+
+function savePopularData(data) {
+  let img = null;
+
+  data.forEach(element => {
+    const media = element.media;
+    media.forEach(e => {
+      img = e['media-metadata'][2].url;
+    });
+
+    const pubDate = element.published_date.split('-').reverse().join('/');
+
+    const obj = {
+      title: element.title,
+      description: element.abstract,
+      category: element.section,
+      pubDate,
+      url: element.url,
+      img,
+      imgDescr: element.nytdsection,
+      id: element.id,
+    };
+    pushData(obj);
+  });
+}
+
+function saveSearchData(data) {
+  let img = null;
+
+  data.forEach(element => {
+    element.multimedia.forEach(e => {
+      if (e.subType === 'xlarge') {
+        img = `https://www.nytimes.com/${e.url}`;
+      }
+    });
+
+    const pubDate = formatDate(element.pub_date);
+
+    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+    const obj = {
+      title: element.headline.main,
+      description: element.lead_paragraph,
+      category: element.section_name,
+      pubDate,
+      url: element.web_url,
+      img,
+      imgDescr,
+      id: element._id,
+    };
+    pushData(obj);
+  });
+}
+
+function pushData(data) {
+  fetchNews.addData(createObj(data));
+  fetchNews.addStorageData(createObj(data));
+}
+
+//приводимо дату до потрібного формату
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0'); // додаємо нуль, якщо число менше 10
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // додаємо нуль, якщо місяць менше 10
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+//обрізаємо опис якщо більше 180 символів
+function cutInfo(text) {
+  return text.length <= 180 ? text : text.slice(0, 180) + '...';
+}
+
+// Вставить функцию в блок then(), после функции которая рендерит разметку!!!
+function addClassesForCoincidencesMarkupAndStorage() {
+  const favouriteList = getStorageList('favourites');
+  const labelsEl = document.querySelectorAll('.label-favorite');
+  const newArrOfBtn = [...labelsEl];
+
+  newArrOfBtn.filter(obj => {
+    for (const objOfFavourite of favouriteList) {
+      if (obj.id === objOfFavourite.id) {
+        obj.className = 'label-favorite js-favourite-storage';
+        obj.parentNode.lastElementChild.checked = true;
+      }
+    }
+  });
+  //-----------------------------------------
+  const readMoreList = getStorageList('read more');
+
+  const linkEl = document.querySelectorAll('.news-card__more');
+
+  const newArrOfLinks = [...linkEl];
+
+  newArrOfLinks.filter(obj => {
+    for (const objOfFavourite of readMoreList) {
+      if (obj.id === objOfFavourite.id) {
+        obj.className = 'news-card__more js-read-more-storage';
+      }
+    }
+  });
+}
+
+// Взять данные с ЛОКАЛСТОРИДЖ
+function getStorageList(valueOfKeyStorage) {
+  return JSON.parse(localStorage.getItem(valueOfKeyStorage));
+}
+
+export {
+  cutInfo,
+  formatDate,
+  createObj,
+  renderNewsCards,
+  deleteNewsCards,
+  saveCategoryData,
+  savePopularData,
+  saveSearchData,
+  getStorageList,
+  addClassesForCoincidencesMarkupAndStorage,
+};
