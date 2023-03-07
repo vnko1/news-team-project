@@ -84,7 +84,6 @@ function deleteNewsCards() {
 }
 
 function saveCategoryData(data) {
-  console.log(data);
   let img = null;
   let imgDescr = null;
   data.forEach(el => {
@@ -111,8 +110,8 @@ function saveCategoryData(data) {
       img,
       imgDescr,
       id: el.uri,
-      urlCategory: fetchNews.getFilterParams(),
     };
+
     pushData(obj);
     fetchNews.addCategoryData(obj);
   });

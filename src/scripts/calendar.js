@@ -7,6 +7,7 @@ import {
   renderNewsCards,
   deleteNewsCards,
   saveSearchData,
+  saveCategoryData,
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
 
@@ -43,6 +44,7 @@ btn.addEventListener('click', callback);
 async function callback() {
   fetchNews.resetData();
   fetchNews.resetCategoryData();
+  fetchNews.resetStorageData();
   fetchNews.setFilterQuery('arts');
   deleteNewsCards();
   const response = await fetchNews.fetchNewsByFilter();
@@ -52,9 +54,11 @@ async function callback() {
   } = response;
 
   fetchNews.setHits(response.data.num_results);
-  fetchNews.setFilterParams(fetchNews.getFilterParams());
+  // fetchNews.setFilterParams(fetchNews.getFilterParams());
   saveCategoryData(results);
-  console.log(fetchNews.getCategoryData());
+  // console.log(fetchNews.getData());
+  // console.log(fetchNews.getStorageData());
+  // console.log(fetchNews.getCategoryData());
   renderNewsCards();
 
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
@@ -74,8 +78,8 @@ async function onDateClick(e) {
     }
 
     fetchNews.setDate(date.split('-').join(''));
-    const normaliseDate = date.split('-').reverse().join('/');
-    inputEl.value = normaliseDate;
+    const normalisedDate = date.split('-').reverse().join('/');
+    inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
     deleteNewsCards();
     spinner.spin(document.body);
@@ -108,25 +112,32 @@ async function onDateClick(e) {
         console.log(error);
         spinner.stop();
       }
-    } else {
-      const filtredData = fetchNews.getStorageData().filter(el => {
-        return (
-          normaliseDate === el.pubDate &&
-          el.urlCategory === fetchNews.getFilterParams()
-        );
+    } else if (fetchNews.getUrl().includes('content')) {
+      const filtredData = fetchNews.getCategoryData().filter(el => {
+        return normalisedDate === el.pubDate;
       });
 
       if (!filtredData.length) {
         logMessage();
         return;
       }
-      const uniqData = uniq(filtredData);
-
-      fetchNews.setFiltredStorageData(uniqData);
-      renderFiltredNewsCardByData(fetchNews.getFiltredStorageData());
+      renderFiltredNewsCardByData(filtredData);
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(false);
-      // ----------> логіка localestorage
+      addClassesForCoincidencesMarkupAndStorage();
+    } else {
+      const filtredData = fetchNews.getStorageData().filter(el => {
+        return normalisedDate === el.pubDate;
+      });
+
+      if (!filtredData.length) {
+        logMessage();
+        return;
+      }
+
+      renderFiltredNewsCardByData(filtredData);
+      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+      fetchNews.setIsUrlRequest(false);
       addClassesForCoincidencesMarkupAndStorage();
     }
     spinner.stop();
@@ -145,6 +156,7 @@ function renderFiltredNewsCardByData(data) {
   for (let i = 0; i < data.length; i++) {
     if (i >= 8) break;
     renderData.push(data[i]);
+    console.log(data[i]);
   }
 
   // створюємо строку розмітки
