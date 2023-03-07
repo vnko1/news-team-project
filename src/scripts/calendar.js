@@ -7,6 +7,7 @@ import {
   renderNewsCards,
   deleteNewsCards,
   saveSearchData,
+  saveCategoryData,
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions';
 
@@ -48,8 +49,8 @@ async function onDateClick(e) {
     }
 
     fetchNews.setDate(date.split('-').join(''));
-    const normaliseDate = date.split('-').reverse().join('/');
-    inputEl.value = normaliseDate;
+    const normalisedDate = date.split('-').reverse().join('/');
+    inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
     deleteNewsCards();
     spinner.spin(document.body);
@@ -65,6 +66,7 @@ async function onDateClick(e) {
           return;
         }
         fetchNews.setHits(response.data.response.meta.hits);
+
         const {
           data: {
             response: { docs },
@@ -74,6 +76,7 @@ async function onDateClick(e) {
         saveSearchData(docs);
         renderNewsCards();
         spinner.stop();
+
         fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
         fetchNews.setIsUrlRequest(true);
         addClassesForCoincidencesMarkupAndStorage();
@@ -81,25 +84,35 @@ async function onDateClick(e) {
         console.log(error);
         spinner.stop();
       }
-    } else {
-      const filtredData = fetchNews.getStorageData().filter(el => {
-        return (
-          normaliseDate === el.pubDate &&
-          el.urlCategory === fetchNews.getFilterParams()
-        );
+    } else if (fetchNews.getUrl().includes('content')) {
+      const filtredData = fetchNews.getCategoryData().filter(el => {
+        return normalisedDate === el.pubDate;
       });
 
       if (!filtredData.length) {
         logMessage();
         return;
       }
-      const uniqData = uniq(filtredData);
 
-      fetchNews.setFiltredStorageData(uniqData);
-      renderFiltredNewsCardByData(fetchNews.getFiltredStorageData());
+      renderFiltredNewsCardByData(filtredData);
+
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(false);
-      // ----------> логіка localestorage
+      addClassesForCoincidencesMarkupAndStorage();
+    } else {
+      const filtredData = fetchNews.getStorageData().filter(el => {
+        return normalisedDate === el.pubDate;
+      });
+
+      if (!filtredData.length) {
+        logMessage();
+        return;
+      }
+
+      renderFiltredNewsCardByData(filtredData);
+
+      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+      fetchNews.setIsUrlRequest(false);
       addClassesForCoincidencesMarkupAndStorage();
     }
     spinner.stop();
@@ -119,7 +132,6 @@ function renderFiltredNewsCardByData(data) {
     if (i >= 8) break;
     renderData.push(data[i]);
   }
-
   // створюємо строку розмітки
   const markUp = renderData.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
@@ -152,8 +164,7 @@ function renderFiltredNewsCardByData(data) {
     </div>`;
     return acc;
   }, ``);
+
   // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
-
-
