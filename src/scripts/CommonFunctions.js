@@ -182,7 +182,10 @@ function saveSearchData(data) {
 
     const pubDate = formatDate(element.pub_date);
 
-    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+    const imgDescr = element.keywords[0]?.value
+      ? element.keywords[0].value
+      : '';
+
     const obj = {
       title: element.headline.main,
       description: element.lead_paragraph,
