@@ -88,7 +88,8 @@
   font-size: 16px;
   line-height: 1.38;
 
-  color: $primary-text-color;
+  // color: $primary-text-color;
+  color: currentColor;
 }
 
 .menu-bar__icons {
