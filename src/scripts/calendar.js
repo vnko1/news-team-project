@@ -40,11 +40,11 @@ function onWindowClick(e) {
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
-    const unixDate = new Date();
+    const currentDate = new Date();
     const selectedDate = new Date(date);
 
-    if (selectedDate.getTime() > unixDate.getTime()) {
-      console.log('введіть сьоднішню дату');
+    if (selectedDate.getTime() > currentDate.getTime()) {
+      Report.info('Choose other date!');
       return;
     }
 
