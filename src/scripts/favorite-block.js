@@ -2,18 +2,40 @@ import {
   getStorageList,
   addClassesForCoincidencesMarkupAndStorage,
 } from './CommonFunctions'; // імпорт  функції для взяття  данних з сториджу
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import { spinner } from './Libraries';
 
 // gallery-container - додатковий класс на контейнер в якому малюється розмітка
 const gallery = document.querySelector('.gallery-container');
 
-renderFavouriteCardFromStorage();
-
+onLoadFavorite();
 addClassesForCoincidencesMarkupAndStorage();
+
+function onLoadFavorite() {
+  // функція загрузки зі сториджа та перевірки парсінгу
+  spinner.spin(document.body);
+  try {
+    const keyFavorite = localStorage.getItem('favourites');
+    const parsedFavorite = JSON.parse(keyFavorite);
+    if (parsedFavorite === null) {
+      spinner.stop();
+      return;
+    } else if (parsedFavorite.length === 0) {
+      spinner.stop();
+      Report.info('You have no favorite news yet!');
+    } else {
+      renderFavouriteCardFromStorage();
+      spinner.stop();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function renderFavouriteCardFromStorage() {
   //  функція для отримання масиву з сториджа
   const arrFavourites = getStorageList('favourites');
-
+  console.log(arrFavourites);
   // створюємо строку розмітки
   const markUp = arrFavourites.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
@@ -34,9 +56,7 @@ function renderFavouriteCardFromStorage() {
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${
-        el.descr.length > 180 ? el.descr.slice(0, 180) + '...' : el.descr
-      }</p>
+      <p class="news-card__info-text">${el.descr.limit(180)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.dateArticle}</p>
         <a class="news-card__more" href="${el.link}" id="${

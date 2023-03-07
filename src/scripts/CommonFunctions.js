@@ -1,6 +1,38 @@
 import { fetchNews } from './FetchNews';
 const gallery = document.querySelector('.gallery-container');
 
+String.prototype.limit = function (limit, userParams) {
+  let text = this,
+    options = {
+      ending: '...',
+      trim: true,
+      words: true,
+    },
+    prop,
+    lastSpace,
+    processed = false;
+
+  if (limit !== parseInt(limit) || limit <= 0) return this;
+
+  // применить userParams
+  if (typeof userParams == 'object') {
+    for (prop in userParams) {
+      if (userParams.hasOwnProperty.call(userParams, prop)) {
+        options[prop] = userParams[prop];
+      }
+    }
+  }
+  if (options.trim) text = text.trim();
+
+  if (text.length <= limit) return text; // по длине вписываемся и так
+  text = text.slice(0, limit); // тупо отрезать по лимиту
+  lastSpace = text.lastIndexOf(' ');
+  if (options.words && lastSpace > 0) {
+    text = text.substr(0, lastSpace);
+  }
+  return text + options.ending;
+};
+
 // повертає обʼєкт з даними
 function createObj({
   title = 'no data',
@@ -57,12 +89,10 @@ function renderNewsCards() {
           <input type="checkbox" class="input-favorite" id="favorite"/>
         </div>
       </div>
-      <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${
-        el.description.length > 180
-          ? el.description.slice(0, 180) + '...'
-          : el.description
-      }</p>
+      <h2 class="news-card__info-title">${el.title.limit(50, {
+        ending: '',
+      })}</h2>
+      <p class="news-card__info-text">${el.description.limit(120)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.pubDate}</p>
         <a class="news-card__more" href="${el.url}" id="${
@@ -84,25 +114,21 @@ function deleteNewsCards() {
 }
 
 function saveCategoryData(data) {
-  console.log(data);
   let img = null;
   let imgDescr = null;
+  // console.log(!data[148].multimedia);
+
   data.forEach(el => {
-    // console.log(el);
-    el.multimedia.forEach(e => {
-      if (e.format.includes('440')) {
-        img = e.url;
-        imgDescr = e.caption;
-      }
-    });
+    if (el.multimedia) {
+      el.multimedia.forEach(e => {
+        if (e.format.includes('440')) {
+          img = e.url;
+          imgDescr = e.caption;
+        }
+      });
+    }
 
-    const pubDate = new Date(el.published_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
-
+    const pubDate = formatDate(el.published_date);
     const obj = {
       title: el.title,
       description: el.abstract,
@@ -112,9 +138,10 @@ function saveCategoryData(data) {
       img,
       imgDescr,
       id: el.uri,
-      urlCategory: fetchNews.getFilterParams(),
     };
+
     pushData(obj);
+    fetchNews.addCategoryData(createObj(obj));
   });
 }
 
@@ -138,7 +165,6 @@ function savePopularData(data) {
       img,
       imgDescr: element.nytdsection,
       id: element.id,
-      urlCategory: fetchNews.getFilterParams(),
     };
     pushData(obj);
   });
@@ -154,14 +180,12 @@ function saveSearchData(data) {
       }
     });
 
-    const pubDate = new Date(element.pub_date)
-      .toLocaleString()
-      .split(',')
-      .splice(0, 1)
-      .join('')
-      .replaceAll('.', '/');
+    const pubDate = formatDate(element.pub_date);
 
-    imgDescr = element.keywords[0]?.value ? element.keywords[0].value : '';
+    const imgDescr = element.keywords[0]?.value
+      ? element.keywords[0].value
+      : '';
+
     const obj = {
       title: element.headline.main,
       description: element.lead_paragraph,
