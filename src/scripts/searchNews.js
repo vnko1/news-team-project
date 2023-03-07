@@ -5,7 +5,7 @@ import {
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
 } from './commonFunctions';
-import { spinner } from './Libraries';
+import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
 const inputField = document.querySelector('.search-input');
