@@ -73,21 +73,27 @@
 
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1.38;
   letter-spacing: -0.01em;
 
   color: $primary-text-color;
+  @include tablet {
+    font-size: 32px;
+  }
 }
 
 .news-card__info-text {
   height: 66px;
 
   font-family: 'Manrope';
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.38;
 
   color: $primary-text-color;
+  @include tablet {
+    font-size: 16px;
+  }
 }
 
 .news-card__additional {
