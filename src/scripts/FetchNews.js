@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const POPULAR_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+const FILTER_URL = 'https://api.nytimes.com/svc/news/v3/content/inyt/';
 
 class FetchNews {
   constructor() {
@@ -12,8 +13,12 @@ class FetchNews {
     this.data = [];
     // масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
     this.storageData = [];
+    // масив в якому зберігаються дані бекенду по категоріям
+    this.categoryData = [];
     // відфільтрований масив, в якому зберігаються обʼєкти з властивостями отриманими від бекенду. зберігаються всі додані з обраними властивостями з бекенду на поточній сесії.
     this.filtredStorageData = null;
+
+    this.filterQuery = '';
     // параметр для фільтрації по даті
     this.filterParams = '';
     //  обрана в календарі дата
@@ -23,7 +28,7 @@ class FetchNews {
     // зберігається кількість знайдених новин
     this.hits = null;
     // лічильник, на всякий випадок для пагінації
-    this.counter = 0;
+    this.page = 0;
     // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
     this.url = '';
     // URL запиту на бекенд з усіма параметрами (для фільтрації зв датою)
@@ -39,6 +44,10 @@ class FetchNews {
   setIsUrlRequest(newUrlRequest) {
     this.isUrlRequest = newUrlRequest;
   }
+  //повертає масив даних
+  getData() {
+    return this.data;
+  }
   // присвоює нове значення
   setData(newData) {
     this.data = newData;
@@ -47,13 +56,25 @@ class FetchNews {
   addData(data) {
     this.data.push(data);
   }
-  //повертає масив даних
-  getData() {
-    return this.data;
-  }
   // очищає масив з даними
   resetData() {
     this.data = [];
+  }
+  //повертає масив даних
+  getCategoryData() {
+    return this.categoryData;
+  }
+  // присвоює нове значення
+  setCategoryData(newCategoryData) {
+    this.categoryData = newCategoryData;
+  }
+  // додає в масив обʼєкт з даними
+  addCategoryData(data) {
+    this.categoryData.push(data);
+  }
+  // очищає масив з даними
+  resetCategoryData() {
+    this.categoryData = [];
   }
   // повертає масив всіх даних
   getStorageData() {
@@ -63,6 +84,9 @@ class FetchNews {
   addStorageData(data) {
     this.storageData.push(data);
   }
+  resetStorageData() {
+    this.storageData = [];
+  }
   // повертає масив відфільтрованих даних
   getFiltredStorageData() {
     return this.filtredStorageData;
@@ -70,6 +94,9 @@ class FetchNews {
   // записує новий масив відфільтрованих даних
   setFiltredStorageData(newfiltredStorageData) {
     this.filtredStorageData = newfiltredStorageData;
+  }
+  addFiltredStorageData(data) {
+    this.filtredStorageData.push(data);
   }
   //повертає параметр для фільтрації по даті
   getFilterParams() {
@@ -94,6 +121,15 @@ class FetchNews {
   setQuerySearch(newQuerySearch) {
     this.querySearch = newQuerySearch;
   }
+
+  // повертає значення пошукового параметру
+  getFilterQuery() {
+    return this.filterQuery;
+  }
+  // привоює нове значення пошуковуму параметру
+  setFilterQuery(newQuery) {
+    this.filterQuery = newQuery;
+  }
   // повертає кілкьість знайдених новин
   getHits() {
     return this.hits;
@@ -102,17 +138,26 @@ class FetchNews {
   setHits(newHits) {
     this.hits = newHits;
   }
-  // повертає лічильник
-  getCounter() {
-    return this.counter;
+  // повертає значення
+  getPage() {
+    return this.page;
   }
-  // оновлює лічильник
-  updateCounter() {
-    this.counter += 1;
+  // присвоює нове значення
+  setPage(newPage) {
+    this.page = newPage;
   }
   //обнуляє лічильник
-  resetCounter() {
-    this.counter = 0;
+  resetPage() {
+    this.page = 0;
+  }
+  // додає лічильник
+  incrementPage() {
+    this.page += 1;
+  }
+  // зменшує лічильник
+  decrementPage() {
+    this.page -= 1;
+    if (this.page < 0) this.resetPage();
   }
   // повертає URL (потрібен для пагінації)
   getUrl() {
@@ -141,7 +186,6 @@ class FetchNews {
   setNodeChild(newNode) {
     this.nodeChild = newNode;
   }
-
   // метод запиту на бекенд
   async fetchNewsByPopular() {
     //  обʼєкт параметрів для URL
@@ -171,6 +215,7 @@ class FetchNews {
     const {
       data: { response },
     } = await axios.get(`${SEARCH_URL}?${params}`);
+
     return response;
   }
 
@@ -186,6 +231,26 @@ class FetchNews {
     // запит на бекенд
     const response = await axios.get(`${this.getDateUrl()}&${params}`);
     // повертає дані з бекенду
+    return response;
+  }
+
+  async fetchNewsByFilter() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+      'api-key': API_KEY,
+      limit: 500,
+    });
+    this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
+    this.setDateUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
+    const response = await axios.get(
+      `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
+    );
+    return response;
+  }
+
+  async fetchPagination() {
+    const params = new URLSearchParams({ page: this.getPage() });
+    const response = await axios.get(`${this.getUrl()}&${params}`);
     return response;
   }
 }
