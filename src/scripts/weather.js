@@ -17,10 +17,11 @@ const refs = {
 // console.log(refs.weatherImg)
 const weatherApiService = new WeatherApiService();
 
-console.log('2', navigator.geolocation.getCurrentPosition(showPosition, onError))
+navigator.geolocation.getCurrentPosition(showPosition, onError)
 
 async function showPosition(position) {
   try {
+    console.log(position)
     weatherApiService.lat = position.coords.latitude;
     weatherApiService.lon = position.coords.longitude;
     loadWeathetData();
@@ -30,8 +31,8 @@ async function showPosition(position) {
 
 async function onError() {
   try {
-    weatherApiService.lat = 0;
-    weatherApiService.lon = 0;
+    weatherApiService.lat = 50.4333;
+    weatherApiService.lon = 30.5167;
     loadWeathetData();
     console.log(12345)
   } catch {}
