@@ -7,7 +7,6 @@ import {
   renderNewsCards,
   deleteNewsCards,
   saveSearchData,
-  saveCategoryData,
   addClassesForCoincidencesMarkupAndStorage,
 } from './commonFunctions';
 
@@ -20,6 +19,8 @@ const calendarEl = document.querySelector('#calendar');
 const gallery = document.querySelector('.gallery-container');
 const dateContainer = document.querySelector('.date-container');
 
+const currenDate = new Date().toLocaleDateString().split('.').join('/');
+inputEl.placeholder = currenDate;
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
 
