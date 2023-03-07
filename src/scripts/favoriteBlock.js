@@ -3,7 +3,7 @@ import {
   addClassesForCoincidencesMarkupAndStoragePages,
 } from './commonFunctions'; // імпорт  функції для взяття  данних з сториджу
 import { Report } from 'notiflix/build/notiflix-report-aio';
-import { spinner } from './Libraries';
+import { spinner } from './libraries';
 
 // gallery-container - додатковий класс на контейнер в якому малюється розмітка
 const gallery = document.querySelector('.gallery-container');
