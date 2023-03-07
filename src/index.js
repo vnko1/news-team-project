@@ -4,3 +4,5 @@ import './scripts/mostPopular';
 import './scripts/searchNews';
 import './scripts/calendar';
 import './scripts/newsCard';
+import './scripts/FetchWeather'
+import './scripts/weather'
