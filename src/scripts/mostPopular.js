@@ -1,18 +1,18 @@
-import { fetchNews } from './FetchNews';
-
+import { fetchNews } from './fetchNews';
+import { spinner } from './libraries';
 import {
   renderNewsCards,
   savePopularData,
   addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions';
+} from './commonFunctions';
 
 onLoad();
 
 async function onLoad() {
+  spinner.spin(document.body);
   try {
     const response = await fetchNews.fetchNewsByPopular();
     fetchNews.setHits(response.data.num_results);
-    fetchNews.setFilterParams('popular');
     savePopularData(response.data.results);
     renderNewsCards();
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
@@ -20,5 +20,7 @@ async function onLoad() {
     addClassesForCoincidencesMarkupAndStorage();
   } catch (error) {
     console.log(error);
+    spinner.stop();
   }
+  spinner.stop();
 }
