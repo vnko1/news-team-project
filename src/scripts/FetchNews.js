@@ -212,11 +212,15 @@ class FetchNews {
         begin_date: this.getDate(),
         end_date: this.getDate(),
       });
+      // this.setUrl(`${SEARCH_URL}?${params}`);
+      // this.setDateUrl(`${SEARCH_URL}?${params}`);
     } else {
       params = new URLSearchParams({
         q: this.getQuerySearch(),
         'api-key': API_KEY,
       });
+      // this.setUrl(`${SEARCH_URL}?${params}`);
+      // this.setDateUrl(`${SEARCH_URL}?${params}`);
     }
     // зберігаємо URL
     this.setUrl(`${SEARCH_URL}?${params}`);
