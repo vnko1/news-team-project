@@ -1,4 +1,4 @@
-import { fetchNews } from './FetchNews';
+import { fetchNews } from './fetchNews';
 import {
   cutInfo,
   createObj,

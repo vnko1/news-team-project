@@ -1,8 +1,8 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 const uniq = require('lodash.uniq');
-import { spinner } from './Libraries';
-import { fetchNews } from './FetchNews';
+import { spinner } from './libraries';
+import { fetchNews } from './fetchNews';
 import {
   renderNewsCards,
   deleteNewsCards,

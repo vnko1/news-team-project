@@ -1,7 +1,7 @@
 import {
   getStorageList,
   addClassesForCoincidencesMarkupAndStoragePages,
-} from './CommonFunctions'; // імпорт  функції для взяття  данних з сториджу
+} from './commonFunctions'; // імпорт  функції для взяття  данних з сториджу
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { spinner } from './Libraries';
 
