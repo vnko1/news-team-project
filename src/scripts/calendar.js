@@ -53,6 +53,7 @@ async function callback() {
     data: { results },
   } = response;
   // console.log(results);
+
   fetchNews.setHits(response.data.num_results);
   // fetchNews.setFilterParams(fetchNews.getFilterParams());
 
@@ -157,7 +158,6 @@ function renderFiltredNewsCardByData(data) {
     if (i >= 8) break;
     renderData.push(data[i]);
   }
-  console.log(renderData);
   // створюємо строку розмітки
   const markUp = renderData.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">

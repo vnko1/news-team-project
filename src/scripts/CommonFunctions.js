@@ -165,9 +165,7 @@ function saveSearchData(data) {
 }
 
 function pushData(data) {
-  console.log(fetchNews.getData());
   fetchNews.addData(createObj(data));
-  // console.log(fetchNews.getData());
   fetchNews.addStorageData(createObj(data));
 }
 
