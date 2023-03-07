@@ -40,6 +40,7 @@ function changeTheme() {
     ? 'dark'
     : 'light';
   localStorage.setItem('theme', theme);
+  localStorage.setItem('theme', theme);
 
   const checkboxState = refs.checkbox.checked;
   localStorage.setItem('theme-checkbox-state', checkboxState);

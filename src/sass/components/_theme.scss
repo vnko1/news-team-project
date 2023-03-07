@@ -5,10 +5,6 @@
   }
 }
 
-.change-theme-mobile {
-  display: flex;
-}
-
 .input-theme {
   display: none;
 }
@@ -50,7 +46,6 @@
 }
 
 .change-theme span {
-  display: inline-block;
   font-family: $secondary-font;
   font-weight: 400;
   font-size: 18px;
