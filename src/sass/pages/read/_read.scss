@@ -1,19 +1,22 @@
+.read-section {
+  position: relative;
+}
+
 .cards-date {
- 
-    @media screen and (min-width: 320px) {
-        padding-top: 40px;
-    }
+  @media screen and (min-width: 320px) {
+    padding-top: 40px;
+  }
 
-    @media screen and (min-width: 768px) {
-        padding-top: 48px;
-    }
+  @media screen and (min-width: 768px) {
+    padding-top: 48px;
+  }
 
-    @media screen and (min-width: 1280px) {
-        padding-top: 60px;
-    }
+  @media screen and (min-width: 1280px) {
+    padding-top: 60px;
+  }
 
-    padding-bottom: 12px;
-    
+  padding-bottom: 12px;
+
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -28,19 +31,18 @@
 }
 
 .news-wrap {
-  
-    @media screen and (min-width: 320px) {
-        padding-top: 28px;
-    }
+  @media screen and (min-width: 320px) {
+    padding-top: 28px;
+  }
 
-    @media screen and (min-width: 768px) {
-        padding-top: 30px;
-    }
+  @media screen and (min-width: 768px) {
+    padding-top: 30px;
+  }
 
-    @media screen and (min-width: 1280px) {
-        padding-top: 40px;
-    }
-  
+  @media screen and (min-width: 1280px) {
+    padding-top: 40px;
+  }
+
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
@@ -62,7 +64,7 @@
 }
 
 .arrow-read {
-   margin-left: 18px;
+  margin-left: 18px;
 }
 
 .news-item {
@@ -73,14 +75,14 @@
 .spinner-container {
   width: 100%;
   @media screen and (min-width: 320px) {
-        height: 140px;
-    }
+    height: 140px;
+  }
 
-    @media screen and (min-width: 768px) {
-        height: 180px;
-    }
+  @media screen and (min-width: 768px) {
+    height: 180px;
+  }
 
-    @media screen and (min-width: 1280px) {
-        height: 210px;
-    }
+  @media screen and (min-width: 1280px) {
+    height: 210px;
+  }
 }
