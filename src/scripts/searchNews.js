@@ -138,10 +138,20 @@ function renderCards() {
           width="395"
         />
         <div class="news-card__favorite">
-        <label for="favorite" class="label-favorite" id="${
-          el.id
-        }">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite" />
+          <label for="favorite" class="label-favorite" id="${el.id}">
+            <span class="label-favorite__title">Add to favorite</span>
+            <span class="label-favorite__box">
+              <svg class="label-favorite__box-icon" width="16" height="16">
+                <use href="/src/images/icons.svg#icon-heart"></use>
+              </svg>
+            </span>
+              <span class="label-favorite__chk">
+              <svg class="label-favorite__chk-icon" width="16" height="16">
+                <use href="/src/images/icons.svg#icon-heart-chk"></use>
+              </svg>
+            </span>
+            <input type="checkbox" class="input-favorite" id="favorite" />
+          </label>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {
