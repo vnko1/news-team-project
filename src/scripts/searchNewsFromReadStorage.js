@@ -1,4 +1,8 @@
-import {getStorageList} from './commonFunctions'
+import {
+  getStorageList,
+  showNotFoundMessage,
+  hideNotFoundMessage,
+} from './commonFunctions';
 
 // const inputEl = document.querySelector('.search-input');
 const formEl = document.getElementById('search-form');
@@ -7,24 +11,32 @@ const galleryEl = document.querySelector('.gallery-container > li');
 formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
-  e.preventDefault()
+  e.preventDefault();
+  hideNotFoundMessage();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('read more');
 
-  const newArrObj = arr.filter(obj => obj.descr.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.title.toLowerCase().includes(searchValue.toLowerCase().trim()))
-// console.log(newArrObj)
-if(newArrObj.length > 0) {
-  render(newArrObj)
-} else {
-  console.log('Тут будет твоя функция для READ MORE')
-}
+  const newArrObj = arr.filter(
+    obj =>
+      obj.descr.toLowerCase().includes(searchValue.toLowerCase().trim()) ||
+      obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()) ||
+      obj.title.toLowerCase().includes(searchValue.toLowerCase().trim())
+  );
+
+  if (newArrObj.length > 0) {
+    render(newArrObj);
+  } else {
+    galleryEl.innerHTML = '';
+    showNotFoundMessage();
+  }
 }
 
 function render(arr) {
-
   const markUp = arr.reduce((acc, el) => {
-    acc += `<div class="news-card" style="padding-top: 100px;" news-id="${el.id}">
+    acc += `<div class="news-card" style="padding-top: 100px;" news-id="${
+      el.id
+    }">
       <div class="news-card__img">
         <p class="news-card__theme">${el.category}</p>
         <img
@@ -51,6 +63,6 @@ function render(arr) {
     </div>`;
     return acc;
   }, ``);
-// console.log(markUp)
+  // console.log(markUp)
   galleryEl.innerHTML = markUp;
 }

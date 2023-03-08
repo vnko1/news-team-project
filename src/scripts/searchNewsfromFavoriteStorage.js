@@ -1,4 +1,8 @@
-import {getStorageList} from './commonFunctions'
+import {
+  getStorageList,
+  showNotFoundMessage,
+  hideNotFoundMessage,
+} from './commonFunctions';
 
 // const inputEl = document.querySelector('.search-input');
 const formEl = document.getElementById('search-form');
@@ -7,23 +11,29 @@ const galleryEl = document.querySelector('.gallery-container');
 formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
-  e.preventDefault()
+  e.preventDefault();
+  hideNotFoundMessage();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('favourites');
 
-  const newArrObj = arr.filter(obj => obj.descr.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.title.toLowerCase().includes(searchValue.toLowerCase().trim()))
-// console.log(newArrObj)
-if(newArrObj.length > 0) {
-  render(newArrObj)
-} else {
-  console.log('Тут будет твоя функция для FAVORITE')
-}
-
+  const newArrObj = arr.filter(
+    obj =>
+      obj.descr.toLowerCase().includes(searchValue.toLowerCase().trim()) ||
+      obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()) ||
+      obj.title.toLowerCase().includes(searchValue.toLowerCase().trim())
+  );
+  // console.log(newArrObj)
+  if (newArrObj.length > 0) {
+    render(newArrObj);
+  } else {
+    galleryEl.innerHTML = '';
+    showNotFoundMessage();
+    console.log('Тут будет твоя функция для FAVORITE');
+  }
 }
 
 function render(arr) {
-
   const markUp = arr.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
       <div class="news-card__img">
@@ -52,6 +62,6 @@ function render(arr) {
     </div>`;
     return acc;
   }, ``);
-// console.log(markUp)
+  // console.log(markUp)
   galleryEl.innerHTML = markUp;
 }
