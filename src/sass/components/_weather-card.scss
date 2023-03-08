@@ -113,6 +113,14 @@
 
 .week-weather {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+
+.day-of-week {
+  color: white;
+}
+
+.week-weather-temp {
+  color: white;
 }
