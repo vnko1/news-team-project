@@ -8,10 +8,11 @@ import {
 // import { paginationByQuery } from './pagination';
 import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
+import { addClassesForCoincidencesMarkupAndStoragePages } from './commonFunctions';
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
-const gallery = document.querySelector('.sgallery-container');
+const gallery = document.querySelector('.gallery-container');
 
 form.addEventListener('submit', onFormSubmit);
 
@@ -162,4 +163,7 @@ function renderCards() {
 
   // пушимо розмітку на сторінку
   gallery.insertAdjacentHTML('beforeend', markUp);
+  gallery.classList.add('gallery-container-search');
 }
+
+addClassesForCoincidencesMarkupAndStoragePages();
