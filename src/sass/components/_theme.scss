@@ -85,6 +85,7 @@
     display: block;
   }
   margin-right: 8px;
+  stroke: #4440f7;
 }
 
 .icon-moon {
@@ -93,6 +94,33 @@
     display: block;
   }
   margin-left: 8px;
+  stroke: #5f6775;
+}
+
+.icon-sun-mob {
+  stroke: #4440f7;
+  margin-right: 8px;
+}
+
+.icon-moon-mob {
+  stroke: #5f6775;
+  margin-left: 8px;
+}
+
+.icon-sun.dark-theme-site {
+  stroke: #5f6775;
+}
+
+.icon-moon.dark-theme-site {
+  stroke: #4440f7;
+}
+
+.icon-sun-mob.dark-theme-site {
+  stroke: #5f6775;
+}
+
+.icon-moon-mob.dark-theme-site {
+  stroke: #4440f7;
 }
 
 body.dark-theme-site {
