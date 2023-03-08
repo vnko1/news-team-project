@@ -1,7 +1,5 @@
 import WeatherApiService from '../scripts/FetchWeather';
 
-
-
 const refs = {
   weatherCard: document.querySelector('.weather-card'),
   weatherTemp: document.querySelector('.weather-card__temp'),
@@ -11,17 +9,16 @@ const refs = {
   weatherDateTheWeek: document.querySelector('.weather-card__week'),
   weatherCards: document.querySelector('#weather-cards'),
   weatherImg: document.querySelector('.weather-picture > img'),
-  weatherForMe: document.querySelector('.weather-card__top')
+  weatherForMe: document.querySelector('.weather-card__top'),
 };
 
 // console.log(refs.weatherImg)
 const weatherApiService = new WeatherApiService();
 
-navigator.geolocation.getCurrentPosition(showPosition, onError)
+navigator.geolocation.getCurrentPosition(showPosition, onError);
 
 async function showPosition(position) {
   try {
-    console.log(position)
     weatherApiService.lat = position.coords.latitude;
     weatherApiService.lon = position.coords.longitude;
     loadWeathetData();
@@ -40,7 +37,7 @@ async function loadWeathetData() {
   try {
     const response = await weatherApiService.loadWeather();
     const data = response.data;
-    console.log(data)
+
     appendWeatherToCard(data);
     getDateToday(data);
   } catch {}
@@ -58,7 +55,9 @@ function appendWeatherToCard(data) {
         </div>
       </div>
       <picture class="weather-picture">
-        <img class="img" src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="" width="165" />
+        <img class="img" src="https://openweathermap.org/img/wn/${
+          data.weather[0].icon
+        }@2x.png" alt="" width="165" />
       </picture>
       <div class="weather-card__bottom">
         <p class="weather-card__date">
@@ -68,7 +67,7 @@ function appendWeatherToCard(data) {
           <a class="weather-card__week-link href=">weather for week</a>
         </button>
       </div>
-  `
+  `;
 
   const btnBtnEl = document.querySelector('.weather-card__week');
   btnBtnEl.addEventListener('click', onWetherWeekCards);
@@ -85,7 +84,7 @@ function appendWeatherToCard(data) {
 
 function getDateToday(data) {
   const timestamp = data.dt;
-  console.log(7)
+
   const date = new Date(timestamp * 1000);
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var monthsOfYear = [
@@ -117,16 +116,15 @@ refs.weatherDateTheWeek.addEventListener('click', onWetherWeekCards);
 //function to update Forecast
 async function onWetherWeekCards() {
   try {
-      const response = await weatherApiService.loadWeatherWeek();
-      const data = response.data;
-      
-      // console.log(data) 
-      myQWE(data.daily)
+    const response = await weatherApiService.loadWeatherWeek();
+    const data = response.data;
 
-      const btnEl = document.querySelector('.newbtn')
-      console.log(btnEl)
+    // console.log(data)
+    myQWE(data.daily);
 
-      btnEl.addEventListener('click', newFunc);
+    const btnEl = document.querySelector('.newbtn');
+
+    btnEl.addEventListener('click', newFunc);
     // const unit = '°C';
     // const type = 'week';
 
@@ -136,10 +134,10 @@ async function onWetherWeekCards() {
   } catch {}
 }
 
-function myQWE (data) {
+function myQWE(data) {
   // const arr = data.daily
   // console.log(arr)
-  console.log('data', data)
+
   // 6 / 0°C
   const markUp = data.reduce((acc, el) => {
     acc += `
@@ -160,27 +158,27 @@ function myQWE (data) {
     return acc;
   }, ``);
 
-  const newMarkup = markUp + `
+  const newMarkup =
+    markUp +
+    `
   <button class="weather-card__week newbtn">weather for day</button>
-  `
+  `;
 
   // refs.weatherForMe.innerHTML = newMarkup;
   refs.weatherCard.innerHTML = newMarkup;
-
 }
 
 async function newFunc() {
   try {
     const response = await weatherApiService.loadWeather();
     const data = response.data;
-    console.log('новая дата', data)
+
     // appendWeatherToCard(data);
     // getDateToday(data);
-  
 
-  // data.name
+    // data.name
 
-  refs.weatherCard.innerHTML = `
+    refs.weatherCard.innerHTML = `
   <div class="weather-card__top">
         <div class="weather-card__temp">${Math.round(data.main.temp)}</div>
         <div class="weather-card__top-right">
@@ -191,7 +189,9 @@ async function newFunc() {
         </div>
       </div>
       <picture class="weather-picture">
-        <img class="img" src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="" width="165" />
+        <img class="img" src="https://openweathermap.org/img/wn/${
+          data.weather[0].icon
+        }@2x.png" alt="" width="165" />
       </picture>
       <div class="weather-card__bottom">
         <p class="weather-card__date">
@@ -201,18 +201,16 @@ async function newFunc() {
           <a class="weather-card__week-link href=">weather for week</a>
         </button>
       </div>
-  `
- 
-  const btnBtnEl = document.querySelector('.weather-card__week');
-  btnBtnEl.addEventListener('click', onWetherWeekCards);
+  `;
 
-  navigator.geolocation.getCurrentPosition(showPosition, onError)
+    const btnBtnEl = document.querySelector('.weather-card__week');
+    btnBtnEl.addEventListener('click', onWetherWeekCards);
 
-  // loadWeathetData();
-} catch {}
-  console.log(1)
+    navigator.geolocation.getCurrentPosition(showPosition, onError);
+
+    // loadWeathetData();
+  } catch {}
 }
-
 
 function dayOfArr(data) {
   const timestamp = data.dt;
@@ -240,25 +238,8 @@ function dayOfArr(data) {
   const formattedDate =
     dayOfWeek + ' ' + dayOfMonth + ' ' + monthOfYear + ' ' + year;
   // refs.weatherDate.textContent = formattedDate;
-  return formattedDate
+  return formattedDate;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // function updateForecast(data, unit, type) {
 //   refs.weatherCard.innerHTML = '';
@@ -321,20 +302,3 @@ function dayOfArr(data) {
 //   ];
 //   return days[day.getDay()];
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
