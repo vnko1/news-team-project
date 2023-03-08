@@ -57,7 +57,6 @@ async function onDateClick(e) {
 
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
-      fetchNews.resetStorageData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 
