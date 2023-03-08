@@ -2,7 +2,23 @@
   <div class="container">
     <!--Для розмітки фільтру  -->
     <div class="date-container">
-      <input type="text" id="date" placeholder="select a date..." />
+      <span class="calendar-svg">
+        <svg class="calendar-svg__icon" width="32" height="32">
+          <use
+            class="calendar-svg__icon-vector"
+            href="/src/images/icons.svg#icon-calendar"
+          ></use>
+        </svg>
+      </span>
+      <input class="input-calendar" type="text" id="date" placeholder="" />
+      <span class="calendar-arrow">
+        <svg class="calendar-arrow__icon" width="32" height="32">
+          <use
+            class="calendar-arrow__icon-arrow"
+            href="/src/images/icons.svg#icon-arrow-down"
+          ></use>
+        </svg>
+      </span>
       <div id="calendar-container" class="is-hidden">
         <div id="calendar"></div>
       </div>
