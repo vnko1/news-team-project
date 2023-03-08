@@ -1,5 +1,6 @@
 import { fetchNews } from './fetchNews';
 const gallery = document.querySelector('.gallery-container');
+const emptyPageContainer = document.querySelector('.empty-page');
 
 String.prototype.limit = function (limit, userParams) {
   let text = this,

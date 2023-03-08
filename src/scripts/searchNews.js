@@ -4,6 +4,8 @@ import {
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 } from './commonFunctions';
 import { paginationByQuery } from './pagination';
 import { spinner } from './libraries';
