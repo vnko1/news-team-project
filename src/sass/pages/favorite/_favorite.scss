@@ -1,20 +1,24 @@
+.favorite-section {
+  position: relative;
+}
+
 .gallery {
-    & .container.gallery-container.fav {
-        display: flex;
-        flex-direction: column;
-        gap: 28px;
-        padding-top: 40px;
+  & .container.gallery-container.fav {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 40px;
 
-        @include tablet {
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 30px;
-            padding-top: 48px;
-        }
-
-        @include desktop {
-            gap: 32px;
-            padding-top: 60px;
-        }
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding-top: 48px;
     }
+
+    @include desktop {
+      gap: 32px;
+      padding-top: 60px;
+    }
+  }
 }
