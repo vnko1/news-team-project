@@ -14,7 +14,7 @@ gallery.addEventListener('click', onClick); // повесить слушател
 
 function onClick(event) {
   //--------------------Favourites--------------------------------
-  if (event.target.type === 'checkbox') {
+  if (event.target.tagName === 'BUTTON') {
     event.target.parentNode.children[0].classList.toggle(
       'js-favourite-storage'
     );
@@ -47,8 +47,6 @@ function onClick(event) {
   //--------------------Read more--------------------------------
 
   if (event.target.textContent === 'Read more') {
-    // event.preventDefault();
-    // event.target.classList.add('js-read-more-storage');
     event.target.classList.add('js-read-more-storage-pages');
 
     const arrayChildren = event.target.parentNode.parentNode;

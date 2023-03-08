@@ -42,6 +42,7 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
+  console.log(e);
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
     const currentDate = new Date();
@@ -151,10 +152,7 @@ function renderFiltredNewsCardByData(data) {
           width="395"
         />
         <div class="news-card__favorite">
-          <label for="favorite" id="${
-            el.id
-          }" class="label-favorite">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite"/>
+        <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {
