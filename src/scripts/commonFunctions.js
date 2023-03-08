@@ -1,5 +1,6 @@
 import { fetchNews } from './fetchNews';
 const gallery = document.querySelector('.gallery-container');
+const emptyPageContainer = document.querySelector('.empty-page');
 
 String.prototype.limit = function (limit, userParams) {
   let text = this,
@@ -274,6 +275,13 @@ function getStorageList(valueOfKeyStorage) {
   return JSON.parse(localStorage.getItem(valueOfKeyStorage));
 }
 
+function showNotFoundMessage() {
+  emptyPageContainer.classList.remove('is-hidden');
+}
+function hideNotFoundMessage() {
+  emptyPageContainer.classList.add('is-hidden');
+}
+
 export {
   cutInfo,
   formatDate,
@@ -286,4 +294,6 @@ export {
   getStorageList,
   addClassesForCoincidencesMarkupAndStorage,
   addClassesForCoincidencesMarkupAndStoragePages,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 };
