@@ -23,13 +23,12 @@ function onFormSubmit(e) {
       obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()) ||
       obj.title.toLowerCase().includes(searchValue.toLowerCase().trim())
   );
-  // console.log(newArrObj)
+
   if (newArrObj.length > 0) {
     render(newArrObj);
   } else {
     galleryEl.innerHTML = '';
     showNotFoundMessage();
-    console.log('Тут будет твоя функция для FAVORITE');
   }
 }
 

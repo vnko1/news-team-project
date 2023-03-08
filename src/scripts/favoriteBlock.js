@@ -35,7 +35,7 @@ function onLoadFavorite() {
 function renderFavouriteCardFromStorage() {
   //  функція для отримання масиву з сториджа
   const arrFavourites = getStorageList('favourites');
-  console.log(arrFavourites);
+
   // створюємо строку розмітки
   const markUp = arrFavourites.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
@@ -49,7 +49,9 @@ function renderFavouriteCardFromStorage() {
           width="395"
         />
         <div class="news-card__favorite">
-        <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
+        <button id ='${
+          el.id
+        }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>

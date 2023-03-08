@@ -6,7 +6,8 @@ import {
 
 // const inputEl = document.querySelector('.search-input');
 const formEl = document.getElementById('search-form');
-const galleryEl = document.querySelector('.gallery-container > li');
+
+const galleryEl = document.querySelector('.gallery-container');
 
 formEl.addEventListener('submit', onFormSubmit);
 
