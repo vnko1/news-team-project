@@ -4,7 +4,7 @@ import {
   renderNewsCards,
   savePopularData,
   addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions';
+} from './сommonFunctions';
 import { paginationByQuery } from './pagination';
 
 onLoad();
