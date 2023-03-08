@@ -55,10 +55,16 @@
 .light-label {
   margin-right: 12px;
   color: #4b48db;
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
 }
 .dark-label {
   margin-left: 12px;
   color: #5f6775;
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
 }
 
 .light-label.light-theme-site {

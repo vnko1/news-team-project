@@ -5,7 +5,6 @@ const refs = {
   darkLabel: document.querySelector('.dark-label'),
   searchInput: document.querySelector('.search-input'),
   queryBtn: document.querySelector('.query-btn-icon'),
-  dateWrap: document.querySelector('.date-wrap p'),
 };
 // перевірка локального сходице на наявність теми
 const savedTheme = localStorage.getItem('theme');
