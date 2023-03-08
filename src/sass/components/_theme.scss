@@ -92,3 +92,18 @@ body.dark-theme-site {
 .menu-container.dark-theme-site {
   background-color: #2e2e2e;
 }
+
+.input-calendar.dark-theme-site {
+  background-color: #2e2e2e;
+  border-color: #f4f4f4;
+  &::placeholder {
+    color: #f4f4f4;
+  }
+}
+
+.calendar-svg__icon.dark-theme-site {
+  fill: #f4f4f4;
+  &::use {
+    fill: currentColor;
+  }
+}
