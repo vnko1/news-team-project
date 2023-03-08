@@ -5,6 +5,7 @@
   outline: none;
   border: none;
   background: none;
+  
 }
 
 #calendar-container {
@@ -931,13 +932,16 @@
     background-color: #4440f6;
     opacity: 1;
     border-color: #4440f6;
-    .calendar-svg__icon,
-    .calendar-arrow__icon {
-      fill: #fff;
-    }
     &::placeholder {
       color: #fff;
     }
+  }
+  &:target {
+      .calendar-svg__icon,
+      .calendar-arrow__icon {
+        fill: #fff;
+      }
+
   }
 }
 
