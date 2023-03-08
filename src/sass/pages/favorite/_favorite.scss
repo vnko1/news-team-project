@@ -1,3 +1,7 @@
+.favorite-section {
+  position: relative;
+}
+
 .gallery {
   & .container.gallery-container.fav {
     display: flex;
@@ -16,10 +20,5 @@
       gap: 32px;
       padding-top: 60px;
     }
-  }
-
-  @include desktop {
-    gap: 32px;
-    padding-top: 60px;
   }
 }
