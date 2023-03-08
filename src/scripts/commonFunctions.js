@@ -227,7 +227,6 @@ function addClassesForCoincidencesMarkupAndStorage() {
 newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id == objOfFavourite.id) {
-        console.log(1)
         obj.className = 'mybtn label-favorite js-favourite-storage';
         obj.parentNode.firstElementChild.textContent = 'Remove from favorite';
       }
