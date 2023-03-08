@@ -4,6 +4,8 @@ import {
   renderNewsCards,
   deleteNewsCards,
   addClassesForCoincidencesMarkupAndStorage,
+  hideNotFoundMessage,
+  showNotFoundMessage,
 } from './commonFunctions';
 // import Notiflix, { Notify } from 'notiflix';
 import { spinner } from './libraries';
@@ -57,6 +59,7 @@ async function onClickCategoryBtn(e) {
     if (e.target.nodeName === 'BUTTON') {
       spinner.spin(document.body);
       const query = e.target.innerText.toLowerCase();
+      hideNotFoundMessage();
       fetchNews.resetData();
       fetchNews.resetStorageData();
       fetchNews.resetCategoryData();
@@ -67,10 +70,10 @@ async function onClickCategoryBtn(e) {
       const {
         data: { results },
       } = response;
-
+      console.log(results);
       if (results === null) {
-        //  !!Тут буде розмітка що нічого не знайдено відповідно до макету
-        // appendNotFoundImage();
+        deleteNewsCards();
+        showNotFoundMessage();
         spinner.stop();
         return;
       }
@@ -97,6 +100,7 @@ async function onClickCategoryBtn(e) {
 async function onClickOtherCategory(e) {
   try {
     selectedList.classList.toggle('shown');
+    hideNotFoundMessage();
     spinner.spin(document.body);
     fetchNews.resetData();
     fetchNews.resetStorageData();
@@ -112,7 +116,8 @@ async function onClickOtherCategory(e) {
     } = response;
 
     if (results === null) {
-      //  !!Тут буде розмітка що нічого не знайдено відповідно до макету
+      deleteNewsCards();
+      showNotFoundMessage();
       // appendNotFoundImage();
       spinner.stop();
       return;

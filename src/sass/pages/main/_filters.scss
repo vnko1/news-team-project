@@ -86,8 +86,8 @@
 }
 
 .shown {
+  z-index: 999;
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
 }
-
