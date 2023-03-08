@@ -258,7 +258,7 @@ function addClassesForCoincidencesMarkupAndStoragePages() {
   const favouriteList = getStorageList('favourites');
   const labelsEl = document.querySelectorAll('.label-favorite');
   const newArrOfBtn = [...labelsEl];
-  console.log(newArrOfBtn);
+  // console.log(newArrOfBtn);
   newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id === objOfFavourite.id) {
