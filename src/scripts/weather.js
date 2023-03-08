@@ -11,6 +11,11 @@ const refs = {
   weatherImg: document.querySelector('.weather-picture > img'),
   weatherForMe: document.querySelector('.weather-card__top'),
 };
+//==================
+// refs.weatherDate
+// refs.weatherCard
+// const btnBtnEl = document.querySelector('.weather-card__week');
+//==================
 
 // console.log(refs.weatherImg)
 const weatherApiService = new WeatherApiService();
@@ -70,16 +75,7 @@ function appendWeatherToCard(data) {
   `;
 
   const btnBtnEl = document.querySelector('.weather-card__week');
-  btnBtnEl.addEventListener('click', onWetherWeekCards);
-  // console.log(3)
-  // refs.weatherLocate.textContent = data.name;
-  // console.log(4)
-  // refs.weatherTemp.textContent = Math.round(data.main.temp);
-  // console.log(5)
-  // refs.weatherNow.textContent = data.weather[0].main;
-  // console.log(6)
-  // const icon = data.weather[0].icon;
-  // refs.weatherImg.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+  btnBtnEl.addEventListener('click', onWeatherWeekCards);
 }
 
 function getDateToday(data) {
@@ -111,34 +107,23 @@ function getDateToday(data) {
   return formattedDate;
 }
 
-refs.weatherDateTheWeek.addEventListener('click', onWetherWeekCards);
+refs.weatherDateTheWeek.addEventListener('click', onWeatherWeekCards);
 
-//function to update Forecast
-async function onWetherWeekCards() {
+async function onWeatherWeekCards() {
   try {
     const response = await weatherApiService.loadWeatherWeek();
     const data = response.data;
 
-    // console.log(data)
-    myQWE(data.daily);
+    markupWeekWeather(data.daily);
 
     const btnEl = document.querySelector('.newbtn');
 
-    btnEl.addEventListener('click', newFunc);
-    // const unit = '°C';
-    // const type = 'week';
+    btnEl.addEventListener('click', dailyWeather);
 
-    // updateForecast(data, unit, type);
-    refs.weatherDateTheWeek.disabled = true;
-    refs.weatherDateTheWeek.disabled = false;
   } catch {}
 }
 
-function myQWE(data) {
-  // const arr = data.daily
-  // console.log(arr)
-
-  // 6 / 0°C
+function markupWeekWeather(data) {
   const markUp = data.reduce((acc, el) => {
     acc += `
     <div class=week-weather>
@@ -164,19 +149,13 @@ function myQWE(data) {
   <button class="weather-card__week newbtn">weather for day</button>
   `;
 
-  // refs.weatherForMe.innerHTML = newMarkup;
   refs.weatherCard.innerHTML = newMarkup;
 }
 
-async function newFunc() {
+async function dailyWeather() {
   try {
     const response = await weatherApiService.loadWeather();
     const data = response.data;
-
-    // appendWeatherToCard(data);
-    // getDateToday(data);
-
-    // data.name
 
     refs.weatherCard.innerHTML = `
   <div class="weather-card__top">
@@ -204,7 +183,7 @@ async function newFunc() {
   `;
 
     const btnBtnEl = document.querySelector('.weather-card__week');
-    btnBtnEl.addEventListener('click', onWetherWeekCards);
+    btnBtnEl.addEventListener('click', onWeatherWeekCards);
 
     navigator.geolocation.getCurrentPosition(showPosition, onError);
 
@@ -240,65 +219,3 @@ function dayOfArr(data) {
   // refs.weatherDate.textContent = formattedDate;
   return formattedDate;
 }
-
-// function updateForecast(data, unit, type) {
-//   refs.weatherCard.innerHTML = '';
-//   let day = 0;
-//   let numCards = 0;
-//   if (type === 'day') {
-//     numCards = 24;
-//   } else {
-//     numCards = 7;
-//   }
-//   console.log(numCards)
-//   for (let i = 0; i < numCards; i++) {
-//     let card = document.createElement('div');
-//     console.log(card)
-//     card.classList.add('card');
-//     let dayName = getHour(data[day].datetime);
-//     if (type === 'week') {
-//       dayName = getDayName();
-//       console.log(dayName)
-//     }
-//     let dayTemp = data[day].temp;
-//     if (unit === 'f') {
-//       dayTemp = celciusToFahrenheit(data[day].temp);
-//     }
-//     let iconCondition = data[day].icon;
-//     let iconSrc = getIcon(iconCondition);
-//     let tempUnit = '°C';
-//     if (unit === 'f') {
-//       tempUnit = '°F';
-//     }
-//     refs.weatherCard.innerHTML = `
-//       <h2 class="day-name">${dayName}</h2>
-//       <div class="card-icon">
-//         <img src="${iconSrc}" class="day-icon" alt="" />
-//       </div>
-//       <div class="day-temp">
-//         <h2 class="temp">${dayTemp}</h2>
-//         <span class="temp-unit">${tempUnit}</span>
-//       </div>
-//     `;
-//     refs.weatherCard.appendChild(card);
-//     day++;
-//   }
-// }
-// // function to conver celcius to fahrenheit
-// function celciusToFahrenheit(temp) {
-//   return ((temp * 9) / 5 + 32).toFixed(1);
-// }
-// // function to get day name from date
-// function getDayName(date) {
-//   let day = new Date(date);
-//   let days = [
-//     'Sunday',
-//     'Monday',
-//     'Tuesday',
-//     'Wednesday',
-//     'Thursday',
-//     'Friday',
-//     'Saturday',
-//   ];
-//   return days[day.getDay()];
-// }
