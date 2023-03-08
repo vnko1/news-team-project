@@ -45,19 +45,12 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
-      // gallery.innerHTML = `
-      // <div>
-      // <p>We haven’t found news from this category</p>
-      // <img src='https://klike.net/uploads/posts/2020-09/1599896421_21.jpg'>
-      // </div>
-      // `;
-
       form.reset();
       spinner.stop();
       return;
     }
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
-    // fetchNews.setHits(response.meta.hits);
+    fetchNews.setHits(response.meta.hits);
     const { docs } = response;
     saveData(docs);
     //очищаємо картки
@@ -69,7 +62,7 @@ async function onFormSubmit(event) {
     addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
     // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-    // fetchNews.setIsUrlRequest(true);
+    fetchNews.setIsUrlRequest(true);
   } catch (error) {
     spinner.stop();
   }
@@ -141,7 +134,9 @@ function renderCards() {
           width="395"
         />
         <div class="news-card__favorite">
-          <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
+          <button id ='${
+            el.id
+          }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {
