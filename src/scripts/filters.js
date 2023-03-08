@@ -1,46 +1,41 @@
-import axios from 'axios';
-import { fetchNews } from './FetchNews';
+import { fetchNews } from './fetchNews';
 import {
   saveCategoryData,
   renderNewsCards,
   deleteNewsCards,
   addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions';
-import Notiflix, { Notify } from 'notiflix';
-import { spinner } from './Libraries';
+} from './commonFunctions';
+// import Notiflix, { Notify } from 'notiflix';
+import { spinner } from './libraries';
 
-Notify.init({
-  width: '400px',
-  cssAnimation: true,
-  cssAnimationDuration: 400,
-  cssAnimationStyle: 'fade',
-  borderRadius: '10px',
-  position: 'center-top',
-  closeButton: false,
-  timeout: 1500,
-});
-
+// Notify.init({
+//   width: '400px',
+//   cssAnimation: true,
+//   cssAnimationDuration: 400,
+//   cssAnimationStyle: 'fade',
+//   borderRadius: '10px',
+//   position: 'center-top',
+//   closeButton: false,
+//   timeout: 1500,
+// });
 
 const galleryContainer = document.querySelector('.gallery-container');
-const categoryContainer = document.querySelector('.filters .container');
+// const categoryContainer = document.querySelector('.filters .container');
 const filterBtnsWrap = document.querySelector('.filters__button-wrap');
 const selectedList = document.querySelector('.selected_list');
 const filterCategory = document.querySelectorAll('.filters__button');
 const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
-console.log('💛💙💪  otherCategoriesBtn:', otherCategoriesBtn);
 
 const dropdownBtn = document.querySelector('.category_btn');
 const dropdownMenu = document.querySelector('.category_dropdown');
-const categoryContainerCopy = document.querySelector('.category');
+// const categoryContainerCopy = document.querySelector('.category');
 const notDropdownBtnContainer = document.querySelector(
   '.category_notdropdownbtn_container'
 );
-const body = document.querySelector('body');
-const nonDropdownBtn = document.querySelectorAll('.category_nondropdown_btn');
-
-
+// const body = document.querySelector('body');
+// const nonDropdownBtn = document.querySelectorAll('.category_nondropdown_btn');
 
 filterBtnsWrap.addEventListener('click', onClickCategoryBtn);
 otherCategoriesBtn.addEventListener('click', onClickOthersBtn);
@@ -53,9 +48,7 @@ selectedList.addEventListener('click', onClickOtherCategory);
 //     selectedList.classList.remove('shown');
 //   }});
 
-
 createFilters();
-
 
 //  це функція яка викликатиметься при натисканні на кнопку - фільтр,
 async function onClickCategoryBtn(e) {
@@ -65,31 +58,27 @@ async function onClickCategoryBtn(e) {
       const query = e.target.innerText.toLowerCase();
       fetchNews.resetData();
       fetchNews.resetStorageData();
-
+      fetchNews.resetCategoryData();
       fetchNews.setFilterQuery(query);
 
-      deleteNewsCards();
       const response = await fetchNews.fetchNewsByFilter();
 
       const {
         data: { results },
       } = response;
-      spinner.stop();
+
       if (results === null) {
-        fetchNews.resetData();
-        fetchNews.resetStorageData();
-        deleteNewsCards();
-        Notify.failure('We haven’t found news from this category');
+        //  !!Тут буде розмітка що нічого не знайдено відповідно до макету
         // appendNotFoundImage();
+        spinner.stop();
         return;
       }
-      deleteNewsCards();
-      fetchNews.setHits(20);
 
+      fetchNews.setHits(results.length);
       fetchNews.setFilterParams(fetchNews.getFilterParams());
       saveCategoryData(results);
-      // console.log(fetchNews.getData());
-      // console.log(fetchNews.getStorageData());
+
+      deleteNewsCards();
       renderNewsCards();
 
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
@@ -98,43 +87,39 @@ async function onClickCategoryBtn(e) {
     }
   } catch (error) {
     console.error(error.message);
+    spinner.stop();
   }
+  spinner.stop();
 }
 
 async function onClickOtherCategory(e) {
   try {
     selectedList.classList.toggle('shown');
     spinner.spin(document.body);
-    e.preventDefault();
-    const query = e.target.textContent;
-    otherCategoriesBtn.innerText = query;
     fetchNews.resetData();
     fetchNews.resetStorageData();
+    fetchNews.resetCategoryData();
+    const query = e.target.textContent;
+    otherCategoriesBtn.innerText = query;
 
     fetchNews.setFilterQuery(query.toLowerCase());
-
-    deleteNewsCards();
     const response = await fetchNews.fetchNewsByFilter();
 
     const {
       data: { results },
     } = response;
-    spinner.stop();
+
     if (results === null) {
-      fetchNews.resetData();
-      fetchNews.resetStorageData();
-      deleteNewsCards();
-      Notify.failure('We haven’t found news from this category');
+      //  !!Тут буде розмітка що нічого не знайдено відповідно до макету
       // appendNotFoundImage();
+      spinner.stop();
       return;
     }
-    deleteNewsCards();
-    fetchNews.setHits(20);
+    fetchNews.setHits(results.length);
 
     fetchNews.setFilterParams(fetchNews.getFilterParams());
     saveCategoryData(results);
-    // console.log(fetchNews.getData());
-    // console.log(fetchNews.getStorageData());
+    deleteNewsCards();
     renderNewsCards();
 
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
@@ -142,7 +127,9 @@ async function onClickOtherCategory(e) {
     addClassesForCoincidencesMarkupAndStorage();
   } catch (error) {
     console.error(error.message);
+    spinner.stop();
   }
+  spinner.stop();
 }
 
 function createSelectedList({ display_name }) {
@@ -157,8 +144,6 @@ function onClickOthersBtn() {
   selectedList.classList.toggle('shown');
 }
 
-
-
 function appendNotFoundImage() {
   const image = document.createElement('img');
   image.src = '';
@@ -166,13 +151,12 @@ function appendNotFoundImage() {
   galleryContainer.append(image);
 }
 
-async function createFilters () {
+async function createFilters() {
   try {
     const results = await fetchNews.getCategoryNames();
     const shortResults = results
       .filter(result => result.display_name.length <= 10)
       .sort();
-    
 
     const categoriesAll = shortResults.map(({ section, display_name }) => {
       return display_name;
@@ -197,88 +181,83 @@ async function createFilters () {
         acc.push(result.display_name);
       }
       return acc;
-    }, []);    
+    }, []);
 
     const categoriesForDesktopList = shortResults.reduce((acc, result) => {
       if (shortResults.indexOf(result) > 5) {
         acc.push(result.display_name);
       }
       return acc;
-    }, []); 
+    }, []);
 
+    const mediaQueryDesktop = window.matchMedia('(min-width: 1280px)');
+    const mediaQueryTablet = window.matchMedia(
+      'screen and (min-width: 768px) and (max-width: 1279px'
+    );
+    const mediaQueryMobile = window.matchMedia('(max-width: 767px)');
 
+    // Register event listener
+    mediaQueryDesktop.addListener(renderDesktopCategories);
+    mediaQueryTablet.addListener(renderTabletCategories);
+    mediaQueryMobile.addListener(renderMobileCategories);
 
-  const mediaQueryDesktop = window.matchMedia('(min-width: 1280px)')
-  const mediaQueryTablet = window.matchMedia('screen and (min-width: 768px) and (max-width: 1279px')  
-  const mediaQueryMobile = window.matchMedia('(max-width: 767px)');
+    // Initial check
+    renderDesktopCategories(mediaQueryDesktop);
+    renderTabletCategories(mediaQueryTablet);
+    renderMobileCategories(mediaQueryMobile);
 
-  // Register event listener
-  mediaQueryDesktop.addListener(renderDesktopCategories);
-  mediaQueryTablet.addListener(renderTabletCategories);
-mediaQueryMobile.addListener(renderMobileCategories);
+    if (mediaQueryMobile.matches) {
+      renderMobileCategories(mediaQueryMobile);
+    } else if (mediaQueryTablet.mathes) {
+      renderTabletCategories(mediaQueryTablet);
+    } else {
+      renderDesktopCategories(mediaQueryDesktop);
+    }
 
+    async function renderDesktopCategories(e) {
+      // Check if the media query is true
+      if (e.matches) {
+        dropdownBtn.firstChild.textContent = 'Others';
+        const markupBtn = categoriesForDesktopBtn.reduce((acc, category) => {
+          return (acc += createButtons(category));
+        }, '');
+        addButtons(markupBtn);
+        const markupList = categoriesForDesktopList.reduce((acc, category) => {
+          return (acc += createMarkup(category));
+        }, '');
+        addMarkup(markupList);
+      }
+    }
+    async function renderMobileCategories(e) {
+      if (e.matches) {
+        dropdownBtn.firstChild.textContent = 'Categories';
+        const markup = categoriesAll.reduce((acc, category) => {
+          return (acc += createMarkup(category));
+        }, '');
+        notDropdownBtnContainer.innerHTML = '';
+        addMarkup(markup);
+      }
+    }
+    async function renderTabletCategories(e) {
+      // Check if the media query is true
+      if (e.matches) {
+        dropdownBtn.firstChild.textContent = 'Others';
+        const markupBtn = categoriesForTabletBtn.reduce((acc, category) => {
+          return (acc += createButtons(category));
+        }, '');
+        addButtons(markupBtn);
 
-// Initial check
-renderDesktopCategories(mediaQueryDesktop);
-renderTabletCategories(mediaQueryTablet);
-renderMobileCategories(mediaQueryMobile);
+        const markupList = categoriesForTabletList.reduce((acc, category) => {
+          return (acc += createMarkup(category));
+        }, '');
 
-
-
-if (mediaQueryMobile.matches) {
-  renderMobileCategories(mediaQueryMobile);
-} else if (mediaQueryTablet.mathes) {
-  renderTabletCategories(mediaQueryTablet);
-} else {
-  renderDesktopCategories(mediaQueryDesktop)
-}
-
-async function renderDesktopCategories(e) {
-  // Check if the media query is true
-  if (e.matches) {
-    dropdownBtn.firstChild.textContent = 'Others';
-    const markupBtn = categoriesForDesktopBtn.reduce((acc, category) => {
-      return (acc += createButtons(category));
-    }, '');
-    addButtons(markupBtn);
-    const markupList = categoriesForDesktopList.reduce((acc, category) => {
-      return (acc += createMarkup(category));
-    }, '');
-    addMarkup(markupList);
-  }
-}
-async function renderMobileCategories(e) {
-  if (e.matches) {
-  dropdownBtn.firstChild.textContent = 'Categories';
-  const markup = categoriesAll.reduce((acc, category) => {
-    return (acc += createMarkup(category));
-  }, '');
-  notDropdownBtnContainer.innerHTML = '';
-  addMarkup(markup);}
-  
-  }
-  async function renderTabletCategories(e) {
-  // Check if the media query is true
-  if (e.matches) {
-    dropdownBtn.firstChild.textContent = 'Others';
-      const markupBtn = categoriesForTabletBtn.reduce((acc, category) => {
-        return (acc += createButtons(category));
-      }, '');
-      addButtons(markupBtn);
-
-      const markupList = categoriesForTabletList.reduce((acc, category) => {
-        return (acc += createMarkup(category));
-      }, '');
-
-      addMarkup(markupList);
-  }
-}
-
+        addMarkup(markupList);
+      }
+    }
   } catch (error) {
-console.log(error)
+    console.log(error);
   }
 }
-
 
 function createMarkup(category) {
   return `<a class="category_dropdown_item selected__item" href="#">${category}</a>`;

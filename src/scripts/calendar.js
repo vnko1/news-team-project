@@ -10,33 +10,33 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
 } from './commonFunctions';
 
-// const calendar = new VanillaCalendar('#calendar');
-// calendar.init();
+const calendar = new VanillaCalendar('#calendar');
+calendar.init();
 
-// const inputEl = document.querySelector('#date');
-// const calendarContainer = document.querySelector('#calendar-container');
-// const calendarEl = document.querySelector('#calendar');
-// const gallery = document.querySelector('.gallery-container');
-// const dateContainer = document.querySelector('.date-container');
+const inputEl = document.querySelector('#date');
+const calendarContainer = document.querySelector('#calendar-container');
+const calendarEl = document.querySelector('#calendar');
+const gallery = document.querySelector('.gallery-container');
+const dateContainer = document.querySelector('.date-container');
 
 const currenDate = new Date().toLocaleDateString().split('.').join('/');
 inputEl.placeholder = currenDate;
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
 
-// function onInputElClick() {
-//   calendarContainer.classList.remove('is-hidden');
-//   document.addEventListener('click', onWindowClick);
-// }
+function onInputElClick() {
+  calendarContainer.classList.remove('is-hidden');
+  document.addEventListener('click', onWindowClick);
+}
 
-// function onWindowClick(e) {
-//   const withinBoundaries = e.composedPath().includes(dateContainer);
+function onWindowClick(e) {
+  const withinBoundaries = e.composedPath().includes(dateContainer);
 
-//   if (!withinBoundaries) {
-//     calendarContainer.classList.add('is-hidden');
-//     document.removeEventListener('click', onWindowClick);
-//   }
-// }
+  if (!withinBoundaries) {
+    calendarContainer.classList.add('is-hidden');
+    document.removeEventListener('click', onWindowClick);
+  }
+}
 
 async function onDateClick(e) {
   if (e.target.hasAttribute('data-calendar-day')) {
@@ -55,10 +55,10 @@ async function onDateClick(e) {
     deleteNewsCards();
     spinner.spin(document.body);
 
-//     if (fetchNews.getUrl().includes('articlesearch')) {
-//       fetchNews.resetData();
-//       try {
-//         const response = await fetchNews.fetchNewsByDate();
+    if (fetchNews.getUrl().includes('articlesearch')) {
+      fetchNews.resetData();
+      try {
+        const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
           logMessage();
@@ -118,13 +118,13 @@ function fromFrontNewsCardsCreation(data) {
   addClassesForCoincidencesMarkupAndStorage();
 }
 
-// function logMessage() {
-//   console.log('нічого не знайдено');
-//   spinner.stop();
-// }
+function logMessage() {
+  console.log('нічого не знайдено');
+  spinner.stop();
+}
 
-// function renderFiltredNewsCardByData(data) {
-//   const renderData = [];
+function renderFiltredNewsCardByData(data) {
+  const renderData = [];
 
   // перебираємо маси та перші 8 елементів пушимо в renderData
   for (let i = 0; i < data.length; i++) {

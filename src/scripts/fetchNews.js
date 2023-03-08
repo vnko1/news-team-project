@@ -6,8 +6,7 @@ const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const FILTER_URL = 'https://api.nytimes.com/svc/news/v3/content/inyt/';
 const CATEGORY_NAMES =
   'https://api.nytimes.com/svc/news/v3/content/section-list.json';
-
-// const SEARCH_BY_CATEGORIES = 'https://api.nytimes.com/svc/news/v3/content/nyt/arts.json?'
+const limit = 500;
 
 class FetchNews {
   constructor() {
@@ -254,26 +253,7 @@ class FetchNews {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
-      limit: 500,
-    });
-    this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
-    this.setDateUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
-    const response = await axios.get(
-      `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
-    );
-    return response;
-  }
-
-  async fetchPagination() {
-    const params = new URLSearchParams({ page: this.getPage() });
-    const response = await axios.get(`${this.getUrl()}&${params}`);
-    return response;
-  }
-
-  async fetchNewsByFilter() {
-    //  обʼєкт параметрів для URL
-    const params = new URLSearchParams({
-      'api-key': API_KEY,
+      limit,
     });
     // зберігаємо URL
     this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
@@ -296,6 +276,12 @@ class FetchNews {
     const response = await axios.get(`${CATEGORY_NAMES}?${params}`);
     // повертає назви категорій з бекенду
     return response.data.results;
+  }
+
+  async fetchPagination() {
+    const params = new URLSearchParams({ page: this.getPage() });
+    const response = await axios.get(`${this.getUrl()}&${params}`);
+    return response;
   }
 }
 

@@ -1,58 +1,39 @@
 <section class="filters container filters_wrap">
-    <div class="container category-container">
+  <div class="container category-container">
     <section class="category filters_wrap">
       <div class="category_notdropdownbtn_container filters__button-wrap"></div>
       <div class="category_dropbtn_container selected_container">
         <button class="category_btn filters__button" id="category_btn">
           Categories
         </button>
-        <div class="category_dropdown selected_list" id="category_dropdown"></div>
+        <div
+          class="category_dropdown selected_list"
+          id="category_dropdown"
+        ></div>
       </div>
     </section>
-    
   </div>
-    <!--Для розмітки фільтру  -->
-    <div class="date-container">
-      <span class="calendar-svg">
-        <svg class="calendar-svg__icon" width="32" height="32">
-          <use
-            class="calendar-svg__icon-vector"
-            href="/src/images/icons.svg#icon-calendar"
-          ></use>
-        </svg>
-      </span>
-      <input class="input-calendar" type="text" id="date" placeholder="" />
-      <span class="calendar-arrow">
-        <svg class="calendar-arrow__icon" width="32" height="32">
-          <use
-            class="calendar-arrow__icon-arrow"
-            href="/src/images/icons.svg#icon-arrow-down"
-          ></use>
-        </svg>
-      </span>
-      <div id="calendar-container" class="is-hidden">
-        <div id="calendar"></div>
-      </div>
+  <!--Для розмітки фільтру  -->
+  <div class="date-container">
+    <span class="calendar-svg">
+      <svg class="calendar-svg__icon" width="32" height="32">
+        <use
+          class="calendar-svg__icon-vector"
+          href="/src/images/icons.svg#icon-calendar"
+        ></use>
+      </svg>
+    </span>
+    <input class="input-calendar" type="text" id="date" placeholder="" />
+    <span class="calendar-arrow">
+      <svg class="calendar-arrow__icon" width="32" height="32">
+        <use
+          class="calendar-arrow__icon-arrow"
+          href="/src/images/icons.svg#icon-arrow-down"
+        ></use>
+      </svg>
+    </span>
+    <div id="calendar-container" class="is-hidden">
+      <div id="calendar"></div>
     </div>
-  </div> -->
+  </div>
 </section>
-
-<!-- "Зверстати блок зі списком категорій для пошуку тематичних новин по відповідній категорії  (мобільна, планшет та десктопна версії)
-Блок в себе включає список з категоріями новин
-Категорії новин приходять з бекенда в результаті запиту
-Список новин що помістився в рядок потрібно відобразити випадаючим списком, що відкрвається по кліку на кнопку Others
-На мобільній версії всі категорії повинні відображатись у випадаючому списку, що відкривається по кліку на кнопку Categories
-Клік по обраній категорії повинен робити запит на бекенд для отримання відповідного списку новин" 
-
-План роботи:
-1. при будь-якому запиті на бекенд приходить список категорій;
-- створити незалежну функцію, яка буде викликатися при загрузці сторінки і робити запит на бекенд;
-- створити функцію, яка буде рендерить кнопки з наповненням від бекенду;
-
-2. зі списку категорій треба обрати ті, які мають довжину не більше 10-15 символів;
-3. результат фільтрації, тобто назви категорій до 15 символів, треба помістити в 7 кнопок, решту запиту в окрему кнопку Others;
-4. створити випадаючий список на кнопці others;
-5. створити випадаючий список по дефолту для мобільної версії;
-
-
--->
