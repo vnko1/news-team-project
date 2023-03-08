@@ -11,7 +11,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліоте�
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
-const gallery = document.querySelector('.container');
+const gallery = document.querySelector('.news-cars');
 
 form.addEventListener('submit', onFormSubmit);
 
