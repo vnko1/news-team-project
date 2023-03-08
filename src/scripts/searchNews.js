@@ -20,7 +20,7 @@ async function onFormSubmit(event) {
   //очищуємо масив даних
 
   event.preventDefault();
-  hideNotFoundMessage();
+
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
@@ -45,7 +45,7 @@ async function onFormSubmit(event) {
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
       deleteCards();
-      showNotFoundMessage();
+
       form.reset();
       spinner.stop();
       return;
