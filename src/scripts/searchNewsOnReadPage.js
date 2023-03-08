@@ -5,26 +5,26 @@ import {
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
 } from './commonFunctions';
-import { paginationByQuery } from './pagination';
+// import { paginationByQuery } from './pagination';
 import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
-const gallery = document.querySelector('.gallery-container');
+const gallery = document.querySelector('.container');
 
 form.addEventListener('submit', onFormSubmit);
-console.log('object');
+
 //сабмітимо форму
 async function onFormSubmit(event) {
   //очищуємо масив даних
-  console.log('object');
+
   event.preventDefault();
 
-  fetchNews.resetData();
-  fetchNews.resetStorageData();
+  //   fetchNews.resetData();
+  //   fetchNews.resetStorageData();
   spinner.spin(document.body);
-  console.log('object');
+
   try {
     //присвоюємо запиту значення інпуту
     const query = inputField.value;
@@ -61,14 +61,15 @@ async function onFormSubmit(event) {
     saveData(docs);
     //очищаємо картки
     deleteCards();
-    //пушимо розмітку
     renderCards();
-    paginationByQuery();
+    //пушимо розмітку
+    // renderCards();
+
     spinner.stop();
-    addClassesForCoincidencesMarkupAndStorage();
+    // addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
-    fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-    fetchNews.setIsUrlRequest(true);
+    // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+    // fetchNews.setIsUrlRequest(true);
   } catch (error) {
     spinner.stop();
   }
@@ -77,12 +78,9 @@ async function onFormSubmit(event) {
   form.reset();
 }
 
-function onIndexSearch() {}
-
 //очищаємо картки
 function deleteCards() {
-  const newsCards = fetchNews.getNodeChild();
-  newsCards.forEach(el => el.remove());
+  gallery.innerHTML = '';
 }
 
 //пушимо дані в екземпляр класу
