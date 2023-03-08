@@ -19,6 +19,12 @@ function onClick(event) {
       'js-favourite-storage'
     );
 
+    if (event.target.parentNode.children[0].textContent === 'Add to favorite') {
+      event.target.parentNode.children[0].textContent = 'Remove from favorite';
+    } else if(event.target.parentNode.children[0].textContent === 'Remove from favorite'){
+      event.target.parentNode.children[0].textContent = 'Add to favorite'
+    }
+
     const arrayChildren = event.target.parentNode.parentNode.parentNode;
 
     const newObj = {
