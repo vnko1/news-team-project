@@ -14,8 +14,8 @@ function onFormSubmit(e) {
 
   const arr = getStorageList('favourites');
 
-  const newArrObj = arr.filter(obj => obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()))
-// console.log(newArrObj)
+  const newArrObj = arr.filter(obj => obj.descr.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()))
+console.log(newArrObj)
 
 render(newArrObj)
 }
