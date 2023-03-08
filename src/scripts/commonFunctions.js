@@ -83,7 +83,9 @@ function renderNewsCards() {
           width="395"
         />
         <div class="news-card__favorite">
-          <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
+          <button id ='${
+            el.id
+          }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {
@@ -224,10 +226,10 @@ function addClassesForCoincidencesMarkupAndStorage() {
   const labelsEl = document.querySelectorAll('.label-favorite');
   const newArrOfBtn = [...labelsEl];
 
-newArrOfBtn.filter(obj => {
+  newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id == objOfFavourite.id) {
-        console.log(1)
+        console.log(1);
         obj.className = 'mybtn label-favorite js-favourite-storage';
         obj.parentNode.firstElementChild.textContent = 'Remove from favorite';
       }
@@ -254,7 +256,6 @@ function addClassesForCoincidencesMarkupAndStoragePages() {
   const favouriteList = getStorageList('favourites');
   const labelsEl = document.querySelectorAll('.label-favorite');
   const newArrOfBtn = [...labelsEl];
-  console.log(newArrOfBtn);
   newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id === objOfFavourite.id) {
