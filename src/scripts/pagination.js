@@ -1,7 +1,3 @@
-// // В файл filters, виклик ставила на 70 рядок
-// // import { paginationByFilter } from './pagination';
-// // paginationByFilter();
-
 import { fetchNews } from './fetchNews';
 import {
   saveSearchData,
@@ -19,30 +15,19 @@ nextCon.addEventListener('click', handleNextPage);
 prevCon.addEventListener('click', handlePreviousPage);
 itemCont.addEventListener('click', handlePageByNumber);
 
-export async function paginationByPopular() {
+export async function paginationByQuery() {
   const totalHits = fetchNews.getHits();
   const totalPages = Math.ceil(totalHits / 8);
-  pag(totalPages);
-}
-
-export async function paginationBySearch() {
-  const totalHits = fetchNews.getHits();
-  const totalPages = Math.ceil(totalHits / 8);
-
-  pag(totalPages);
-}
-
-export async function paginationByFilter() {
-  const totalHits = fetchNews.getHits();
-  const totalPages = Math.ceil(totalHits / 8);
-
-  pag(totalPages);
+  fetchNews.page = 0;
+  startPagination(totalPages);
 }
 
 // ------------------------------------------------------------------------------------------------
 
 async function handleNextPage() {
   fetchNews.incrementPage();
+  // console.log(fetchNews.page + 1);
+
   deleteNewsCards();
 
   if (fetchNews.getUrl().includes('articlesearch')) {
@@ -348,6 +333,7 @@ function element(totalPage, page) {
   }
 
   // логіка для неактивних кнопок
+  nextCon.classList.remove('inactiveCon');
   if (page === 1) {
     prevBtn.classList.add('inactive');
     return;
@@ -361,14 +347,15 @@ function element(totalPage, page) {
   nextCon.classList.remove('inactiveCon');
 }
 
-function pag(totalPages) {
+function startPagination(totalPages) {
   const mediaQuery = window.matchMedia('(min-width: 768px)');
   function handleScreenSizeChange(e) {
     if (!e.matches) {
-      elementMob(totalPages, 1);
+      elementMob(totalPages, fetchNews.page + 1);
+
       return;
     }
-    element(totalPages, 1);
+    element(totalPages, fetchNews.page + 1);
   }
 
   mediaQuery.addListener(handleScreenSizeChange);

@@ -5,7 +5,7 @@ import {
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
 } from './commonFunctions';
-import { paginationBySearch } from './pagination';
+import { paginationByQuery } from './pagination';
 import { spinner } from './Libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
@@ -61,8 +61,7 @@ async function onFormSubmit(event) {
     deleteCards();
     //пушимо розмітку
     renderCards();
-    paginationBySearch();
-    paginationBySearch();
+    paginationByQuery();
     spinner.stop();
     addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
