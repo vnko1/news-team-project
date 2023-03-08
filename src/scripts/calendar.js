@@ -8,7 +8,7 @@ import {
   deleteNewsCards,
   saveSearchData,
   addClassesForCoincidencesMarkupAndStorage,
-} from './CommonFunctions';
+} from './сommonFunctions';
 import { deletePagination } from './pagination';
 
 const calendar = new VanillaCalendar('#calendar');
