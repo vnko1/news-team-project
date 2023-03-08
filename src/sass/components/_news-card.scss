@@ -32,6 +32,8 @@
   padding: 4px 8px;
   width: fit-content;
   height: fit-content;
+  z-index: 2;
+
   background: rgba(68, 64, 247, 0.7);
   border-radius: 0px 4px 4px 0px;
 
@@ -54,6 +56,7 @@
   background: #ffffff;
   border-radius: 20px;
   width: fit-content;
+  z-index: 2;
 
   font-family: 'Manrope', sans-serif;
   font-weight: 500;
@@ -61,6 +64,8 @@
   line-height: 1.33;
 
   color: $primary-text-color;
+
+  cursor: pointer;
 }
 
 .news-card__info-title {

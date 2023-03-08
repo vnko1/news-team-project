@@ -7,9 +7,9 @@ import {
   renderNewsCards,
   deleteNewsCards,
   saveSearchData,
-  saveCategoryData,
   addClassesForCoincidencesMarkupAndStorage,
 } from './commonFunctions';
+import { deletePagination } from './pagination';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
@@ -20,6 +20,8 @@ const calendarEl = document.querySelector('#calendar');
 const gallery = document.querySelector('.gallery-container');
 const dateContainer = document.querySelector('.date-container');
 
+const currenDate = new Date().toLocaleDateString().split('.').join('/');
+inputEl.placeholder = currenDate;
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
 
@@ -52,11 +54,11 @@ async function onDateClick(e) {
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
     deleteNewsCards();
+    deletePagination();
     spinner.spin(document.body);
 
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
-      fetchNews.resetStorageData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 

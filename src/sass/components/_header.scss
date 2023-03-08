@@ -148,6 +148,7 @@
   color: $primary-text-color;
   opacity: 0.4;
 
+  cursor: pointer;
   @include tablet {
     scale: 1;
     font-size: 14px;
