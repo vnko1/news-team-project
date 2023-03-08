@@ -1,4 +1,4 @@
-import WeatherApiService from '../scripts/FetchWeather';
+import WeatherApiService from './fetchWeather';
 
 const weatherCardEl = document.querySelector('.weather-card');
 
