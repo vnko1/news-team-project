@@ -4,6 +4,8 @@ import {
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 } from './commonFunctions';
 import { paginationByQuery } from './pagination';
 import { spinner } from './libraries';
@@ -19,7 +21,7 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
-
+  hideNotFoundMessage();
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
@@ -42,13 +44,8 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
-      gallery.innerHTML = `
-      <div>
-      <p>We haven’t found news from this category</p>
-      <img src='https://klike.net/uploads/posts/2020-09/1599896421_21.jpg'>
-      </div>
-      `;
-
+      deleteCards();
+      showNotFoundMessage();
       form.reset();
       spinner.stop();
       return;

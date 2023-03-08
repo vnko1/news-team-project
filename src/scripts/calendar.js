@@ -8,6 +8,8 @@ import {
   deleteNewsCards,
   saveSearchData,
   addClassesForCoincidencesMarkupAndStorage,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 } from './commonFunctions';
 import { deletePagination } from './pagination';
 
@@ -56,14 +58,15 @@ async function onDateClick(e) {
     deleteNewsCards();
     deletePagination();
     spinner.spin(document.body);
-
+    hideNotFoundMessage();
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
-          logMessage();
+          showNotFoundMessage();
+          spinner.stop();
           return;
         }
         fetchNews.setHits(response.data.response.meta.hits);
@@ -85,7 +88,8 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        logMessage();
+        showNotFoundMessage();
+        spinner.stop();
         return;
       }
       fromFrontNewsCardsCreation(filtredData);
@@ -95,7 +99,8 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        logMessage();
+        showNotFoundMessage();
+        spinner.stop();
         return;
       }
 
@@ -120,10 +125,10 @@ function fromFrontNewsCardsCreation(data) {
   addClassesForCoincidencesMarkupAndStorage();
 }
 
-function logMessage() {
-  console.log('нічого не знайдено');
-  spinner.stop();
-}
+// function logMessage() {
+//   console.log('нічого не знайдено');
+//   spinner.stop();
+// }
 
 function renderFiltredNewsCardByData(data) {
   const renderData = [];

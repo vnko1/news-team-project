@@ -1,0 +1,14 @@
+.empty-page {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  position: absolute;
+  z-index: 998;
+
+  left: 50%;
+  transform: translateX(-15%);
+}
+
+.empty-page.is-hidden {
+  display: none;
+}
