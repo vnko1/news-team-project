@@ -5,3 +5,4 @@ import './scripts/searchNews';
 import './scripts/filters';
 import './scripts/calendar';
 import './scripts/newsCard';
+import './scripts/pagination';

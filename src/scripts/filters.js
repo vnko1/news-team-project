@@ -7,6 +7,7 @@ import {
 } from './commonFunctions';
 // import Notiflix, { Notify } from 'notiflix';
 import { spinner } from './libraries';
+import { paginationByQuery } from './pagination';
 
 // Notify.init({
 //   width: '400px',
@@ -80,6 +81,7 @@ async function onClickCategoryBtn(e) {
 
       deleteNewsCards();
       renderNewsCards();
+      paginationByQuery();
 
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(true);
@@ -121,6 +123,7 @@ async function onClickOtherCategory(e) {
     saveCategoryData(results);
     deleteNewsCards();
     renderNewsCards();
+    paginationByQuery();
 
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);
