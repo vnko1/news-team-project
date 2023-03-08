@@ -83,10 +83,9 @@ function renderNewsCards() {
           width="395"
         />
         <div class="news-card__favorite">
-          <label for="favorite" id="${
-            el.id
-          }" class="label-favorite">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite"/>
+          
+          
+          <button id = '${el.id} 'class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {
@@ -226,13 +225,18 @@ function addClassesForCoincidencesMarkupAndStorage() {
   const favouriteList = getStorageList('favourites');
   const labelsEl = document.querySelectorAll('.label-favorite');
   const newArrOfBtn = [...labelsEl];
-
-  newArrOfBtn.filter(obj => {
+// console.log(100000008785846 === 100000008785846 )
+// console.log(newArrOfBtn[1].id)
+newArrOfBtn.filter(obj => {
+    // console.log(obj.id)
     for (const objOfFavourite of favouriteList) {
-      if (obj.id === objOfFavourite.id) {
-        obj.className = 'label-favorite js-favourite-storage';
-        obj.parentNode.lastElementChild.checked = true;
-        obj.parentNode.firstElementChild.textContent = 'Remove from favorite';
+      // console.log(objOfFavourite.id)
+      // console.log(obj.id)
+      if (obj.id == objOfFavourite.id) {
+        console.log(1)
+        // console.log(objOfFavourite)
+        // obj.className = 'mybtn label-favorite js-favourite-storage';
+        // obj.parentNode.firstElementChild.textContent = 'Remove from favorite';
       }
     }
   });
