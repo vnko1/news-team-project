@@ -186,17 +186,6 @@
   pointer-events: none;
 }
 
-//class="label-favorite__box-icon"
-.label-favorite__box-icon {
-width: 15px;
-height: 15px;
-}
-
-// .mybtn {
-//   width: 20px;
-//   height: 20px;
-// }
-
 .mybtn {
   position: absolute;
   display: flex;
@@ -221,13 +210,7 @@ height: 15px;
   color: $primary-text-color;
 
   cursor: pointer;
-
-  // width: 70px;
 }
-
-// .label-favorite {
-//   content: '    '
-// }
 
 .label-favorite::before {
   position: absolute;
@@ -248,4 +231,3 @@ height: 15px;
   display: inline-block;
   pointer-events: none;
 }
-//label-favorite

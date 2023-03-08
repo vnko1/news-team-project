@@ -14,9 +14,6 @@ gallery.addEventListener('click', onClick); // повесить слушател
 
 function onClick(event) {
   //--------------------Favourites--------------------------------
-  // console.dir(event.target.tagName === 'BUTTON')
-  // console.dir(event.target.tagName === "LABEL")
-  //event.target.type === 'checkbox' || 
   if (event.target.tagName === 'BUTTON') {
     console.log(event.target.parentNode.children[0].textContent)
 
