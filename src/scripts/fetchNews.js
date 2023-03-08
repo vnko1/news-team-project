@@ -4,6 +4,9 @@ const API_KEY = '6NeZFvbRUjOlM3jxAALEHJAyoskEi5UY';
 const POPULAR_URL = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json';
 const SEARCH_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const FILTER_URL = 'https://api.nytimes.com/svc/news/v3/content/inyt/';
+const CATEGORY_NAMES =
+  'https://api.nytimes.com/svc/news/v3/content/section-list.json';
+const limit = 500;
 
 class FetchNews {
   constructor() {
@@ -25,6 +28,8 @@ class FetchNews {
     this.date = '';
     // пошуковий параметр
     this.querySearch = '';
+
+    this.filterQuery = '';
     // зберігається кількість знайдених новин
     this.hits = null;
     // лічильник, на всякий випадок для пагінації
@@ -121,7 +126,6 @@ class FetchNews {
   setQuerySearch(newQuerySearch) {
     this.querySearch = newQuerySearch;
   }
-
   // повертає значення пошукового параметру
   getFilterQuery() {
     return this.filterQuery;
@@ -249,14 +253,29 @@ class FetchNews {
     //  обʼєкт параметрів для URL
     const params = new URLSearchParams({
       'api-key': API_KEY,
-      limit: 500,
+      limit,
     });
+    // зберігаємо URL
     this.setUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
     this.setDateUrl(`${FILTER_URL}${this.getFilterQuery()}.json?${params}`);
+
     const response = await axios.get(
       `${FILTER_URL}${this.getFilterQuery()}.json?${params}`
     );
+    // // повертає дані з бекенду
     return response;
+  }
+
+  // повертає назви категорій з бекенду для подальшої фільтрації
+  async getCategoryNames() {
+    //  обʼєкт параметрів для URL
+    const params = new URLSearchParams({
+      'api-key': API_KEY,
+    });
+    // запит на бекенд
+    const response = await axios.get(`${CATEGORY_NAMES}?${params}`);
+    // повертає назви категорій з бекенду
+    return response.data.results;
   }
 
   async fetchPagination() {
