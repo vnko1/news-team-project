@@ -4,8 +4,6 @@ import {getStorageList} from './commonFunctions'
 const formEl = document.getElementById('search-form');
 const galleryEl = document.querySelector('.gallery-container');
 
-console.log(galleryEl)
-
 formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
@@ -14,10 +12,14 @@ function onFormSubmit(e) {
 
   const arr = getStorageList('favourites');
 
-  const newArrObj = arr.filter(obj => obj.descr.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()))
-console.log(newArrObj)
+  const newArrObj = arr.filter(obj => obj.descr.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.category.toLowerCase().includes(searchValue.toLowerCase().trim()) || obj.title.toLowerCase().includes(searchValue.toLowerCase().trim()))
+// console.log(newArrObj)
+if(newArrObj.length > 0) {
+  render(newArrObj)
+} else {
+  console.log('Тут будет твоя функция для FAVORITE')
+}
 
-render(newArrObj)
 }
 
 function render(arr) {
@@ -34,10 +36,9 @@ function render(arr) {
           width="395"
         />
         <div class="news-card__favorite">
-          <label for="favorite" id="${
-            el.id
-          }" class="label-favorite">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite"/>
+        <button id ='${
+          el.id
+        }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title}</h2>
