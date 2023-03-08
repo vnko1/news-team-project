@@ -42,6 +42,7 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
+  console.log(e);
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
     const currentDate = new Date();
