@@ -1,13 +1,13 @@
 body {
-    max-width: 1600px;
-    margin: 0 auto;
+  max-width: 1600px;
+  margin: 0 auto;
 
-    @include double-pixel {
-    }
+  @include double-pixel {
+  }
 
-    @include tablet {
-    }
+  @include tablet {
+  }
 
-    @include desktop {
-    }
+  @include desktop {
+  }
 }
