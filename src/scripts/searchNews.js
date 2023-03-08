@@ -12,7 +12,6 @@ import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліоте�
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery-container');
-const emptyPageContainer = document.querySelector('.empty-page');
 
 form.addEventListener('submit', onFormSubmit);
 
@@ -72,13 +71,6 @@ async function onFormSubmit(event) {
 
   //скидаємо форму
   form.reset();
-}
-
-function showNotFoundMessage() {
-  emptyPageContainer.classList.remove('is-hidden');
-}
-function hideNotFoundMessage() {
-  emptyPageContainer.classList.add('is-hidden');
 }
 
 //очищаємо картки
