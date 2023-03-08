@@ -6,7 +6,7 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
 } from './commonFunctions';
 import { paginationByQuery } from './pagination';
-import { spinner } from './Libraries';
+import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
 const inputField = document.querySelector('.search-input');
