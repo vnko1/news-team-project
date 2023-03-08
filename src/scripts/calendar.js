@@ -8,7 +8,10 @@ import {
   deleteNewsCards,
   saveSearchData,
   addClassesForCoincidencesMarkupAndStorage,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 } from './commonFunctions';
+import { deletePagination } from './pagination';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
@@ -39,6 +42,7 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
+  console.log(e);
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
     const currentDate = new Date();
@@ -53,15 +57,17 @@ async function onDateClick(e) {
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
     deleteNewsCards();
+    deletePagination();
     spinner.spin(document.body);
-
+    hideNotFoundMessage();
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
-          logMessage();
+          showNotFoundMessage();
+          spinner.stop();
           return;
         }
         fetchNews.setHits(response.data.response.meta.hits);
@@ -83,7 +89,8 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        logMessage();
+        showNotFoundMessage();
+        spinner.stop();
         return;
       }
       fromFrontNewsCardsCreation(filtredData);
@@ -93,7 +100,8 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        logMessage();
+        showNotFoundMessage();
+        spinner.stop();
         return;
       }
 
@@ -118,10 +126,10 @@ function fromFrontNewsCardsCreation(data) {
   addClassesForCoincidencesMarkupAndStorage();
 }
 
-function logMessage() {
-  console.log('нічого не знайдено');
-  spinner.stop();
-}
+// function logMessage() {
+//   console.log('нічого не знайдено');
+//   spinner.stop();
+// }
 
 function renderFiltredNewsCardByData(data) {
   const renderData = [];
@@ -144,10 +152,7 @@ function renderFiltredNewsCardByData(data) {
           width="395"
         />
         <div class="news-card__favorite">
-          <label for="favorite" id="${
-            el.id
-          }" class="label-favorite">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite"/>
+        <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {

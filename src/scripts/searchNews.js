@@ -4,7 +4,10 @@ import {
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 } from './commonFunctions';
+import { paginationByQuery } from './pagination';
 import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
@@ -18,7 +21,7 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
-
+  hideNotFoundMessage();
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
@@ -41,26 +44,21 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
-      gallery.innerHTML = `
-      <div>
-      <p>We haven’t found news from this category</p>
-      <img src='https://klike.net/uploads/posts/2020-09/1599896421_21.jpg'>
-      </div>
-      `;
-
+      deleteCards();
+      showNotFoundMessage();
       form.reset();
       spinner.stop();
       return;
     }
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
-
     const { docs } = response;
     saveData(docs);
     //очищаємо картки
     deleteCards();
     //пушимо розмітку
     renderCards();
+    paginationByQuery();
     spinner.stop();
     addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
@@ -138,20 +136,7 @@ function renderCards() {
           width="395"
         />
         <div class="news-card__favorite">
-          <label for="favorite" class="label-favorite" id="${el.id}">
-            <span class="label-favorite__title">Add to favorite</span>
-            <span class="label-favorite__box">
-              <svg class="label-favorite__box-icon" width="16" height="16">
-                <use href="/src/images/icons.svg#icon-heart"></use>
-              </svg>
-            </span>
-              <span class="label-favorite__chk">
-              <svg class="label-favorite__chk-icon" width="16" height="16">
-                <use href="/src/images/icons.svg#icon-heart-chk"></use>
-              </svg>
-            </span>
-            <input type="checkbox" class="input-favorite" id="favorite" />
-          </label>
+          <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {

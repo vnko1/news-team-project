@@ -5,3 +5,6 @@ import './scripts/searchNews';
 import './scripts/filters';
 import './scripts/calendar';
 import './scripts/newsCard';
+import './scripts/fetchWeather';
+import './scripts/weather';
+import './scripts/pagination';
