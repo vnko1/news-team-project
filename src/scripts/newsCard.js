@@ -1,7 +1,6 @@
 import { getStorageList } from './commonFunctions';
 
 const gallery = document.querySelector('.gallery-container');
-const labelEl = document.querySelector('.label-favorite')
 
 if (localStorage.getItem('favourites') === null) {
   addEmptyArrtoStorage('favourites');
