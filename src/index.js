@@ -6,7 +6,7 @@ import './scripts/filters';
 import './scripts/calendar';
 import './scripts/newsCard';
 import './scripts/theme';
-import './scripts/theme-mobile';
+import './scripts/themeMobile';
 import './scripts/fetchWeather';
 import './scripts/weather';
 import './scripts/pagination';
