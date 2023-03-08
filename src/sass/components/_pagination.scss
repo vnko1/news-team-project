@@ -104,7 +104,8 @@
 }
 
 .pagination_list li.active, /* <-- тут важливо перебити специфічність .numb*/
-.pagination_list li:hover {
+.pagination_list li:hover,
+.pagination_btn:hover {
   color: #f4f4f4;
   background: #4440f6;
 }
