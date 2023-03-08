@@ -4,6 +4,9 @@
     display: none;
   }
 }
+.change-theme-mobile {
+  display: flex;
+}
 
 .input-theme {
   display: none;
@@ -74,6 +77,22 @@
 
 .dark-label.dark-theme-site {
   color: #4440f7;
+}
+
+.icon-sun {
+  display: none;
+  @media screen and (max-width: 1280px) {
+    display: block;
+  }
+  margin-right: 8px;
+}
+
+.icon-moon {
+  display: none;
+  @media screen and (max-width: 1280px) {
+    display: block;
+  }
+  margin-left: 8px;
 }
 
 body.dark-theme-site {
