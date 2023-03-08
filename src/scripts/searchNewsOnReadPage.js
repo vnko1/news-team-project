@@ -11,7 +11,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліоте�
 
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
-const gallery = document.querySelector('.news-cars');
+const gallery = document.querySelector('.sgallery-container');
 
 form.addEventListener('submit', onFormSubmit);
 
@@ -21,8 +21,8 @@ async function onFormSubmit(event) {
 
   event.preventDefault();
 
-  //   fetchNews.resetData();
-  //   fetchNews.resetStorageData();
+  fetchNews.resetData();
+  fetchNews.resetStorageData();
   spinner.spin(document.body);
 
   try {
@@ -56,17 +56,16 @@ async function onFormSubmit(event) {
       return;
     }
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
-    fetchNews.setHits(response.meta.hits);
+    // fetchNews.setHits(response.meta.hits);
     const { docs } = response;
     saveData(docs);
     //очищаємо картки
     deleteCards();
     renderCards();
     //пушимо розмітку
-    // renderCards();
 
     spinner.stop();
-    // addClassesForCoincidencesMarkupAndStorage();
+    addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
     // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     // fetchNews.setIsUrlRequest(true);
