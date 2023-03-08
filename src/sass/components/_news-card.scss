@@ -210,6 +210,11 @@
 
 .input-favorite[type="checkbox"] {
   opacity: 0;
+  // width: 10px;
+  // height: 10px;
+  transform:scale(1.5);
+  // opacity:0.9;
+  cursor:pointer;
 }
 
 .label-favorite::before {
