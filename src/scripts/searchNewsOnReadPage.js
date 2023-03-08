@@ -4,8 +4,10 @@ import {
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 } from './commonFunctions';
-// import { paginationByQuery } from './pagination';
+
 import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 import { addClassesForCoincidencesMarkupAndStoragePages } from './commonFunctions';
@@ -45,10 +47,13 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
+      deleteCards();
+      showNotFoundMessage();
       form.reset();
       spinner.stop();
       return;
     }
+    hideNotFoundMessage();
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
     const { docs } = response;
@@ -61,7 +66,7 @@ async function onFormSubmit(event) {
     spinner.stop();
     addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
-    // fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+
     fetchNews.setIsUrlRequest(true);
   } catch (error) {
     spinner.stop();
