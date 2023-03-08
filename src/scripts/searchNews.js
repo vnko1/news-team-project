@@ -44,6 +44,8 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
+      deleteCards();
+      notFoundMessage();
       // gallery.innerHTML = `
       // <div>
       // <p>We haven’t found news from this category</p>
@@ -77,7 +79,12 @@ async function onFormSubmit(event) {
   form.reset();
 }
 
-function onIndexSearch() {}
+notFoundMessage();
+const emptyPageContainer = document.querySelector('.empty-page');
+console.log(emptyPageContainer);
+function notFoundMessage() {
+  emptyPageContainer.classList.remove('is-hidden');
+}
 
 //очищаємо картки
 function deleteCards() {
