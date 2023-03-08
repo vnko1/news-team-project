@@ -12,19 +12,20 @@ import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліоте�
 const inputField = document.querySelector('.search-input');
 const form = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery-container');
+const emptyPageContainer = document.querySelector('.empty-page');
 
 form.addEventListener('submit', onFormSubmit);
-console.log('object');
+
 //сабмітимо форму
 async function onFormSubmit(event) {
   //очищуємо масив даних
-  console.log('object');
-  event.preventDefault();
 
+  event.preventDefault();
+  hideNotFoundMessage();
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
-  console.log('object');
+
   try {
     //присвоюємо запиту значення інпуту
     const query = inputField.value;
@@ -45,14 +46,7 @@ async function onFormSubmit(event) {
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
       deleteCards();
-      notFoundMessage();
-      // gallery.innerHTML = `
-      // <div>
-      // <p>We haven’t found news from this category</p>
-      // <img src='https://klike.net/uploads/posts/2020-09/1599896421_21.jpg'>
-      // </div>
-      // `;
-
+      showNotFoundMessage();
       form.reset();
       spinner.stop();
       return;
@@ -63,6 +57,7 @@ async function onFormSubmit(event) {
     saveData(docs);
     //очищаємо картки
     deleteCards();
+
     //пушимо розмітку
     renderCards();
     paginationByQuery();
@@ -79,11 +74,11 @@ async function onFormSubmit(event) {
   form.reset();
 }
 
-notFoundMessage();
-const emptyPageContainer = document.querySelector('.empty-page');
-console.log(emptyPageContainer);
-function notFoundMessage() {
+function showNotFoundMessage() {
   emptyPageContainer.classList.remove('is-hidden');
+}
+function hideNotFoundMessage() {
+  emptyPageContainer.classList.add('is-hidden');
 }
 
 //очищаємо картки

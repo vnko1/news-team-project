@@ -1,18 +1,19 @@
 .gallery {
-    .container {
-        display: flex;
-        flex-direction: column;
-        gap: 28px;
-        padding-top: 40px;
-        @include tablet {
-            flex-direction: row-reverse;
-            flex-wrap: wrap;
-            gap: 30px;
-            padding-top: 48px;
-        }
-        @include desktop {
-            gap: 32px;
-            padding-top: 60px;
-        }
+  position: relative;
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 40px;
+    @include tablet {
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding-top: 48px;
     }
+    @include desktop {
+      gap: 32px;
+      padding-top: 60px;
+    }
+  }
 }
