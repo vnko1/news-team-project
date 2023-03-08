@@ -207,3 +207,27 @@
   display: inline-block;
   pointer-events: none;
 }
+
+.input-favorite[type="checkbox"] {
+  opacity: 0;
+}
+
+.label-favorite::before {
+  position: absolute;
+  top: 7px;
+  right: 11px;
+  // свг с пустым сердечком
+  content: url(/src/images/SSSSSvg1.svg);
+  display: inline-block;
+  pointer-events: none;
+}
+
+.js-favourite-storage::before {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  // свг с закрашеным сердечком
+  content: url(/src/images/sssssssvg2.svg);
+  display: inline-block;
+  pointer-events: none;
+}
