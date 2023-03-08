@@ -44,29 +44,7 @@
 
   color: #ffffff;
 }
-.news-card__favorite {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  bottom: 12px;
-  right: 8px;
-  padding: 6px 12px;
-  background: #ffffff;
-  border-radius: 20px;
-  width: fit-content;
-  z-index: 2;
 
-  font-family: 'Manrope', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-
-  color: $primary-text-color;
-
-  cursor: pointer;
-}
 
 .news-card__info-title {
   display: flex;
@@ -204,6 +182,52 @@
   content: 'Have read \2713';
   font-size: 20px;
   color: green;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.mybtn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  bottom: 12px;
+  right: 8px;
+  padding: 6px 12px;
+  padding-right: 30px;
+  background: #ffffff;
+  border-color: transparent;
+  border-radius: 20px;
+  width: fit-content;
+  z-index: 2;
+
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+
+  color: $primary-text-color;
+
+  cursor: pointer;
+}
+
+.label-favorite::before {
+  position: absolute;
+  top: 7px;
+  right: 11px;
+  // свг с пустым сердечком
+  content: url(/src/images/SSSSSvg1.svg);
+  display: inline-block;
+  pointer-events: none;
+}
+
+.js-favourite-storage::before {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  // свг с закрашеным сердечком
+  content: url(/src/images/sssssssvg2.svg);
   display: inline-block;
   pointer-events: none;
 }

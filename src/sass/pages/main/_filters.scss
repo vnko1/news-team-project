@@ -34,7 +34,8 @@
     color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover,
-  &:focus {
+  &:focus,
+  &:visited {
     background: #4440f6;
     color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -86,8 +87,8 @@
 }
 
 .shown {
+  z-index: 999;
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
 }
-

@@ -4,6 +4,8 @@ import {
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
+  showNotFoundMessage,
+  hideNotFoundMessage,
 } from './commonFunctions';
 import { paginationByQuery } from './pagination';
 import { spinner } from './libraries';
@@ -20,7 +22,7 @@ async function onFormSubmit(event) {
   //очищуємо масив даних
 
   event.preventDefault();
-
+  hideNotFoundMessage();
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
@@ -45,7 +47,7 @@ async function onFormSubmit(event) {
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
       deleteCards();
-
+      showNotFoundMessage();
       form.reset();
       spinner.stop();
       return;
@@ -137,10 +139,9 @@ function renderCards() {
           width="395"
         />
         <div class="news-card__favorite">
-        <label for="favorite" class="label-favorite" id="${
-          el.id
-        }">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite" />
+          <button id ='${
+            el.id
+          }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {

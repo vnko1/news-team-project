@@ -4,6 +4,8 @@ import {
   renderNewsCards,
   deleteNewsCards,
   addClassesForCoincidencesMarkupAndStorage,
+  hideNotFoundMessage,
+  showNotFoundMessage,
 } from './commonFunctions';
 // import Notiflix, { Notify } from 'notiflix';
 import { spinner } from './libraries';
@@ -35,19 +37,12 @@ const dropdownMenu = document.querySelector('.category_dropdown');
 const notDropdownBtnContainer = document.querySelector(
   '.category_notdropdownbtn_container'
 );
-// const body = document.querySelector('body');
-// const nonDropdownBtn = document.querySelectorAll('.category_nondropdown_btn');
+
+const categoryContainer = document.querySelector('.selected_container');
 
 filterBtnsWrap.addEventListener('click', onClickCategoryBtn);
 otherCategoriesBtn.addEventListener('click', onClickOthersBtn);
 selectedList.addEventListener('click', onClickOtherCategory);
-// window.addEventListener('click', () => {
-
-//   if (dropdownMenu.classList.contains('shown')) {
-//     dropdownMenu.classList.remove('shown');
-//   } else if (selectedList.classList.contains('shown')) {
-//     selectedList.classList.remove('shown');
-//   }});
 
 createFilters();
 
@@ -57,6 +52,7 @@ async function onClickCategoryBtn(e) {
     if (e.target.nodeName === 'BUTTON') {
       spinner.spin(document.body);
       const query = e.target.innerText.toLowerCase();
+      hideNotFoundMessage();
       fetchNews.resetData();
       fetchNews.resetStorageData();
       fetchNews.resetCategoryData();
@@ -69,8 +65,8 @@ async function onClickCategoryBtn(e) {
       } = response;
 
       if (results === null) {
-        //  !!Тут буде розмітка що нічого не знайдено відповідно до макету
-        // appendNotFoundImage();
+        deleteNewsCards();
+        showNotFoundMessage();
         spinner.stop();
         return;
       }
@@ -97,6 +93,7 @@ async function onClickCategoryBtn(e) {
 async function onClickOtherCategory(e) {
   try {
     selectedList.classList.toggle('shown');
+    hideNotFoundMessage();
     spinner.spin(document.body);
     fetchNews.resetData();
     fetchNews.resetStorageData();
@@ -112,7 +109,8 @@ async function onClickOtherCategory(e) {
     } = response;
 
     if (results === null) {
-      //  !!Тут буде розмітка що нічого не знайдено відповідно до макету
+      deleteNewsCards();
+      showNotFoundMessage();
       // appendNotFoundImage();
       spinner.stop();
       return;
@@ -145,14 +143,15 @@ function appendSelectedList(murkupForSelectedList) {
 
 function onClickOthersBtn() {
   selectedList.classList.toggle('shown');
+  document.addEventListener('click', onWindowClick);
 }
 
-function appendNotFoundImage() {
-  const image = document.createElement('img');
-  image.src = '';
-  image.alt = 'We haven’t found news from this category';
-  galleryContainer.append(image);
-}
+// function appendNotFoundImage() {
+//   const image = document.createElement('img');
+//   image.src = '';
+//   image.alt = 'We haven’t found news from this category';
+//   galleryContainer.append(image);
+// }
 
 async function createFilters() {
   try {
@@ -278,34 +277,42 @@ function addButtons(markup) {
   notDropdownBtnContainer.innerHTML = `${markup}`;
 }
 
-async function fetchCategoryNames() {
-  try {
-    const categoryResults = await fetchNews.getCategoryNames();
-    const categoryWithShortName = categoryResults
-      .filter(result => result.display_name.length <= 10)
-      .sort();
+// async function fetchCategoryNames() {
+//   try {
+//     const categoryResults = await fetchNews.getCategoryNames();
+//     const categoryWithShortName = categoryResults
+//       .filter(result => result.display_name.length <= 10)
+//       .sort();
 
-    const firstSixCategory = [];
-    const otherCategoryNames = [];
+//     const firstSixCategory = [];
+//     const otherCategoryNames = [];
 
-    for (let i = 0; i <= 5; i += 1) {
-      firstSixCategory.push(categoryWithShortName[i]);
-    }
-    for (let i = 6; i < categoryWithShortName.length; i += 1) {
-      otherCategoryNames.push(categoryWithShortName[i]);
-    }
+//     for (let i = 0; i <= 5; i += 1) {
+//       firstSixCategory.push(categoryWithShortName[i]);
+//     }
+//     for (let i = 6; i < categoryWithShortName.length; i += 1) {
+//       otherCategoryNames.push(categoryWithShortName[i]);
+//     }
 
-    for (let i = 0; i < firstSixCategory.length; i += 1) {
-      filterCategory[i].innerText = firstSixCategory[i].display_name;
-    }
+//     for (let i = 0; i < firstSixCategory.length; i += 1) {
+//       filterCategory[i].innerText = firstSixCategory[i].display_name;
+//     }
 
-    const murkupForSelectedList = otherCategoryNames.reduce(
-      (murkup, result) => murkup + createSelectedList(result),
-      ''
-    );
+//     const murkupForSelectedList = otherCategoryNames.reduce(
+//       (murkup, result) => murkup + createSelectedList(result),
+//       ''
+//     );
 
-    appendSelectedList(murkupForSelectedList);
-  } catch (error) {
-    console.error(error.message);
+//     appendSelectedList(murkupForSelectedList);
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// }
+
+function onWindowClick(e) {
+  const withinBoundaries = e.composedPath().includes(categoryContainer);
+  if (!withinBoundaries) {
+    dropdownMenu.classList.remove('shown');
+    document.removeEventListener('click', onWindowClick);
   }
 }
