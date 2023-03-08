@@ -3,4 +3,4 @@ import './scripts/mobileMenu';
 import './scripts/newsCardFromStorage';
 import './scripts/favoriteBlock';
 import './scripts/themeFavorite';
-import './scripts/themeMobile';
+import './scripts/themeFavoriteMobile';

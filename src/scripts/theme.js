@@ -6,7 +6,6 @@ const refs = {
   searchInput: document.querySelector('.search-input'),
   queryBtn: document.querySelector('.query-btn-icon'),
   inputCalendar: document.querySelector('.input-calendar'),
-  calendarIcon: document.querySelector('.calendar-svg__icon use'),
 };
 // перевірка локального сходице на наявність теми
 const savedTheme = localStorage.getItem('theme');
@@ -26,7 +25,6 @@ if (savedCheckboxState === 'true') {
   refs.queryBtn.classList.add('dark-theme-site');
   refs.mobileMenu.classList.add('dark-theme-site');
   refs.inputCalendar.classList.add('dark-theme-site');
-  refs.calendarIcon.classList.add('dark-theme-site');
 }
 
 refs.checkbox.addEventListener('change', function () {
@@ -37,7 +35,6 @@ refs.checkbox.addEventListener('change', function () {
   refs.queryBtn.classList.toggle('dark-theme-site');
   refs.mobileMenu.classList.toggle('dark-theme-site');
   refs.inputCalendar.classList.toggle('dark-theme-site');
-  refs.calendarIcon.classList.toggle('dark-theme-site');
   changeThemeMobile();
 });
 

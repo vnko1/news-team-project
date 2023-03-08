@@ -101,9 +101,6 @@ body.dark-theme-site {
   }
 }
 
-.calendar-svg__icon.dark-theme-site {
+.menu-toggle__icons.dark-theme-site {
   fill: #f4f4f4;
-  &::use {
-    fill: currentColor;
-  }
 }
