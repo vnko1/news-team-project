@@ -136,7 +136,9 @@ function renderCards() {
           width="395"
         />
         <div class="news-card__favorite">
-          <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
+          <button id ='${
+            el.id
+          }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {

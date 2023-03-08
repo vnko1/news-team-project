@@ -4,9 +4,30 @@
   background-color: #fff;
   position: absolute;
   z-index: 998;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
   left: 50%;
-  transform: translateX(-15%);
+  transform: translateX(-50%);
+}
+.empty-page__title {
+  max-width: 276px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.35;
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  color: $primary-text-color;
+  @include tablet {
+    max-width: 548px;
+    font-size: 40px;
+    line-height: 1.38;
+
+  }
 }
 
 .empty-page.is-hidden {
