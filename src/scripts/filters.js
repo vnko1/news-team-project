@@ -70,7 +70,7 @@ async function onClickCategoryBtn(e) {
       const {
         data: { results },
       } = response;
-      console.log(results);
+
       if (results === null) {
         deleteNewsCards();
         showNotFoundMessage();
