@@ -209,6 +209,7 @@
 }
 
 .input-favorite[type="checkbox"] {
+  pointer-events: none;
   opacity: 0;
   transform:scale(1.5);
   cursor:pointer;

@@ -14,7 +14,9 @@ gallery.addEventListener('click', onClick); // повесить слушател
 
 function onClick(event) {
   //--------------------Favourites--------------------------------
-  if (event.target.type === 'checkbox') {
+  // console.log(event.target.className === "label-favorite")
+  if (event.target.tagName === "LABEL") {
+    // console.log(1)
     event.target.parentNode.children[0].classList.toggle(
       'js-favourite-storage'
     );
