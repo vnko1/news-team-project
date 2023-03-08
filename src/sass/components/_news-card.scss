@@ -206,7 +206,9 @@ height: 15px;
   bottom: 12px;
   right: 8px;
   padding: 6px 12px;
+  padding-right: 30px;
   background: #ffffff;
+  border-color: transparent;
   border-radius: 20px;
   width: fit-content;
   z-index: 2;
@@ -219,7 +221,13 @@ height: 15px;
   color: $primary-text-color;
 
   cursor: pointer;
+
+  // width: 70px;
 }
+
+// .label-favorite {
+//   content: '    '
+// }
 
 .label-favorite::before {
   position: absolute;
@@ -230,6 +238,7 @@ height: 15px;
   display: inline-block;
   pointer-events: none;
 }
+
 .js-favourite-storage::before {
   position: absolute;
   top: 7px;
