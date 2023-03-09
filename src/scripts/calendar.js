@@ -24,11 +24,12 @@ const dateContainer = document.querySelector('.date-container');
 
 const currenDate = new Date().toLocaleDateString().split('.').join('/');
 inputEl.placeholder = currenDate;
+
 inputEl.addEventListener('click', onInputElClick);
 calendarEl.addEventListener('click', onDateClick);
 
 function onInputElClick() {
-  calendarContainer.classList.remove('is-hidden');
+  calendarContainer.classList.toggle('is-hidden');
   document.addEventListener('click', onWindowClick);
 }
 
