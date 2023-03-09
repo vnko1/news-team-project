@@ -7,7 +7,11 @@
     </li>
     <li>
       <button class="menu-toggle js-close-menu">
-        <svg class="menu-toggle__icons" width="24px" height="24px">
+        <svg
+          class="menu-toggle__icons menu-toggle__icons-cross"
+          width="24px"
+          height="24px"
+        >
           <use
             class="menu-toggle__cross"
             href="/src/images/icons.svg#icon-cross"
@@ -63,8 +67,15 @@
       </svg>
     </li>
   </ul>
-  <div>
+  <div class="change-theme-mobile">
+    <span class="light-label">Light</span>
+    <svg class="icon-sun-mob" width="21px" height="21px">
+      <use href="/src/images/icons.svg#icon-sun"></use>
+    </svg>
     <input type="checkbox" class="input-theme" id="mobile-theme" />
     <label for="mobile-theme" class="label-theme"></label>
+    <svg class="icon-moon-mob" width="21px" height="21px">
+      <use href="/src/images/icons.svg#icon-moon"></use>
+    </svg>
   </div>
 </div>
