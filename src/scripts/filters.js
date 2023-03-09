@@ -31,6 +31,7 @@ const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
 
+const arrow = document.querySelector('.category_svg_icon');
 const dropdownBtn = document.querySelector('.category_btn');
 const dropdownMenu = document.querySelector('.category_dropdown');
 // const categoryContainerCopy = document.querySelector('.category');
@@ -95,7 +96,6 @@ async function onClickOtherCategory(e) {
   deletePagination();
   try {
     selectedList.classList.toggle('shown');
-
     spinner.spin(document.body);
     fetchNews.resetData();
     fetchNews.resetStorageData();
@@ -112,7 +112,6 @@ async function onClickOtherCategory(e) {
 
     if (results === null) {
       renderNoFoundMess();
-      // appendNotFoundImage();
       spinner.stop();
       return;
     }
@@ -143,16 +142,11 @@ function appendSelectedList(murkupForSelectedList) {
 }
 
 function onClickOthersBtn() {
+  arrow.style.fill = '#ffffff';
+  arrow.classList.toggle('arrow-rotate');
   selectedList.classList.toggle('shown');
   document.addEventListener('click', onWindowClick);
 }
-
-// function appendNotFoundImage() {
-//   const image = document.createElement('img');
-//   image.src = '';
-//   image.alt = 'We haven’t found news from this category';
-//   galleryContainer.append(image);
-// }
 
 async function createFilters() {
   try {
@@ -278,41 +272,10 @@ function addButtons(markup) {
   notDropdownBtnContainer.innerHTML = `${markup}`;
 }
 
-// async function fetchCategoryNames() {
-//   try {
-//     const categoryResults = await fetchNews.getCategoryNames();
-//     const categoryWithShortName = categoryResults
-//       .filter(result => result.display_name.length <= 10)
-//       .sort();
-
-//     const firstSixCategory = [];
-//     const otherCategoryNames = [];
-
-//     for (let i = 0; i <= 5; i += 1) {
-//       firstSixCategory.push(categoryWithShortName[i]);
-//     }
-//     for (let i = 6; i < categoryWithShortName.length; i += 1) {
-//       otherCategoryNames.push(categoryWithShortName[i]);
-//     }
-
-//     for (let i = 0; i < firstSixCategory.length; i += 1) {
-//       filterCategory[i].innerText = firstSixCategory[i].display_name;
-//     }
-
-//     const murkupForSelectedList = otherCategoryNames.reduce(
-//       (murkup, result) => murkup + createSelectedList(result),
-//       ''
-//     );
-
-//     appendSelectedList(murkupForSelectedList);
-//   } catch (error) {
-//     console.error(error.message);
-//   }
-// }
-
 function onWindowClick(e) {
   const withinBoundaries = e.composedPath().includes(categoryContainer);
   if (!withinBoundaries) {
+    arrow.style.fill = '#4440f7';
     dropdownMenu.classList.remove('shown');
     document.removeEventListener('click', onWindowClick);
   }
