@@ -91,10 +91,11 @@ async function onClickCategoryBtn(e) {
 }
 
 async function onClickOtherCategory(e) {
+  deleteNoFoundMess();
+  deletePagination();
   try {
     selectedList.classList.toggle('shown');
-    deleteNoFoundMess();
-    renderNoFoundMess();
+
     spinner.spin(document.body);
     fetchNews.resetData();
     fetchNews.resetStorageData();
@@ -266,7 +267,7 @@ function createMarkup(category) {
 }
 
 function createButtons(category) {
-  return `<button class="category_btn category_nondropdown_btn filters__button" href="#">${category}</button>`;
+  return `<button class="category_btn category_nondropdown_btn filters__button" >${category}</button>`;
 }
 
 function addMarkup(markup) {
