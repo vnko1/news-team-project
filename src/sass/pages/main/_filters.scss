@@ -1,20 +1,35 @@
-.filters_wrap {
+.category {
+  display: flex;
+}
+.filters {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
-  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  padding-bottom: 40px;
+
+  @include tablet {
+    padding-top: 28px;
+    padding-bottom: 48px;
+  }
+  @include desktop {
+    padding-bottom: 60px;
+  }
+
 }
 
 .filters__button-wrap {
   display: flex;
-  padding: 25px 0px;
   flex-wrap: nowrap;
   justify-content: center;
   gap: 8px;
 }
 
 .filters__button {
-  height: 31px;
+  max-width: 115px;
+  width: fit-content;
+  height: fit-content;
   cursor: pointer;
   color: #4440f7;
   background-color: #fff;
@@ -23,7 +38,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 8px 21px;
+  padding: 8px 12px;
   font-family: Manrope;
   font-size: 12px;
   font-weight: 400;
@@ -44,19 +59,26 @@
 
 .selected_container {
   position: relative;
+  display: flex;
   flex-wrap: nowrap;
   justify-content: center;
+  align-items: center;
   gap: 8px;
-  padding: 25px 0px;
-  display: flex;
+
+  @include tablet {
+    margin-left: 14px;
+  }
+
 }
 
 .selected_list {
+  box-sizing: content-box; 
   display: flex;
   flex-direction: column;
+  padding: 14px;
   position: absolute;
-  top: 55px;
-  left: -25px;
+  top: 35px;
+  left: 0;
   width: 148px;
   height: 380px;
   visibility: hidden;
@@ -64,10 +86,10 @@
   z-index: 1;
   background: #fff;
   border-radius: 20px;
-  margin-top: 0.3rem;
   transition: transform 1000ms cubic-bezier(0.16, 1, 0.5, 1);
   position: absolute;
   overflow-y: scroll;
+
   scrollbar-arrow-color: #4440f7;
   transform: translateY(-0.5rem);
 }
@@ -76,14 +98,17 @@
   color: #4440f7;
   background-color: #f8f8f8;
   align-items: center;
-  column-gap: 10px;
-  padding: 0.8rem 1rem;
+  padding-bottom: 12px;
   font-family: Manrope;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
   text-decoration: none;
   display: flex;
+  background: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .shown {

@@ -313,7 +313,6 @@ function renderNoFoundMess() {
       <img
         ${mobImg1X}"
         alt="News not find"
-        width="248"
       />
     </picture>
   </div>`;
