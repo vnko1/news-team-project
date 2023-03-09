@@ -21,9 +21,7 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
-  mainPageHideModal();
-  deletePagination();
-  deleteCards();
+
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
@@ -46,11 +44,15 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
+      deleteCards();
+      deletePagination();
       mainPageShowModal();
       form.reset();
       spinner.stop();
       return;
     }
+    deleteCards();
+    deletePagination();
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
     const { docs } = response;
@@ -60,6 +62,7 @@ async function onFormSubmit(event) {
     //пушимо розмітку
     renderCards();
     paginationByQuery();
+    mainPageHideModal();
     spinner.stop();
     addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
