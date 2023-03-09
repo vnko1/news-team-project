@@ -1,10 +1,10 @@
 import {
   getStorageList,
-  deleteNoFoundMess,
-  renderNoFoundMess,
+  showModal,
+  hideModal,
+  addClassesForCoincidencesMarkupAndStoragePages,
 } from './commonFunctions';
 
-// const inputEl = document.querySelector('.search-input');
 const formEl = document.getElementById('search-form');
 const galleryEl = document.querySelector('.gallery-container');
 
@@ -12,7 +12,7 @@ formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  deleteNoFoundMess();
+  hideModal();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('favourites');
@@ -26,8 +26,9 @@ function onFormSubmit(e) {
 
   if (newArrObj.length > 0) {
     render(newArrObj);
+    addClassesForCoincidencesMarkupAndStoragePages();
   } else {
-    renderNoFoundMess();
+    showModal();
   }
 }
 
