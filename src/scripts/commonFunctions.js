@@ -271,6 +271,7 @@ function getStorageList(valueOfKeyStorage) {
 
 function showModal() {
   modal.classList.remove('is-hidden');
+  gallery.innerHTML = '';
 }
 
 function hideModal() {
