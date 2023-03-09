@@ -5,6 +5,10 @@
       <div class="category_dropbtn_container selected_container">
         <button class="category_btn filters__button" id="category_btn">
           Categories
+          <svg class="category_svg_icon" id="arrow" role="img" height="14" width="8" viewBox="0 0 56 32" aria-hidden="true"
+          focusable="false">
+          <path d="M6.58 0l-6.58 6.089 28 25.911 28-25.911-6.58-6.089-21.42 19.779-21.42-19.779z" />
+        </svg>
         </button>
         <div class="category_dropdown selected_list" id="category_dropdown"></div>
       </div>
@@ -13,45 +17,3 @@
   </div>
 
 
-
-  <!-- <div class="container filters_wrap">
-    <div class="filters__button-wrap">
-      <button type="button" class="filters__button">No data</button>
-      <button type="button" class="filters__button">No data</button>
-      <button type="button" class="filters__button">No data</button>
-      <button type="button" class="filters__button">No data</button>
-      <button type="button" class="filters__button">No data</button>
-      <button type="button" class="filters__button">No data</button>
-    </div>
-
-    <div class="selected_container">
-      <button type="button" class="filters__button filters__button-active">
-        Others...
-      </button>
-
-      <div class="selected_list">
-       
-      </div>
-    </div>
-  </div> -->
-</section>
-
-<!-- "Зверстати блок зі списком категорій для пошуку тематичних новин по відповідній категорії  (мобільна, планшет та десктопна версії)
-Блок в себе включає список з категоріями новин
-Категорії новин приходять з бекенда в результаті запиту
-Список новин що помістився в рядок потрібно відобразити випадаючим списком, що відкрвається по кліку на кнопку Others
-На мобільній версії всі категорії повинні відображатись у випадаючому списку, що відкривається по кліку на кнопку Categories
-Клік по обраній категорії повинен робити запит на бекенд для отримання відповідного списку новин" 
-
-План роботи:
-1. при будь-якому запиті на бекенд приходить список категорій;
-- створити незалежну функцію, яка буде викликатися при загрузці сторінки і робити запит на бекенд;
-- створити функцію, яка буде рендерить кнопки з наповненням від бекенду;
-
-2. зі списку категорій треба обрати ті, які мають довжину не більше 10-15 символів;
-3. результат фільтрації, тобто назви категорій до 15 символів, треба помістити в 7 кнопок, решту запиту в окрему кнопку Others;
-4. створити випадаючий список на кнопці others;
-5. створити випадаючий список по дефолту для мобільної версії;
-
-
--->

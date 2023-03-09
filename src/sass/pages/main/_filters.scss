@@ -91,3 +91,14 @@
   transform: translateY(0);
 }
 
+.category_svg_icon {
+  fill: #4440f7;
+}
+
+
+
+.arrow-rotate {
+  transform: rotate(180deg);
+  transition: 350ms cubic-bezier(0.16, 1, 0.5, 1);
+  
+}

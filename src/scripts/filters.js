@@ -26,10 +26,11 @@ const categoryContainer = document.querySelector('.filters .container');
 const filterBtnsWrap = document.querySelector('.filters__button-wrap');
 const selectedList = document.querySelector('.selected_list');
 const filterCategory = document.querySelectorAll('.filters__button');
-const otherCategoriesBtn = document.querySelector(
-  '.selected_container .filters__button'
-);
-console.log('💛💙💪  otherCategoriesBtn:', otherCategoriesBtn);
+// const otherCategoriesBtn = document.querySelector(
+//   '.selected_container .filters__button'
+// );
+const arrow = document.querySelector('.category_svg_icon');
+
 
 const dropdownBtn = document.querySelector('.category_btn');
 const dropdownMenu = document.querySelector('.category_dropdown');
@@ -43,15 +44,13 @@ const nonDropdownBtn = document.querySelectorAll('.category_nondropdown_btn');
 
 
 filterBtnsWrap.addEventListener('click', onClickCategoryBtn);
-otherCategoriesBtn.addEventListener('click', onClickOthersBtn);
+dropdownBtn.addEventListener('click', onClickOthersBtn);
 selectedList.addEventListener('click', onClickOtherCategory);
 // window.addEventListener('click', () => {
 
 //   if (dropdownMenu.classList.contains('shown')) {
 //     dropdownMenu.classList.remove('shown');
-//   } else if (selectedList.classList.contains('shown')) {
-//     selectedList.classList.remove('shown');
-//   }});
+//   }})
 
 
 createFilters();
@@ -103,8 +102,7 @@ async function onClickCategoryBtn(e) {
 
 async function onClickOtherCategory(e) {
   try {
-    selectedList.classList.toggle('shown');
-    spinner.spin(document.body);
+     spinner.spin(document.body);
     e.preventDefault();
     const query = e.target.textContent;
     otherCategoriesBtn.innerText = query;
@@ -119,12 +117,15 @@ async function onClickOtherCategory(e) {
     const {
       data: { results },
     } = response;
+
+    console.log('💛💙💪  results:', results);
     spinner.stop();
+    
     if (results === null) {
       fetchNews.resetData();
       fetchNews.resetStorageData();
       deleteNewsCards();
-      Notify.failure('We haven’t found news from this category');
+      
       // appendNotFoundImage();
       return;
     }
@@ -140,6 +141,7 @@ async function onClickOtherCategory(e) {
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);
     addClassesForCoincidencesMarkupAndStorage();
+    
   } catch (error) {
     console.error(error.message);
   }
@@ -153,16 +155,13 @@ function appendSelectedList(murkupForSelectedList) {
   selectedList.insertAdjacentHTML('afterbegin', murkupForSelectedList);
 }
 
-function onClickOthersBtn() {
-  selectedList.classList.toggle('shown');
-}
-
-
-
 function appendNotFoundImage() {
+  galleryContainer.innerHTML ='';
+
   const image = document.createElement('img');
-  image.src = '';
+  image.src = '../images/logo.png';
   image.alt = 'We haven’t found news from this category';
+
   galleryContainer.append(image);
 }
 
@@ -326,4 +325,11 @@ async function fetchCategoryNames() {
   } catch (error) {
     console.error(error.message);
   }
+}
+
+
+function onClickOthersBtn() {
+  arrow.style.fill = '#ffffff';
+  selectedList.classList.toggle('shown');
+  arrow.classList.toggle('arrow-rotate')  
 }
