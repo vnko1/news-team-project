@@ -281,17 +281,11 @@ function hideModal() {
 function mainPageShowModal() {
   modal.classList.remove('is-hidden');
   weather.classList.add('is-hidden');
-  // ====================Видалити після фіксів=======================//
-
-  // ====================Видалити після фіксів=======================//
 }
 
 function mainPageHideModal() {
   modal.classList.add('is-hidden');
   weather.classList.remove('is-hidden');
-  // ====================Видалити після фіксів=======================//
-
-  // ====================Видалити після фіксів=======================//
 }
 
 // ====================Видалити після фіксів=======================//
@@ -325,3 +319,4 @@ export {
   hidePagination,
   showPagination,
 };
+// ----------------
