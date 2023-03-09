@@ -982,7 +982,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 1.39;
-  color: $primary-text-color;
+  color: currentColor;
   @include desktop {
     display: block;
   }
