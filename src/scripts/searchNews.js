@@ -4,9 +4,8 @@ import {
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
-  renderNoFoundMess,
-  deleteNoFoundMess,
-  emptyPageContainer,
+  mainPageShowModal,
+  mainPageHideModal,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 import { spinner } from './libraries';
@@ -22,11 +21,9 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
-  if (emptyPageContainer) {
-    deleteNoFoundMess();
-    deletePagination();
-  }
-
+  mainPageHideModal();
+  deletePagination();
+  deleteCards();
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
@@ -49,7 +46,7 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
-      renderNoFoundMess();
+      mainPageShowModal();
       form.reset();
       spinner.stop();
       return;
@@ -59,7 +56,7 @@ async function onFormSubmit(event) {
     const { docs } = response;
     saveData(docs);
     //очищаємо картки
-    deleteCards();
+
     //пушимо розмітку
     renderCards();
     paginationByQuery();

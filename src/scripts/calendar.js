@@ -8,9 +8,8 @@ import {
   deleteNewsCards,
   saveSearchData,
   addClassesForCoincidencesMarkupAndStorage,
-  renderNoFoundMess,
-  deleteNoFoundMess,
-  emptyPageContainer,
+  mainPageHideModal,
+  mainPageShowModal,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 
@@ -44,7 +43,6 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
-  // debugger;
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
     const currentDate = new Date();
@@ -58,10 +56,8 @@ async function onDateClick(e) {
     const normalisedDate = date.split('-').reverse().join('/');
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
-
-    if (emptyPageContainer) {
-      deleteNoFoundMess();
-    } else deleteNewsCards();
+    mainPageHideModal();
+    deleteNewsCards();
     deletePagination();
     spinner.spin(document.body);
 
@@ -71,7 +67,7 @@ async function onDateClick(e) {
         const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
-          renderNoFoundMess();
+          mainPageShowModal();
           spinner.stop();
           return;
         }
@@ -94,7 +90,7 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        renderNoFoundMess();
+        mainPageShowModal();
         spinner.stop();
         return;
       }
@@ -105,7 +101,7 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        renderNoFoundMess();
+        mainPageShowModal();
         spinner.stop();
         return;
       }
@@ -126,27 +122,21 @@ function fromBackNewsCardsCreation(data) {
 }
 
 function fromFrontNewsCardsCreation(data) {
-  renderFiltredNewsCardByData(data);
+  renderNewsCardByDate(data);
 
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);
   addClassesForCoincidencesMarkupAndStorage();
 }
 
-// function logMessage() {
-//   console.log('нічого не знайдено');
-//   spinner.stop();
-// }
-
-function renderFiltredNewsCardByData(data) {
+function renderNewsCardByDate(data) {
   const renderData = [];
 
-  // перебираємо маси та перші 8 елементів пушимо в renderData
   for (let i = 0; i < data.length; i++) {
     if (i >= 8) break;
     renderData.push(data[i]);
   }
-  // створюємо строку розмітки
+
   const markUp = renderData.reduce((acc, el) => {
     acc += `<div class="news-card" news-id="${el.id}">
       <div class="news-card__img">
@@ -178,6 +168,5 @@ function renderFiltredNewsCardByData(data) {
     return acc;
   }, ``);
 
-  // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }

@@ -18,6 +18,10 @@
     padding-top: 61px;
     // padding-bottom: 226px;
   }
+
+  &.is-hidden {
+    display: none;
+  }
 }
 .empty-page__title {
   max-width: 276px;
