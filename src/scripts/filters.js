@@ -4,37 +4,23 @@ import {
   renderNewsCards,
   deleteNewsCards,
   addClassesForCoincidencesMarkupAndStorage,
-  renderNoFoundMess,
-  deleteNoFoundMess,
-  emptyPageContainer,
+  mainPageHideModal,
+  mainPageShowModal,
 } from './commonFunctions';
-// import Notiflix, { Notify } from 'notiflix';
+
 import { spinner } from './libraries';
 import { paginationByQuery, deletePagination } from './pagination';
 
-// Notify.init({
-//   width: '400px',
-//   cssAnimation: true,
-//   cssAnimationDuration: 400,
-//   cssAnimationStyle: 'fade',
-//   borderRadius: '10px',
-//   position: 'center-top',
-//   closeButton: false,
-//   timeout: 1500,
-// });
-
-const galleryContainer = document.querySelector('.gallery-container');
-// const categoryContainer = document.querySelector('.filters .container');
 const filterBtnsWrap = document.querySelector('.filters__button-wrap');
 const selectedList = document.querySelector('.selected_list');
-// const filterCategory = document.querySelectorAll('.filters__button');
+
 const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
 
 const dropdownBtn = document.querySelector('.category_btn');
 const dropdownMenu = document.querySelector('.category_dropdown');
-// const categoryContainerCopy = document.querySelector('.category');
+
 const notDropdownBtnContainer = document.querySelector(
   '.category_notdropdownbtn_container'
 );
@@ -53,15 +39,14 @@ async function onClickCategoryBtn(e) {
     if (e.target.nodeName === 'BUTTON') {
       spinner.spin(document.body);
       const query = e.target.innerText.toLowerCase();
-      if (emptyPageContainer) {
-        deleteNoFoundMess();
-        deletePagination();
-      }
+
       fetchNews.resetData();
       fetchNews.resetStorageData();
       fetchNews.resetCategoryData();
       fetchNews.setFilterQuery(query);
-
+      mainPageHideModal();
+      deleteNewsCards();
+      deletePagination();
       const response = await fetchNews.fetchNewsByFilter();
 
       const {
@@ -69,7 +54,7 @@ async function onClickCategoryBtn(e) {
       } = response;
 
       if (results === null) {
-        renderNoFoundMess();
+        mainPageShowModal();
         spinner.stop();
         return;
       }
@@ -78,7 +63,6 @@ async function onClickCategoryBtn(e) {
       fetchNews.setFilterParams(fetchNews.getFilterParams());
       saveCategoryData(results);
 
-      deleteNewsCards();
       renderNewsCards();
       paginationByQuery();
 
@@ -94,10 +78,6 @@ async function onClickCategoryBtn(e) {
 }
 
 async function onClickOtherCategory(e) {
-  if (emptyPageContainer) {
-    deleteNoFoundMess();
-    deletePagination();
-  }
   try {
     selectedList.classList.toggle('shown');
 
@@ -107,7 +87,9 @@ async function onClickOtherCategory(e) {
     fetchNews.resetCategoryData();
     const query = e.target.textContent;
     otherCategoriesBtn.innerText = query;
-
+    mainPageHideModal();
+    deleteNewsCards();
+    deletePagination();
     fetchNews.setFilterQuery(query.toLowerCase());
     const response = await fetchNews.fetchNewsByFilter();
 
@@ -116,8 +98,7 @@ async function onClickOtherCategory(e) {
     } = response;
 
     if (results === null) {
-      renderNoFoundMess();
-      // appendNotFoundImage();
+      mainPageShowModal();
       spinner.stop();
       return;
     }
@@ -125,7 +106,7 @@ async function onClickOtherCategory(e) {
 
     fetchNews.setFilterParams(fetchNews.getFilterParams());
     saveCategoryData(results);
-    deleteNewsCards();
+
     renderNewsCards();
     paginationByQuery();
 
@@ -139,25 +120,10 @@ async function onClickOtherCategory(e) {
   spinner.stop();
 }
 
-function createSelectedList({ display_name }) {
-  return `<a class="selected__item" href="">${display_name}</a>`;
-}
-
-function appendSelectedList(murkupForSelectedList) {
-  selectedList.insertAdjacentHTML('afterbegin', murkupForSelectedList);
-}
-
 function onClickOthersBtn() {
   selectedList.classList.toggle('shown');
   document.addEventListener('click', onWindowClick);
 }
-
-// function appendNotFoundImage() {
-//   const image = document.createElement('img');
-//   image.src = '';
-//   image.alt = 'We haven’t found news from this category';
-//   galleryContainer.append(image);
-// }
 
 async function createFilters() {
   try {
@@ -283,6 +249,50 @@ function addButtons(markup) {
   notDropdownBtnContainer.innerHTML = `${markup}`;
 }
 
+function onWindowClick(e) {
+  const withinBoundaries = e.composedPath().includes(categoryContainer);
+  if (!withinBoundaries) {
+    dropdownMenu.classList.remove('shown');
+    document.removeEventListener('click', onWindowClick);
+  }
+}
+
+// import Notiflix, { Notify } from 'notiflix';
+
+// Notify.init({
+//   width: '400px',
+//   cssAnimation: true,
+//   cssAnimationDuration: 400,
+//   cssAnimationStyle: 'fade',
+//   borderRadius: '10px',
+//   position: 'center-top',
+//   closeButton: false,
+//   timeout: 1500,
+// });
+
+// const galleryContainer = document.querySelector('.gallery-container');
+// const categoryContainer = document.querySelector('.filters .container');
+
+// const filterCategory = document.querySelectorAll('.filters__button');
+// const categoryContainerCopy = document.querySelector('.category');
+
+// appendNotFoundImage();
+
+// function createSelectedList({ display_name }) {
+//   return `<a class="selected__item" href="">${display_name}</a>`;
+// }
+
+// function appendSelectedList(murkupForSelectedList) {
+//   selectedList.insertAdjacentHTML('afterbegin', murkupForSelectedList);
+// }
+
+// function appendNotFoundImage() {
+//   const image = document.createElement('img');
+//   image.src = '';
+//   image.alt = 'We haven’t found news from this category';
+//   galleryContainer.append(image);
+// }
+
 // async function fetchCategoryNames() {
 //   try {
 //     const categoryResults = await fetchNews.getCategoryNames();
@@ -314,11 +324,3 @@ function addButtons(markup) {
 //     console.error(error.message);
 //   }
 // }
-
-function onWindowClick(e) {
-  const withinBoundaries = e.composedPath().includes(categoryContainer);
-  if (!withinBoundaries) {
-    dropdownMenu.classList.remove('shown');
-    document.removeEventListener('click', onWindowClick);
-  }
-}
