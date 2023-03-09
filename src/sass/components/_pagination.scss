@@ -2,13 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0 60px;
+  // padding: 40px 0 60px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 
   @include tablet {
-    padding: 48px 0 100px;
+    // padding: 48px 0 100px;
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
   @include desktop {
-    padding: 60px 0 150px;
+    // padding: 60px 0 150px;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 }
 
@@ -60,10 +66,11 @@
 }
 
 .pagination_btn {
+  cursor: pointer;
   height: 28px;
   width: 72px;
-
-  background: #f4f4f4;
+  color: #111321;
+  background-color: #f4f4f4;
   border: 1px solid #4440f6;
   border-radius: 2px;
   padding: 0 10px;
