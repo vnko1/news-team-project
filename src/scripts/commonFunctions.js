@@ -278,12 +278,12 @@ function getStorageList(valueOfKeyStorage) {
   return JSON.parse(localStorage.getItem(valueOfKeyStorage));
 }
 
-function showNotFoundMessage() {
-  emptyPageContainer.classList.remove('is-hidden');
-}
-function hideNotFoundMessage() {
-  emptyPageContainer.classList.add('is-hidden');
-}
+// function showNotFoundMessage() {
+//   emptyPageContainer.classList.remove('is-hidden');
+// }
+// function hideNotFoundMessage() {
+//   emptyPageContainer.classList.add('is-hidden');
+// }
 
 function renderNoFoundMess() {
   const mark = `<div class="empty-page search-modal-read search-modal-none">

@@ -45,7 +45,6 @@
   color: #ffffff;
 }
 
-
 .news-card__info-title {
   display: flex;
   align-items: center;
@@ -57,7 +56,7 @@
   line-height: 1.38;
   letter-spacing: -0.01em;
 
-  color: $primary-text-color;
+  color: currentColor;
   @include tablet {
     font-size: 32px;
   }
@@ -70,10 +69,7 @@
   font-size: 14px;
   line-height: 1.38;
 
-  color: $primary-text-color;
-  @include tablet {
-    font-size: 16px;
-  }
+  color: currentColor;
 }
 
 .news-card__additional {
