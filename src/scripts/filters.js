@@ -6,6 +6,8 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageHideModal,
   mainPageShowModal,
+  showPagination,
+  hidePagination,
 } from './commonFunctions';
 
 import { spinner } from './libraries';
@@ -45,9 +47,7 @@ async function onClickCategoryBtn(e) {
       fetchNews.resetStorageData();
       fetchNews.resetCategoryData();
       fetchNews.setFilterQuery(query);
-      mainPageHideModal();
-      deleteNewsCards();
-      deletePagination();
+
       const response = await fetchNews.fetchNewsByFilter();
 
       const {
@@ -55,17 +55,28 @@ async function onClickCategoryBtn(e) {
       } = response;
 
       if (results === null) {
+        deleteNewsCards();
+        // -------------
+        hidePagination();
+        deletePagination();
         mainPageShowModal();
         spinner.stop();
         return;
       }
 
+      deleteNewsCards();
+      // -------------
+      hidePagination();
+      deletePagination();
       fetchNews.setHits(results.length);
       fetchNews.setFilterParams(fetchNews.getFilterParams());
       saveCategoryData(results);
 
       renderNewsCards();
+      // -------------
+      showPagination();
       paginationByQuery();
+      mainPageHideModal();
 
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(true);
@@ -87,9 +98,7 @@ async function onClickOtherCategory(e) {
     fetchNews.resetCategoryData();
     const query = e.target.textContent;
     otherCategoriesBtn.innerText = query;
-    mainPageHideModal();
-    deleteNewsCards();
-    deletePagination();
+
     fetchNews.setFilterQuery(query.toLowerCase());
     const response = await fetchNews.fetchNewsByFilter();
 
@@ -98,17 +107,27 @@ async function onClickOtherCategory(e) {
     } = response;
 
     if (results === null) {
+      deleteNewsCards();
+      // -------------
+      hidePagination();
+      deletePagination();
       mainPageShowModal();
       spinner.stop();
       return;
     }
+    deleteNewsCards();
+    hidePagination();
+    deletePagination();
     fetchNews.setHits(results.length);
 
     fetchNews.setFilterParams(fetchNews.getFilterParams());
     saveCategoryData(results);
 
     renderNewsCards();
+    // -------------
+    showPagination();
     paginationByQuery();
+    mainPageHideModal();
 
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);

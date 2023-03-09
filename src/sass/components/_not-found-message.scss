@@ -4,19 +4,17 @@
   // background-color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 40px;
-  // padding-top: 40px;
-  // padding-bottom: 60px;
+  padding-bottom: 60px;
 
   @include tablet {
     padding-top: 40px;
-    // padding-bottom: 101px;
+    padding-bottom: 101px;
   }
   @include desktop {
     padding-top: 61px;
-    // padding-bottom: 226px;
+    padding-bottom: 226px;
   }
 
   &.is-hidden {
