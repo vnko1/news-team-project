@@ -2,6 +2,7 @@ import {
   getStorageList,
   storageQueryDeletNoFoundMess,
   renderNoFoundMess,
+  addClassesForCoincidencesMarkupAndStoragePages,
 } from './commonFunctions';
 
 // const inputEl = document.querySelector('.search-input');
@@ -26,6 +27,7 @@ function onFormSubmit(e) {
 
   if (newArrObj.length > 0) {
     render(newArrObj);
+    addClassesForCoincidencesMarkupAndStoragePages();
   } else {
     renderNoFoundMess();
   }
