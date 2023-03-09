@@ -17,16 +17,14 @@ const selectedList = document.querySelector('.selected_list');
 const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
-
 const arrow = document.querySelector('.category_svg_icon');
 const dropdownBtn = document.querySelector('.category_btn');
 const dropdownMenu = document.querySelector('.category_dropdown');
-
 const notDropdownBtnContainer = document.querySelector(
   '.category_notdropdownbtn_container'
 );
-
 const categoryContainer = document.querySelector('.selected_container');
+const form = document.getElementById('search-form');
 
 filterBtnsWrap.addEventListener('click', onClickCategoryBtn);
 otherCategoriesBtn.addEventListener('click', onClickOthersBtn);
@@ -57,6 +55,7 @@ async function onClickCategoryBtn(e) {
       if (results === null) {
         mainPageShowModal();
         spinner.stop();
+        form.reset();
         return;
       }
 
@@ -75,6 +74,7 @@ async function onClickCategoryBtn(e) {
     console.error(error.message);
     spinner.stop();
   }
+  form.reset();
   spinner.stop();
 }
 
@@ -100,6 +100,7 @@ async function onClickOtherCategory(e) {
     if (results === null) {
       mainPageShowModal();
       spinner.stop();
+      form.reset();
       return;
     }
     fetchNews.setHits(results.length);
@@ -117,6 +118,7 @@ async function onClickOtherCategory(e) {
     console.error(error.message);
     spinner.stop();
   }
+  form.reset();
   spinner.stop();
 }
 

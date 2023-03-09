@@ -68,9 +68,6 @@ async function onFormSubmit(event) {
   } catch (error) {
     console.log;
   }
-
-  //скидаємо форму
-  form.reset();
 }
 
 //очищаємо картки
