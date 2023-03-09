@@ -18,6 +18,7 @@ const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
 
+const arrow = document.querySelector('.category_svg_icon');
 const dropdownBtn = document.querySelector('.category_btn');
 const dropdownMenu = document.querySelector('.category_dropdown');
 
@@ -80,7 +81,6 @@ async function onClickCategoryBtn(e) {
 async function onClickOtherCategory(e) {
   try {
     selectedList.classList.toggle('shown');
-
     spinner.spin(document.body);
     fetchNews.resetData();
     fetchNews.resetStorageData();
@@ -121,6 +121,8 @@ async function onClickOtherCategory(e) {
 }
 
 function onClickOthersBtn() {
+  arrow.style.fill = '#ffffff';
+  arrow.classList.toggle('arrow-rotate');
   selectedList.classList.toggle('shown');
   document.addEventListener('click', onWindowClick);
 }
@@ -252,6 +254,7 @@ function addButtons(markup) {
 function onWindowClick(e) {
   const withinBoundaries = e.composedPath().includes(categoryContainer);
   if (!withinBoundaries) {
+    arrow.style.fill = '#4440f7';
     dropdownMenu.classList.remove('shown');
     document.removeEventListener('click', onWindowClick);
   }
