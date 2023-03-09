@@ -281,12 +281,30 @@ function hideModal() {
 function mainPageShowModal() {
   modal.classList.remove('is-hidden');
   weather.classList.add('is-hidden');
+  // ====================Видалити після фіксів=======================//
+
+  // ====================Видалити після фіксів=======================//
 }
 
 function mainPageHideModal() {
   modal.classList.add('is-hidden');
   weather.classList.remove('is-hidden');
+  // ====================Видалити після фіксів=======================//
+
+  // ====================Видалити після фіксів=======================//
 }
+
+// ====================Видалити після фіксів=======================//
+let pag = null;
+function hidePagination() {
+  pag = document.querySelector('.pagination_container');
+  pag.classList.add('hide');
+}
+
+function showPagination() {
+  pag.classList.remove('hide');
+}
+// ====================Видалити після фіксів=======================//
 
 export {
   cutInfo,
@@ -304,4 +322,6 @@ export {
   mainPageHideModal,
   showModal,
   hideModal,
+  hidePagination,
+  showPagination,
 };

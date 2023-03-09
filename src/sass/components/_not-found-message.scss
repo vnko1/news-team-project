@@ -6,15 +6,14 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  padding-top: 40px;
   padding-bottom: 60px;
 
   @include tablet {
-    padding-top: 80px;
+    padding-top: 40px;
     padding-bottom: 101px;
   }
   @include desktop {
-    padding-top: 121px;
+    padding-top: 61px;
     padding-bottom: 226px;
   }
 

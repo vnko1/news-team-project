@@ -10,6 +10,8 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageHideModal,
   mainPageShowModal,
+  showPagination,
+  hidePagination,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 
@@ -66,12 +68,16 @@ async function onDateClick(e) {
 
         if (!response.data.response.docs.length) {
           deleteNewsCards();
+          // ------------
+          hidePagination();
           deletePagination();
           mainPageShowModal();
           spinner.stop();
           return;
         }
         deleteNewsCards();
+        // ------------
+        hidePagination();
         deletePagination();
         fetchNews.setHits(response.data.response.meta.hits);
 
@@ -93,6 +99,8 @@ async function onDateClick(e) {
 
       if (!filtredData.length) {
         deleteNewsCards();
+        // ------------
+        hidePagination();
         deletePagination();
         mainPageShowModal();
         spinner.stop();
@@ -106,6 +114,8 @@ async function onDateClick(e) {
 
       if (!filtredData.length) {
         deleteNewsCards();
+        // ------------
+        hidePagination();
         deletePagination();
         mainPageShowModal();
         spinner.stop();
@@ -123,6 +133,8 @@ function fromBackNewsCardsCreation(data) {
   renderNewsCards();
   paginationByQuery();
   mainPageHideModal();
+  // ------------
+  showPagination();
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(true);
   addClassesForCoincidencesMarkupAndStorage();

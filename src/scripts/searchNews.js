@@ -6,6 +6,8 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageShowModal,
   mainPageHideModal,
+  showPagination,
+  hidePagination,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 import { spinner } from './libraries';
@@ -45,6 +47,8 @@ async function onFormSubmit(event) {
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
       deleteCards();
+      // -------------
+      hidePagination();
       deletePagination();
       mainPageShowModal();
       form.reset();
@@ -52,6 +56,8 @@ async function onFormSubmit(event) {
       return;
     }
     deleteCards();
+    // -------------
+    hidePagination();
     deletePagination();
     //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
@@ -61,6 +67,8 @@ async function onFormSubmit(event) {
 
     //пушимо розмітку
     renderCards();
+    // -------------
+    showPagination();
     paginationByQuery();
     mainPageHideModal();
     spinner.stop();

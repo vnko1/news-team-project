@@ -6,6 +6,8 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageHideModal,
   mainPageShowModal,
+  showPagination,
+  hidePagination,
 } from './commonFunctions';
 
 import { spinner } from './libraries';
@@ -54,6 +56,8 @@ async function onClickCategoryBtn(e) {
 
       if (results === null) {
         deleteNewsCards();
+        // -------------
+        hidePagination();
         deletePagination();
         mainPageShowModal();
         spinner.stop();
@@ -61,12 +65,16 @@ async function onClickCategoryBtn(e) {
       }
 
       deleteNewsCards();
+      // -------------
+      hidePagination();
       deletePagination();
       fetchNews.setHits(results.length);
       fetchNews.setFilterParams(fetchNews.getFilterParams());
       saveCategoryData(results);
 
       renderNewsCards();
+      // -------------
+      showPagination();
       paginationByQuery();
       mainPageHideModal();
 
@@ -100,12 +108,15 @@ async function onClickOtherCategory(e) {
 
     if (results === null) {
       deleteNewsCards();
+      // -------------
+      hidePagination();
       deletePagination();
       mainPageShowModal();
       spinner.stop();
       return;
     }
     deleteNewsCards();
+    hidePagination();
     deletePagination();
     fetchNews.setHits(results.length);
 
@@ -113,6 +124,8 @@ async function onClickOtherCategory(e) {
     saveCategoryData(results);
 
     renderNewsCards();
+    // -------------
+    showPagination();
     paginationByQuery();
     mainPageHideModal();
 
