@@ -2,13 +2,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0 60px;
+  // padding: 40px 0 60px;
+  padding-top: 40px;
 
   @include tablet {
-    padding: 48px 0 100px;
+    // padding: 48px 0 100px;
+    paddin-top: 48px;
   }
   @include desktop {
-    padding: 60px 0 150px;
+    // padding: 60px 0 150px;
+    padding-top: 60px;
   }
 }
 
