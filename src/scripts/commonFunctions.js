@@ -1,4 +1,11 @@
+import mobImg1X from '/src/images/img/empty-news-mob-1x.png';
+import mobImg2X from '/src/images/img/empty-news-mob-2x.png';
+import tabImg1X from '/src/images/img/empty-news-tab-1x.png';
+import tabImg2X from '/src/images/img/empty-news-tab-2x.png';
+import pcImg1X from '/src/images/img/empty-news-pc-1x.png';
+import pcImg2X from '/src/images/img/empty-news-pc-2x.png';
 import { fetchNews } from './fetchNews';
+
 const gallery = document.querySelector('.gallery-container');
 const emptyPageContainer = document.querySelector('.empty-page');
 
@@ -278,6 +285,45 @@ function hideNotFoundMessage() {
   emptyPageContainer.classList.add('is-hidden');
 }
 
+function renderNoFoundMess() {
+  const mark = `<div class="empty-page search-modal-read search-modal-none">
+    <h2 class="empty-page__title">We haven’t found news from this category</h2>
+    <picture>
+      <source
+        srcset="
+          ${pcImg1X} 1x,
+          ${pcImg2X} 2x
+        "
+        media="(min-width: 1170px)"
+      />
+      <source
+        srcset="
+         ${tabImg1X} 1x,
+          ${tabImg2X} 2x
+        "
+        media="(min-width: 768px)"
+      />
+      <source
+        srcset="
+          ${mobImg1X} 1x,
+          ${mobImg2X} 2x
+        "
+        media="(max-width: 767px)"
+      />
+      <img
+        ${mobImg1X}"
+        alt="News not find"
+        width="248"
+      />
+    </picture>
+  </div>`;
+  gallery.innerHTML = mark;
+}
+
+function deleteNoFoundMess() {
+  gallery.innerHTML = '';
+}
+
 export {
   cutInfo,
   formatDate,
@@ -290,6 +336,6 @@ export {
   getStorageList,
   addClassesForCoincidencesMarkupAndStorage,
   addClassesForCoincidencesMarkupAndStoragePages,
-  showNotFoundMessage,
-  hideNotFoundMessage,
+  renderNoFoundMess,
+  deleteNoFoundMess,
 };

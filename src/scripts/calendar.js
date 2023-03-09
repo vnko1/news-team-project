@@ -8,8 +8,8 @@ import {
   deleteNewsCards,
   saveSearchData,
   addClassesForCoincidencesMarkupAndStorage,
-  showNotFoundMessage,
-  hideNotFoundMessage,
+  renderNoFoundMess,
+  deleteNoFoundMess,
 } from './commonFunctions';
 import { deletePagination } from './pagination';
 
@@ -42,7 +42,6 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
-  console.log(e);
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
     const currentDate = new Date();
@@ -57,16 +56,17 @@ async function onDateClick(e) {
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
     deleteNewsCards();
+    deleteNoFoundMess();
     deletePagination();
     spinner.spin(document.body);
-    hideNotFoundMessage();
+
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
       try {
         const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
-          showNotFoundMessage();
+          renderNoFoundMess();
           spinner.stop();
           return;
         }
@@ -89,7 +89,7 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        showNotFoundMessage();
+        renderNoFoundMess();
         spinner.stop();
         return;
       }
@@ -100,7 +100,7 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        showNotFoundMessage();
+        renderNoFoundMess();
         spinner.stop();
         return;
       }
@@ -152,7 +152,9 @@ function renderFiltredNewsCardByData(data) {
           width="395"
         />
         <div class="news-card__favorite">
-        <button id ='${el.id}' class="mybtn label-favorite">Add to favorite</button>
+        <button id ='${
+          el.id
+        }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {
