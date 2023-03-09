@@ -15,8 +15,6 @@ gallery.addEventListener('click', onClick); // повесить слушател
 function onClick(event) {
   //--------------------Favourites--------------------------------
   if (event.target.tagName === 'BUTTON') {
-    console.log(event.target.parentNode.children[0].textContent)
-
     //label
     event.target.parentNode.children[0].classList.toggle(
       'js-favourite-storage'
@@ -24,8 +22,10 @@ function onClick(event) {
 
     if (event.target.parentNode.children[0].textContent === 'Add to favorite') {
       event.target.parentNode.children[0].textContent = 'Remove from favorite';
-    } else if(event.target.parentNode.children[0].textContent === 'Remove from favorite'){
-      event.target.parentNode.children[0].textContent = 'Add to favorite'
+    } else if (
+      event.target.parentNode.children[0].textContent === 'Remove from favorite'
+    ) {
+      event.target.parentNode.children[0].textContent = 'Add to favorite';
     }
 
     const arrayChildren = event.target.parentNode.parentNode.parentNode;
@@ -41,11 +41,9 @@ function onClick(event) {
       category: arrayChildren.children[0].children[0].textContent,
     };
 
-    
-
     const favouriteLinks = getStorageList('favourites');
     const myResult = favouriteLinks.some(object => object.id === newObj.id);
-    console.log(myResult)
+
     refreshFavouritesStorage(myResult, favouriteLinks, newObj);
   }
 
@@ -97,7 +95,7 @@ function refreshFavouritesStorage(myResult, list, newObj) {
     localStorage.setItem('favourites', JSON.stringify(list));
   } else {
     const linkIndex = list.findIndex(object => object.id === newObj.id);
-// console.log(linkIndex)
+    // console.log(linkIndex)
     list.splice(linkIndex, 1);
     localStorage.setItem('favourites', JSON.stringify(list));
   }
