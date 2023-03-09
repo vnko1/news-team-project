@@ -924,7 +924,7 @@
   font-size: 12px;
   line-height: 1.75px;
   letter-spacing: 0.02em;
-  color: $primary-text-color;
+  color: currentColor;
   opacity: 0.4;
   cursor: pointer;
   &:focus {
