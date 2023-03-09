@@ -26,7 +26,6 @@ export async function paginationByQuery() {
 
 async function handleNextPage() {
   fetchNews.incrementPage();
-  // console.log(fetchNews.page + 1);
 
   deleteNewsCards();
 
@@ -241,10 +240,10 @@ function element(totalPage, page) {
     return;
   }
   // додаваня кнопки прев
-  prevTag += `<li class="pagination_btn prev">
+  prevTag += `<div class="pagination_btn prev">
             <span class="material-symbols-outlined"> chevron_left</span>
             <span>Prev</span>
-          </li>`;
+          </div>`;
   prevCon.innerHTML = prevTag;
 
   // коли відгортаєш далеко від початку, залишається видимою сторінка 1 і додаються "..." з початку
@@ -297,10 +296,10 @@ function element(totalPage, page) {
   }
 
   // Додаваня кнопки некст
-  nextTag += `<li class="pagination_btn next">
+  nextTag += `<div class="pagination_btn next">
             <span>Next</span
             ><span class="material-symbols-outlined"> chevron_right </span>
-          </li>`;
+          </div>`;
   nextCon.innerHTML = nextTag;
   itemCont.innerHTML = liTag;
 
@@ -381,10 +380,10 @@ function elementMob(totalPag, page) {
     totalPages = 50;
   }
   // додаваня кнопки прев
-  prevTag += `<li class="pagination_btn prev">
+  prevTag += `<div class="pagination_btn prev">
             <span class="material-symbols-outlined"> chevron_left</span>
             <span>Prev</span>
-          </li>`;
+          </div>`;
   prevCon.innerHTML = prevTag;
 
   // коли відгортаєш далеко від початку, залишається видимою сторінка 1 і додаються "..." з початку
@@ -422,10 +421,10 @@ function elementMob(totalPag, page) {
   }
 
   // Додаваня кнопки некст
-  nextTag += `<li class="pagination_btn next">
+  nextTag += `<div class="pagination_btn next">
             <span>Next</span
             ><span class="material-symbols-outlined"> chevron_right </span>
-          </li>`;
+          </div>`;
   nextCon.innerHTML = nextTag;
   itemCont.innerHTML = liTag;
 
