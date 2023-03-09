@@ -34,7 +34,7 @@ async function loadWeathetData() {
 function appendWeatherToCard(data) {
   weatherCardEl.innerHTML = `
   <div class="weather-card__top">
-        <div class="weather-card__temp">${Math.round(data.main.temp)}</div>
+        <div class="weather-card__temp">${Math.round(data.main.temp)}°</div>
         <div class="weather-card__top-right">
           <p class="weather-card__now">${data.weather[0].main}</p>
           <button class="weather-card__locate">
@@ -161,6 +161,6 @@ function daysOfWeather(data) {
   const monthOfYear = monthsOfYear[date.getMonth()];
   const year = date.getFullYear();
   const formattedDate =
-    dayOfWeek + ' ' + dayOfMonth + ' ' + monthOfYear + ' ' + year;
+    dayOfWeek + '<br>' + dayOfMonth + ' ' + monthOfYear + ' ' + year;
   return formattedDate;
 }
