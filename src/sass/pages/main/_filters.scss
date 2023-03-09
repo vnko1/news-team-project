@@ -16,7 +16,6 @@
   @include desktop {
     padding-bottom: 60px;
   }
-
 }
 
 .filters__button-wrap {
@@ -68,11 +67,10 @@
   @include tablet {
     margin-left: 14px;
   }
-
 }
 
 .selected_list {
-  box-sizing: content-box; 
+  box-sizing: content-box;
   display: flex;
   flex-direction: column;
   padding: 14px;
