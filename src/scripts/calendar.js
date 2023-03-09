@@ -12,7 +12,7 @@ import {
   deleteNoFoundMess,
   emptyPageContainer,
 } from './commonFunctions';
-import { deletePagination } from './pagination';
+import { paginationByQuery, deletePagination } from './pagination';
 
 const calendar = new VanillaCalendar('#calendar');
 calendar.init();
@@ -119,6 +119,7 @@ async function onDateClick(e) {
 function fromBackNewsCardsCreation(data) {
   saveSearchData(data);
   renderNewsCards();
+  paginationByQuery();
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(true);
   addClassesForCoincidencesMarkupAndStorage();
@@ -126,6 +127,7 @@ function fromBackNewsCardsCreation(data) {
 
 function fromFrontNewsCardsCreation(data) {
   renderFiltredNewsCardByData(data);
+
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);
   addClassesForCoincidencesMarkupAndStorage();
