@@ -1,7 +1,7 @@
 import {
   getStorageList,
-  showNotFoundMessage,
-  hideNotFoundMessage,
+  deleteNoFoundMess,
+  renderNoFoundMess,
 } from './commonFunctions';
 
 // const inputEl = document.querySelector('.search-input');
@@ -12,7 +12,7 @@ formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  hideNotFoundMessage();
+  deleteNoFoundMess();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('favourites');
@@ -27,8 +27,7 @@ function onFormSubmit(e) {
   if (newArrObj.length > 0) {
     render(newArrObj);
   } else {
-    galleryEl.innerHTML = '';
-    showNotFoundMessage();
+    renderNoFoundMess();
   }
 }
 
