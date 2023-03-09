@@ -1,5 +1,13 @@
+import mobImg1X from '/src/images/img/empty-news-mob-1x.png';
+import mobImg2X from '/src/images/img/empty-news-mob-2x.png';
+import tabImg1X from '/src/images/img/empty-news-tab-1x.png';
+import tabImg2X from '/src/images/img/empty-news-tab-2x.png';
+import pcImg1X from '/src/images/img/empty-news-pc-1x.png';
+import pcImg2X from '/src/images/img/empty-news-pc-2x.png';
 import { fetchNews } from './fetchNews';
+
 const gallery = document.querySelector('.gallery-container');
+const emptyPageContainer = document.querySelector('.empty-page');
 
 String.prototype.limit = function (limit, userParams) {
   let text = this,
@@ -83,10 +91,9 @@ function renderNewsCards() {
           width="395"
         />
         <div class="news-card__favorite">
-          <label for="favorite" id="${
+          <button id ='${
             el.id
-          }" class="label-favorite">Add to favorite</label>
-          <input type="checkbox" class="input-favorite" id="favorite"/>
+          }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${el.title.limit(50, {
@@ -229,9 +236,9 @@ function addClassesForCoincidencesMarkupAndStorage() {
 
   newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
-      if (obj.id === objOfFavourite.id) {
-        obj.className = 'label-favorite js-favourite-storage';
-        obj.parentNode.lastElementChild.checked = true;
+      if (obj.id == objOfFavourite.id) {
+        obj.className = 'mybtn label-favorite js-favourite-storage';
+        obj.parentNode.firstElementChild.textContent = 'Remove from favorite';
       }
     }
   });
@@ -256,12 +263,11 @@ function addClassesForCoincidencesMarkupAndStoragePages() {
   const favouriteList = getStorageList('favourites');
   const labelsEl = document.querySelectorAll('.label-favorite');
   const newArrOfBtn = [...labelsEl];
-  console.log(newArrOfBtn);
   newArrOfBtn.filter(obj => {
     for (const objOfFavourite of favouriteList) {
       if (obj.id === objOfFavourite.id) {
-        obj.className = 'label-favorite js-favourite-storage';
-        obj.parentNode.lastElementChild.checked = true;
+        obj.className = 'mybtn label-favorite js-favourite-storage';
+        obj.parentNode.firstElementChild.textContent = 'Remove from favorite';
       }
     }
   });
@@ -270,6 +276,52 @@ function addClassesForCoincidencesMarkupAndStoragePages() {
 // Взять данные с ЛОКАЛСТОРИДЖ
 function getStorageList(valueOfKeyStorage) {
   return JSON.parse(localStorage.getItem(valueOfKeyStorage));
+}
+
+// function showNotFoundMessage() {
+//   emptyPageContainer.classList.remove('is-hidden');
+// }
+// function hideNotFoundMessage() {
+//   emptyPageContainer.classList.add('is-hidden');
+// }
+
+function renderNoFoundMess() {
+  const mark = `<div class="empty-page search-modal-read search-modal-none">
+    <h2 class="empty-page__title">We haven’t found news from this category</h2>
+    <picture>
+      <source
+        srcset="
+          ${pcImg1X} 1x,
+          ${pcImg2X} 2x
+        "
+        media="(min-width: 1170px)"
+      />
+      <source
+        srcset="
+         ${tabImg1X} 1x,
+          ${tabImg2X} 2x
+        "
+        media="(min-width: 768px)"
+      />
+      <source
+        srcset="
+          ${mobImg1X} 1x,
+          ${mobImg2X} 2x
+        "
+        media="(max-width: 767px)"
+      />
+      <img
+        ${mobImg1X}"
+        alt="News not find"
+        width="248"
+      />
+    </picture>
+  </div>`;
+  gallery.innerHTML = mark;
+}
+
+function deleteNoFoundMess() {
+  gallery.innerHTML = '';
 }
 
 export {
@@ -284,4 +336,6 @@ export {
   getStorageList,
   addClassesForCoincidencesMarkupAndStorage,
   addClassesForCoincidencesMarkupAndStoragePages,
+  renderNoFoundMess,
+  deleteNoFoundMess,
 };

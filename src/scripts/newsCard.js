@@ -14,10 +14,19 @@ gallery.addEventListener('click', onClick); // повесить слушател
 
 function onClick(event) {
   //--------------------Favourites--------------------------------
-  if (event.target.type === 'checkbox') {
+  if (event.target.tagName === 'BUTTON') {
+    //label
     event.target.parentNode.children[0].classList.toggle(
       'js-favourite-storage'
     );
+
+    if (event.target.parentNode.children[0].textContent === 'Add to favorite') {
+      event.target.parentNode.children[0].textContent = 'Remove from favorite';
+    } else if (
+      event.target.parentNode.children[0].textContent === 'Remove from favorite'
+    ) {
+      event.target.parentNode.children[0].textContent = 'Add to favorite';
+    }
 
     const arrayChildren = event.target.parentNode.parentNode.parentNode;
 
@@ -86,7 +95,7 @@ function refreshFavouritesStorage(myResult, list, newObj) {
     localStorage.setItem('favourites', JSON.stringify(list));
   } else {
     const linkIndex = list.findIndex(object => object.id === newObj.id);
-
+    // console.log(linkIndex)
     list.splice(linkIndex, 1);
     localStorage.setItem('favourites', JSON.stringify(list));
   }
