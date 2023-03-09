@@ -1,6 +1,6 @@
 import {
   getStorageList,
-  deleteNoFoundMess,
+  storageQueryDeletNoFoundMess,
   renderNoFoundMess,
 } from './commonFunctions';
 
@@ -13,7 +13,7 @@ formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  deleteNoFoundMess();
+  storageQueryDeletNoFoundMess();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('read more');
@@ -34,9 +34,7 @@ function onFormSubmit(e) {
 
 function render(arr) {
   const markUp = arr.reduce((acc, el) => {
-    acc += `<div class="news-card" news-id="${
-      el.id
-    }">
+    acc += `<div class="news-card" news-id="${el.id}">
       <div class="news-card__img">
         <p class="news-card__theme">${el.category}</p>
         <img

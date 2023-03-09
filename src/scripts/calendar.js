@@ -10,6 +10,7 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   renderNoFoundMess,
   deleteNoFoundMess,
+  emptyPageContainer,
 } from './commonFunctions';
 import { deletePagination } from './pagination';
 
@@ -43,6 +44,7 @@ function onWindowClick(e) {
 }
 
 async function onDateClick(e) {
+  // debugger;
   if (e.target.hasAttribute('data-calendar-day')) {
     const date = e.target.getAttribute('data-calendar-day');
     const currentDate = new Date();
@@ -56,8 +58,10 @@ async function onDateClick(e) {
     const normalisedDate = date.split('-').reverse().join('/');
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
-    deleteNewsCards();
-    deleteNoFoundMess();
+
+    if (emptyPageContainer) {
+      deleteNoFoundMess();
+    } else deleteNewsCards();
     deletePagination();
     spinner.spin(document.body);
 

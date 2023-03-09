@@ -6,6 +6,7 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   renderNoFoundMess,
   deleteNoFoundMess,
+  emptyPageContainer,
 } from './commonFunctions';
 // import Notiflix, { Notify } from 'notiflix';
 import { spinner } from './libraries';
@@ -52,8 +53,10 @@ async function onClickCategoryBtn(e) {
     if (e.target.nodeName === 'BUTTON') {
       spinner.spin(document.body);
       const query = e.target.innerText.toLowerCase();
-      deleteNoFoundMess();
-      deletePagination();
+      if (emptyPageContainer) {
+        deleteNoFoundMess();
+        deletePagination();
+      }
       fetchNews.resetData();
       fetchNews.resetStorageData();
       fetchNews.resetCategoryData();
@@ -91,8 +94,10 @@ async function onClickCategoryBtn(e) {
 }
 
 async function onClickOtherCategory(e) {
-  deleteNoFoundMess();
-  deletePagination();
+  if (emptyPageContainer) {
+    deleteNoFoundMess();
+    deletePagination();
+  }
   try {
     selectedList.classList.toggle('shown');
 
