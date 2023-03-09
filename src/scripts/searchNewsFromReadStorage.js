@@ -1,7 +1,7 @@
 import {
   getStorageList,
-  storageQueryDeletNoFoundMess,
-  renderNoFoundMess,
+  showModal,
+  hideModal,
   addClassesForCoincidencesMarkupAndStoragePages,
 } from './commonFunctions';
 
@@ -14,7 +14,7 @@ formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  storageQueryDeletNoFoundMess();
+  hideModal();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('read more');
@@ -30,7 +30,7 @@ function onFormSubmit(e) {
     render(newArrObj);
     addClassesForCoincidencesMarkupAndStoragePages();
   } else {
-    renderNoFoundMess();
+    showModal();
   }
 }
 

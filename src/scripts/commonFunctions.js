@@ -1,13 +1,8 @@
-import mobImg1X from '/src/images/img/empty-news-mob-1x.png';
-import mobImg2X from '/src/images/img/empty-news-mob-2x.png';
-import tabImg1X from '/src/images/img/empty-news-tab-1x.png';
-import tabImg2X from '/src/images/img/empty-news-tab-2x.png';
-import pcImg1X from '/src/images/img/empty-news-pc-1x.png';
-import pcImg2X from '/src/images/img/empty-news-pc-2x.png';
 import { fetchNews } from './fetchNews';
 
 const gallery = document.querySelector('.gallery-container');
-let emptyPageContainer = null;
+const modal = document.querySelector('.empty-page');
+const weather = document.querySelector('.weather-card');
 
 String.prototype.limit = function (limit, userParams) {
   let text = this,
@@ -112,12 +107,9 @@ function renderNewsCards() {
   // додоємо створену розмітку в DOM
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
+
 function deleteNewsCards() {
-  // видаляє повністю розмітку і  календар також (тимчасовий код)
-  // gallery.innerHTML = '';
-  // видаляє тільки newsCards, погода щзалишається, але працюватиме тільки, якщо при завантаженні сторінки вже рендер карток новин
   const newsCards = fetchNews.getNodeChild();
-  // console.log('💛💙💪  newsCards:', newsCards);
 
   newsCards.forEach(el => el.remove());
 }
@@ -125,7 +117,6 @@ function deleteNewsCards() {
 function saveCategoryData(data) {
   let img = null;
   let imgDescr = null;
-  // console.log(!data[148].multimedia);
 
   data.forEach(el => {
     if (el.multimedia) {
@@ -278,59 +269,23 @@ function getStorageList(valueOfKeyStorage) {
   return JSON.parse(localStorage.getItem(valueOfKeyStorage));
 }
 
-// function showNotFoundMessage() {
-//   emptyPageContainer.classList.remove('is-hidden');
-// }
-// function hideNotFoundMessage() {
-//   emptyPageContainer.classList.add('is-hidden');
-// }
-
-function renderNoFoundMess() {
-  const mark = `<div class="empty-page search-modal-read search-modal-none">
-    <h2 class="empty-page__title">We haven’t found news from this category</h2>
-    <picture>
-      <source
-        srcset="
-          ${pcImg1X} 1x,
-          ${pcImg2X} 2x
-        "
-        media="(min-width: 1170px)"
-      />
-      <source
-        srcset="
-         ${tabImg1X} 1x,
-          ${tabImg2X} 2x
-        "
-        media="(min-width: 768px)"
-      />
-      <source
-        srcset="
-          ${mobImg1X} 1x,
-          ${mobImg2X} 2x
-        "
-        media="(max-width: 767px)"
-      />
-      <img
-        ${mobImg1X}"
-        alt="News not find"
-      />
-    </picture>
-  </div>`;
-  gallery.innerHTML = mark;
-  emptyPageContainer = document.querySelector('.empty-page');
-}
-
-function deleteNoFoundMess() {
-  emptyPageContainer.remove();
-  // gallery.innerHTML = '';
-  const newsCards = fetchNews.getNodeChild();
-
-  newsCards.forEach(el => el.remove());
-  gallery.style.flexDirection = 'row';
-}
-
-function storageQueryDeletNoFoundMess() {
+function showModal() {
+  modal.classList.remove('is-hidden');
   gallery.innerHTML = '';
+}
+
+function hideModal() {
+  modal.classList.add('is-hidden');
+}
+
+function mainPageShowModal() {
+  modal.classList.remove('is-hidden');
+  weather.classList.add('is-hidden');
+}
+
+function mainPageHideModal() {
+  modal.classList.add('is-hidden');
+  weather.classList.remove('is-hidden');
 }
 
 export {
@@ -345,8 +300,8 @@ export {
   getStorageList,
   addClassesForCoincidencesMarkupAndStorage,
   addClassesForCoincidencesMarkupAndStoragePages,
-  renderNoFoundMess,
-  deleteNoFoundMess,
-  emptyPageContainer,
-  storageQueryDeletNoFoundMess,
+  mainPageShowModal,
+  mainPageHideModal,
+  showModal,
+  hideModal,
 };

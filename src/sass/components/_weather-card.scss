@@ -24,6 +24,10 @@
   @include desktop {
     max-width: 394px;
   }
+
+  &.is-hidden {
+    display: none;
+  }
 }
 
 .weather-card__top {
