@@ -326,6 +326,7 @@ function deleteNoFoundMess() {
   const newsCards = fetchNews.getNodeChild();
 
   newsCards.forEach(el => el.remove());
+  gallery.style.flexDirection = 'row';
 }
 
 function storageQueryDeletNoFoundMess() {
