@@ -4,12 +4,12 @@ import {
   renderNewsCards,
   deleteNewsCards,
   addClassesForCoincidencesMarkupAndStorage,
-  hideNotFoundMessage,
-  showNotFoundMessage,
+  renderNoFoundMess,
+  deleteNoFoundMess,
 } from './commonFunctions';
 // import Notiflix, { Notify } from 'notiflix';
 import { spinner } from './libraries';
-import { paginationByQuery } from './pagination';
+import { paginationByQuery, deletePagination } from './pagination';
 
 // Notify.init({
 //   width: '400px',
@@ -26,7 +26,7 @@ const galleryContainer = document.querySelector('.gallery-container');
 // const categoryContainer = document.querySelector('.filters .container');
 const filterBtnsWrap = document.querySelector('.filters__button-wrap');
 const selectedList = document.querySelector('.selected_list');
-const filterCategory = document.querySelectorAll('.filters__button');
+// const filterCategory = document.querySelectorAll('.filters__button');
 const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
@@ -52,7 +52,8 @@ async function onClickCategoryBtn(e) {
     if (e.target.nodeName === 'BUTTON') {
       spinner.spin(document.body);
       const query = e.target.innerText.toLowerCase();
-      hideNotFoundMessage();
+      deleteNoFoundMess();
+      deletePagination();
       fetchNews.resetData();
       fetchNews.resetStorageData();
       fetchNews.resetCategoryData();
@@ -65,8 +66,7 @@ async function onClickCategoryBtn(e) {
       } = response;
 
       if (results === null) {
-        deleteNewsCards();
-        showNotFoundMessage();
+        renderNoFoundMess();
         spinner.stop();
         return;
       }
@@ -93,7 +93,8 @@ async function onClickCategoryBtn(e) {
 async function onClickOtherCategory(e) {
   try {
     selectedList.classList.toggle('shown');
-    hideNotFoundMessage();
+    deleteNoFoundMess();
+    renderNoFoundMess();
     spinner.spin(document.body);
     fetchNews.resetData();
     fetchNews.resetStorageData();
@@ -109,8 +110,7 @@ async function onClickOtherCategory(e) {
     } = response;
 
     if (results === null) {
-      deleteNewsCards();
-      showNotFoundMessage();
+      renderNoFoundMess();
       // appendNotFoundImage();
       spinner.stop();
       return;

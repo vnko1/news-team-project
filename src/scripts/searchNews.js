@@ -4,10 +4,10 @@ import {
   createObj,
   formatDate,
   addClassesForCoincidencesMarkupAndStorage,
-  showNotFoundMessage,
-  hideNotFoundMessage,
+  renderNoFoundMess,
+  deleteNoFoundMess,
 } from './commonFunctions';
-import { paginationByQuery } from './pagination';
+import { paginationByQuery, deletePagination } from './pagination';
 import { spinner } from './libraries';
 import { Report } from 'notiflix/build/notiflix-report-aio'; //бібліотека сповіщень
 
@@ -21,7 +21,8 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
-  hideNotFoundMessage();
+  deleteNoFoundMess();
+  deletePagination();
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);
@@ -44,8 +45,7 @@ async function onFormSubmit(event) {
 
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
-      deleteCards();
-      showNotFoundMessage();
+      renderNoFoundMess();
       form.reset();
       spinner.stop();
       return;

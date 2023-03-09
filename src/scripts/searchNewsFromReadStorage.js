@@ -1,18 +1,19 @@
 import {
   getStorageList,
-  showNotFoundMessage,
-  hideNotFoundMessage,
+  deleteNoFoundMess,
+  renderNoFoundMess,
 } from './commonFunctions';
 
 // const inputEl = document.querySelector('.search-input');
 const formEl = document.getElementById('search-form');
-const galleryEl = document.querySelector('.gallery-container > li');
+
+const galleryEl = document.querySelector('.gallery-container');
 
 formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  hideNotFoundMessage();
+  deleteNoFoundMess();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('read more');
@@ -27,8 +28,7 @@ function onFormSubmit(e) {
   if (newArrObj.length > 0) {
     render(newArrObj);
   } else {
-    galleryEl.innerHTML = '';
-    showNotFoundMessage();
+    renderNoFoundMess();
   }
 }
 
