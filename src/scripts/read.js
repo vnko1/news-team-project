@@ -106,7 +106,9 @@ function renderMarkup(array) {
           width="395"
         />
         <div class="news-card__favorite">
-        <button id ='${obj.id}' class="mybtn label-favorite">Add to favorite</button>
+        <button id ='${
+          obj.id
+        }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
       <h2 class="news-card__info-title">${obj.title.limit(50, {

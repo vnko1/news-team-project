@@ -49,8 +49,10 @@ function render(arr) {
         }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
-      <h2 class="news-card__info-title">${el.title}</h2>
-      <p class="news-card__info-text">${el.descr.limit(180)}</p>
+      <h2 class="news-card__info-title">${el.title.limit(50, {
+        ending: '',
+      })}</h2>
+      <p class="news-card__info-text">${el.descr.limit(120)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.dateArticle}</p>
         <a class="news-card__more" href="${el.link}" id="${

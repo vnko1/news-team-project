@@ -54,7 +54,9 @@ function renderFavouriteCardFromStorage() {
         }' class="mybtn label-favorite">Add to favorite</button>
         </div>
       </div>
-      <h2 class="news-card__info-title">${el.title}</h2>
+      <h2 class="news-card__info-title">${el.title.limit(50, {
+        ending: '',
+      })}</h2>
       <p class="news-card__info-text">${el.descr.limit(180)}</p>
       <div class="news-card__additional">
         <p class="news-card__date">${el.dateArticle}</p>
