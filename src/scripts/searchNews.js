@@ -6,6 +6,7 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   renderNoFoundMess,
   deleteNoFoundMess,
+  emptyPageContainer,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 import { spinner } from './libraries';
@@ -21,8 +22,11 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
-  deleteNoFoundMess();
-  deletePagination();
+  if (emptyPageContainer) {
+    deleteNoFoundMess();
+    deletePagination();
+  }
+
   fetchNews.resetData();
   fetchNews.resetStorageData();
   spinner.spin(document.body);

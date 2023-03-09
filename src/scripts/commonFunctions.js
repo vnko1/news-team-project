@@ -7,7 +7,7 @@ import pcImg2X from '/src/images/img/empty-news-pc-2x.png';
 import { fetchNews } from './fetchNews';
 
 const gallery = document.querySelector('.gallery-container');
-const emptyPageContainer = document.querySelector('.empty-page');
+let emptyPageContainer = null;
 
 String.prototype.limit = function (limit, userParams) {
   let text = this,
@@ -317,9 +317,18 @@ function renderNoFoundMess() {
     </picture>
   </div>`;
   gallery.innerHTML = mark;
+  emptyPageContainer = document.querySelector('.empty-page');
 }
 
 function deleteNoFoundMess() {
+  emptyPageContainer.remove();
+  // gallery.innerHTML = '';
+  const newsCards = fetchNews.getNodeChild();
+
+  newsCards.forEach(el => el.remove());
+}
+
+function storageQueryDeletNoFoundMess() {
   gallery.innerHTML = '';
 }
 
@@ -337,4 +346,6 @@ export {
   addClassesForCoincidencesMarkupAndStoragePages,
   renderNoFoundMess,
   deleteNoFoundMess,
+  emptyPageContainer,
+  storageQueryDeletNoFoundMess,
 };

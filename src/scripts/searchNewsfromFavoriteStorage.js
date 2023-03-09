@@ -1,6 +1,6 @@
 import {
   getStorageList,
-  deleteNoFoundMess,
+  storageQueryDeletNoFoundMess,
   renderNoFoundMess,
 } from './commonFunctions';
 
@@ -12,7 +12,7 @@ formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  deleteNoFoundMess();
+  storageQueryDeletNoFoundMess();
   const searchValue = e.target.elements.searchQuery.value;
 
   const arr = getStorageList('favourites');
