@@ -32,11 +32,19 @@
 }
 
 .news-wrap {
+  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+
+  width: 100%;
+
   @media screen and (min-width: 320px) {
     padding-top: 28px;
   }
 
   @media screen and (min-width: 768px) {
+    gap: 30px;
     padding-top: 30px;
   }
 
@@ -44,11 +52,6 @@
     padding-top: 40px;
   }
 
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-
-  width: 100%;
 }
 
 .date-wrap {
@@ -85,5 +88,26 @@
 
   @media screen and (min-width: 1280px) {
     height: 210px;
+  }
+}
+
+.read {
+  & .container.gallery-container.read-search {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 40px;
+
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding-top: 48px;
+    }
+
+    @include desktop {
+      gap: 32px;
+      padding-top: 60px;
+    }
   }
 }

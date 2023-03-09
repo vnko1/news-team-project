@@ -34,7 +34,7 @@ function onFormSubmit(e) {
 
 function render(arr) {
   const markUp = arr.reduce((acc, el) => {
-    acc += `<div class="news-card" style="padding-top: 100px;" news-id="${
+    acc += `<div class="news-card" news-id="${
       el.id
     }">
       <div class="news-card__img">
@@ -65,6 +65,7 @@ function render(arr) {
     </div>`;
     return acc;
   }, ``);
-  // console.log(markUp)
+
   galleryEl.innerHTML = markUp;
+  galleryEl.classList.add('read-search');
 }
