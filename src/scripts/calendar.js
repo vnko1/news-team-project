@@ -10,6 +10,8 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageHideModal,
   mainPageShowModal,
+  showPagination,
+  hidePagination,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 
@@ -56,9 +58,7 @@ async function onDateClick(e) {
     const normalisedDate = date.split('-').reverse().join('/');
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
-    mainPageHideModal();
-    deleteNewsCards();
-    deletePagination();
+
     spinner.spin(document.body);
 
     if (fetchNews.getUrl().includes('articlesearch')) {
@@ -67,10 +67,18 @@ async function onDateClick(e) {
         const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
+          deleteNewsCards();
+          // ------------
+          hidePagination();
+          deletePagination();
           mainPageShowModal();
           spinner.stop();
           return;
         }
+        deleteNewsCards();
+        // ------------
+        hidePagination();
+        deletePagination();
         fetchNews.setHits(response.data.response.meta.hits);
 
         const {
@@ -90,6 +98,10 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
+        deleteNewsCards();
+        // ------------
+        hidePagination();
+        deletePagination();
         mainPageShowModal();
         spinner.stop();
         return;
@@ -101,6 +113,10 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
+        deleteNewsCards();
+        // ------------
+        hidePagination();
+        deletePagination();
         mainPageShowModal();
         spinner.stop();
         return;
@@ -116,14 +132,19 @@ function fromBackNewsCardsCreation(data) {
   saveSearchData(data);
   renderNewsCards();
   paginationByQuery();
+  mainPageHideModal();
+  // ------------
+  showPagination();
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(true);
   addClassesForCoincidencesMarkupAndStorage();
 }
 
 function fromFrontNewsCardsCreation(data) {
+  deleteNewsCards();
+  deletePagination();
   renderNewsCardByDate(data);
-
+  mainPageHideModal();
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);
   addClassesForCoincidencesMarkupAndStorage();

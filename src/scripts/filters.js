@@ -6,6 +6,8 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageHideModal,
   mainPageShowModal,
+  showPagination,
+  hidePagination,
 } from './commonFunctions';
 
 import { spinner } from './libraries';
@@ -13,7 +15,6 @@ import { paginationByQuery, deletePagination } from './pagination';
 
 const filterBtnsWrap = document.querySelector('.filters__button-wrap');
 const selectedList = document.querySelector('.selected_list');
-
 const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
@@ -43,9 +44,7 @@ async function onClickCategoryBtn(e) {
       fetchNews.resetStorageData();
       fetchNews.resetCategoryData();
       fetchNews.setFilterQuery(query);
-      mainPageHideModal();
-      deleteNewsCards();
-      deletePagination();
+
       const response = await fetchNews.fetchNewsByFilter();
 
       const {
@@ -53,18 +52,29 @@ async function onClickCategoryBtn(e) {
       } = response;
 
       if (results === null) {
+        deleteNewsCards();
+        // -------------
+        hidePagination();
+        deletePagination();
         mainPageShowModal();
         spinner.stop();
         form.reset();
         return;
       }
 
+      deleteNewsCards();
+      // -------------
+      hidePagination();
+      deletePagination();
       fetchNews.setHits(results.length);
       fetchNews.setFilterParams(fetchNews.getFilterParams());
       saveCategoryData(results);
 
       renderNewsCards();
+      // -------------
+      showPagination();
       paginationByQuery();
+      mainPageHideModal();
 
       fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
       fetchNews.setIsUrlRequest(true);
@@ -76,6 +86,7 @@ async function onClickCategoryBtn(e) {
   }
   form.reset();
   spinner.stop();
+  form.reset();
 }
 
 async function onClickOtherCategory(e) {
@@ -87,9 +98,7 @@ async function onClickOtherCategory(e) {
     fetchNews.resetCategoryData();
     const query = e.target.textContent;
     otherCategoriesBtn.innerText = query;
-    mainPageHideModal();
-    deleteNewsCards();
-    deletePagination();
+
     fetchNews.setFilterQuery(query.toLowerCase());
     const response = await fetchNews.fetchNewsByFilter();
 
@@ -98,18 +107,28 @@ async function onClickOtherCategory(e) {
     } = response;
 
     if (results === null) {
+      deleteNewsCards();
+      // -------------
+      hidePagination();
+      deletePagination();
       mainPageShowModal();
       spinner.stop();
       form.reset();
       return;
     }
+    deleteNewsCards();
+    hidePagination();
+    deletePagination();
     fetchNews.setHits(results.length);
 
     fetchNews.setFilterParams(fetchNews.getFilterParams());
     saveCategoryData(results);
 
     renderNewsCards();
+    // -------------
+    showPagination();
     paginationByQuery();
+    mainPageHideModal();
 
     fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
     fetchNews.setIsUrlRequest(true);
@@ -120,6 +139,7 @@ async function onClickOtherCategory(e) {
   }
   form.reset();
   spinner.stop();
+  form.reset();
 }
 
 function onClickOthersBtn() {
