@@ -131,6 +131,7 @@ async function onDateClick(e) {
 function fromBackNewsCardsCreation(data) {
   saveSearchData(data);
   renderNewsCards();
+  paginationByQuery();
   mainPageHideModal();
   // ------------
   showPagination();
