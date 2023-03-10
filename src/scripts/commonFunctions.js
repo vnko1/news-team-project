@@ -288,18 +288,6 @@ function mainPageHideModal() {
   weather.classList.remove('is-hidden');
 }
 
-// ====================Видалити після фіксів=======================//
-// let pag = null;
-// function hidePagination() {
-//   pag = document.querySelector('.pagination_container');
-//   pag.classList.add('hide');
-// }
-
-// function showPagination() {
-//   pag.classList.remove('hide');
-// }
-// ====================Видалити після фіксів=======================//
-
 export {
   cutInfo,
   formatDate,
@@ -316,7 +304,5 @@ export {
   mainPageHideModal,
   showModal,
   hideModal,
-  hidePagination,
-  showPagination,
 };
 // ----------------

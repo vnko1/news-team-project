@@ -10,8 +10,6 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageHideModal,
   mainPageShowModal,
-  showPagination,
-  hidePagination,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 
