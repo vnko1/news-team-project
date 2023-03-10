@@ -142,9 +142,11 @@ function fromBackNewsCardsCreation(data) {
 
 function fromFrontNewsCardsCreation(data) {
   deleteNewsCards();
+  // --------------
+  mainPageHideModal();
   deletePagination();
   renderNewsCardByDate(data);
-  mainPageHideModal();
+
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);
   addClassesForCoincidencesMarkupAndStorage();
