@@ -87,6 +87,7 @@ async function onClickCategoryBtn(e) {
     spinner.stop();
   }
   spinner.stop();
+  form.reset();
 }
 
 async function onClickOtherCategory(e) {
@@ -137,6 +138,7 @@ async function onClickOtherCategory(e) {
     spinner.stop();
   }
   spinner.stop();
+  form.reset();
 }
 
 function onClickOthersBtn() {
