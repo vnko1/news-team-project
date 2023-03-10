@@ -153,6 +153,13 @@
   }
   &:focus + .query-btn {
     transform: translateX(-60px);
+      @include tablet {
+        transform: translateX(-80px);
+      }
+
+      @include desktop {
+        transform: translateX(-110px);
+      }
   }
 
   @include tablet {
