@@ -3,6 +3,7 @@ import { fetchNews } from './fetchNews';
 const gallery = document.querySelector('.gallery-container');
 const modal = document.querySelector('.empty-page');
 const weather = document.querySelector('.weather-card');
+const paginationContainer = document.querySelector('.pagination_container');
 
 String.prototype.limit = function (limit, userParams) {
   let text = this,
@@ -280,11 +281,13 @@ function hideModal() {
 
 function mainPageShowModal() {
   modal.classList.remove('is-hidden');
+  paginationContainer.classList.add('hide');
   weather.classList.add('is-hidden');
 }
 
 function mainPageHideModal() {
   modal.classList.add('is-hidden');
+  paginationContainer.classList.remove('hide');
   weather.classList.remove('is-hidden');
 }
 
