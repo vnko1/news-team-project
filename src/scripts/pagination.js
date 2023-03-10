@@ -349,10 +349,12 @@ function startPagination(totalPages) {
   const mediaQuery = window.matchMedia('(min-width: 768px)');
   function handleScreenSizeChange(e) {
     if (!e.matches) {
+      deletePagination();
       elementMob(totalPages, fetchNews.page + 1);
 
       return;
     }
+    deletePagination();
     element(totalPages, fetchNews.page + 1);
   }
 
