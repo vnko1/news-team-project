@@ -924,6 +924,7 @@
   font-size: 12px;
   line-height: 1.75px;
   letter-spacing: 0.02em;
+  background: none;
   color: currentColor;
   opacity: 0.4;
   cursor: pointer;
@@ -934,11 +935,12 @@
     &::placeholder {
       color: #fff;
     }
-  }
-  &:target {
-    .calendar-svg__icon,
-    .calendar-arrow__icon {
+    & ~ .calendar-svg>.calendar-svg__icon,
+    + .calendar-arrow>.calendar-arrow__icon-arrow {
       fill: #fff;
+    }
+    & + .calendar-arrow>.calendar-arrow__icon {
+      transform: rotate(180deg);
     }
   }
 }
@@ -968,10 +970,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: -1;
 }
 .calendar-arrow__icon {
-  fill: currentColor;
+  fill: #a2a2a2;
 }
 
 .search-date {
