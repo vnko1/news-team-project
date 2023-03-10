@@ -1,4 +1,5 @@
 import WeatherApiService from './fetchWeather';
+import { spinner } from './libraries';
 
 const weatherCardEl = document.querySelector('.weather-card');
 
@@ -63,15 +64,19 @@ function appendWeatherToCard(data) {
 
 async function onWeatherWeekCards() {
   try {
+    spinner.spin(weatherCardEl);
     const response = await weatherApiService.loadWeatherWeek();
     const data = response.data;
 
     markupWeekWeather(data.daily);
-
+    spinner.stop();
     const btnEl = document.querySelector('.newbtn');
 
     btnEl.addEventListener('click', dailyWeather);
-  } catch {}
+  } catch {
+    spinner.stop();
+  }
+  spinner.stop();
 }
 
 function markupWeekWeather(data) {
