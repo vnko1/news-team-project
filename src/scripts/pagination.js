@@ -18,7 +18,7 @@ itemCont.addEventListener('click', handlePageByNumber);
 export async function paginationByQuery() {
   const totalHits = fetchNews.getHits();
   const totalPages = Math.ceil(totalHits / 10);
-  fetchNews.page = 0;
+  fetchNews.resetPage();
   startPagination(totalPages);
 }
 
@@ -196,12 +196,10 @@ function renderPerPageNewsCardByData(data) {
           }' class="mybtn label-favorite">Add to favorite</button>
           </div>
         </div>
-        <h2 class="news-card__info-title">${el.title}</h2>
-        <p class="news-card__info-text">${
-          el.description.length > 180
-            ? el.description.slice(0, 180) + '...'
-            : el.description
-        }</p>
+        <h2 class="news-card__info-title">${el.title.limit(50, {
+          ending: '',
+        })}</h2>
+        <p class="news-card__info-text">${el.description.limit(120)}</p>
         <div class="news-card__additional">
           <p class="news-card__date">${el.pubDate}</p>
           <a class="news-card__more" href="${el.url}" id="${
@@ -236,7 +234,7 @@ function element(totalPage, page) {
   if (totalPage > 50) {
     totalPages = 50;
   }
-  if (totalPage === 1) {
+  if (totalPage < 2) {
     return;
   }
   // додаваня кнопки прев
@@ -352,9 +350,9 @@ function startPagination(totalPages) {
     if (!e.matches) {
       deletePagination();
       elementMob(totalPages, fetchNews.page + 1);
-
       return;
     }
+
     deletePagination();
     element(totalPages, fetchNews.page + 1);
   }
@@ -378,7 +376,7 @@ function elementMob(totalPag, page) {
   let afterPages = page;
   let totalPages = totalPag;
 
-  if (totalPages === 1 || totalPages === 0) {
+  if (totalPages < 2) {
     return;
   }
   if (totalPages > 50) {

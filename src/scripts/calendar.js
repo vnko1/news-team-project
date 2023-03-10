@@ -89,6 +89,8 @@ async function onDateClick(e) {
         onEventNoFound();
         return;
       }
+      fetchNews.setHits(0);
+
       fromFrontNewsCardsCreation(filtredData);
     } else {
       const filtredData = fetchNews.getStorageData().filter(el => {
@@ -99,6 +101,7 @@ async function onDateClick(e) {
         onEventNoFound();
         return;
       }
+      fetchNews.setHits(0);
 
       fromFrontNewsCardsCreation(filtredData);
     }
@@ -126,6 +129,7 @@ function fromBackNewsCardsCreation(data) {
 function fromFrontNewsCardsCreation(data) {
   deleteNewsCards();
   renderNewsCardByDate(data);
+  paginationByQuery();
   mainPageHideModal();
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);

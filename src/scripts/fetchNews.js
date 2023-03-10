@@ -34,6 +34,8 @@ class FetchNews {
     this.hits = null;
     // лічильник, на всякий випадок для пагінації
     this.page = 0;
+
+    this.totalPage = 0;
     // URL запиту на бекенд з усіма параметрами (потрібен для пагінації)
     this.url = '';
     // URL запиту на бекенд з усіма параметрами (для фільтрації зв датою)
@@ -162,6 +164,18 @@ class FetchNews {
   decrementPage() {
     this.page -= 1;
     if (this.page < 0) this.resetPage();
+  }
+  // повертає значення
+  getTotalPage() {
+    return this.totalPage;
+  }
+  // присвоює нове значення
+  setTotalPage(newTotalPage) {
+    this.page = newTotalPage;
+  }
+  //обнуляє лічильник
+  resetTotalPage() {
+    this.page = 0;
   }
   // повертає URL (потрібен для пагінації)
   getUrl() {
