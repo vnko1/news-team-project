@@ -58,6 +58,7 @@ async function onClickCategoryBtn(e) {
         deletePagination();
         mainPageShowModal();
         spinner.stop();
+        form.reset();
         return;
       }
 
@@ -83,6 +84,7 @@ async function onClickCategoryBtn(e) {
     console.error(error.message);
     spinner.stop();
   }
+  form.reset();
   spinner.stop();
   form.reset();
 }
@@ -111,6 +113,7 @@ async function onClickOtherCategory(e) {
       deletePagination();
       mainPageShowModal();
       spinner.stop();
+      form.reset();
       return;
     }
     deleteNewsCards();
@@ -134,6 +137,7 @@ async function onClickOtherCategory(e) {
     console.error(error.message);
     spinner.stop();
   }
+  form.reset();
   spinner.stop();
   form.reset();
 }

@@ -60,7 +60,7 @@ async function onDateClick(e) {
     calendarContainer.classList.add('is-hidden');
 
     spinner.spin(document.body);
-
+    deletePagination();
     if (fetchNews.getUrl().includes('articlesearch')) {
       fetchNews.resetData();
       try {
@@ -70,7 +70,7 @@ async function onDateClick(e) {
           deleteNewsCards();
           // ------------
           hidePagination();
-          deletePagination();
+
           mainPageShowModal();
           spinner.stop();
           return;
@@ -78,7 +78,7 @@ async function onDateClick(e) {
         deleteNewsCards();
         // ------------
         hidePagination();
-        deletePagination();
+
         fetchNews.setHits(response.data.response.meta.hits);
 
         const {
@@ -101,7 +101,7 @@ async function onDateClick(e) {
         deleteNewsCards();
         // ------------
         hidePagination();
-        deletePagination();
+
         mainPageShowModal();
         spinner.stop();
         return;
@@ -116,7 +116,7 @@ async function onDateClick(e) {
         deleteNewsCards();
         // ------------
         hidePagination();
-        deletePagination();
+
         mainPageShowModal();
         spinner.stop();
         return;
@@ -142,9 +142,11 @@ function fromBackNewsCardsCreation(data) {
 
 function fromFrontNewsCardsCreation(data) {
   deleteNewsCards();
-  deletePagination();
-  renderNewsCardByDate(data);
+  // --------------
   mainPageHideModal();
+
+  renderNewsCardByDate(data);
+
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);
   addClassesForCoincidencesMarkupAndStorage();

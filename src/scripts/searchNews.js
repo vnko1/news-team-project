@@ -81,7 +81,6 @@ async function onFormSubmit(event) {
   }
 
   //скидаємо форму
-  
 }
 
 //очищаємо картки
