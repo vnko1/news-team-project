@@ -69,7 +69,7 @@ async function onWeatherWeekCards() {
     const data = response.data;
 
     markupWeekWeather(data.daily);
-    spinner.stop();
+
     const btnEl = document.querySelector('.newbtn');
 
     btnEl.addEventListener('click', dailyWeather);
