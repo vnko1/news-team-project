@@ -15,20 +15,17 @@ import { paginationByQuery, deletePagination } from './pagination';
 
 const filterBtnsWrap = document.querySelector('.filters__button-wrap');
 const selectedList = document.querySelector('.selected_list');
-
 const otherCategoriesBtn = document.querySelector(
   '.selected_container .filters__button'
 );
-
 const arrow = document.querySelector('.category_svg_icon');
 const dropdownBtn = document.querySelector('.category_btn');
 const dropdownMenu = document.querySelector('.category_dropdown');
-
 const notDropdownBtnContainer = document.querySelector(
   '.category_notdropdownbtn_container'
 );
-
 const categoryContainer = document.querySelector('.selected_container');
+const form = document.getElementById('search-form');
 
 filterBtnsWrap.addEventListener('click', onClickCategoryBtn);
 otherCategoriesBtn.addEventListener('click', onClickOthersBtn);
