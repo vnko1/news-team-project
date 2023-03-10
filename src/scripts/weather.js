@@ -95,7 +95,9 @@ function markupWeekWeather(data) {
   const newMarkup =
     markUp +
     `
-  <button class="weather-card__week newbtn">weather for day</button>
+    <button class="weather-card__week newbtn">
+      <a>weather for day</a>
+    </button>
   `;
 
   weatherCardEl.innerHTML = newMarkup;
