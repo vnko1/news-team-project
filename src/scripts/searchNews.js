@@ -146,7 +146,7 @@ function renderCards() {
 
   //проходимося по отриманим даним (масив з 10 елементів) та вибираємо 8 з них для нашого рендеру
   for (let i = 0; i < fetchData.length; i++) {
-    if (i > 10) break;
+    if (i >= 10) break;
 
     data.push(fetchData[i]);
   }

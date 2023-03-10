@@ -71,7 +71,7 @@ function renderNewsCards() {
   const fetchData = fetchNews.getData();
   // перебираємо маси та перші 8 елементів пушимо в renderData
   for (let i = 0; i < fetchData.length; i++) {
-    if (i > 10) break;
+    if (i >= 10) break;
     renderData.push(fetchData[i]);
   }
   // створюємо строку розмітки
