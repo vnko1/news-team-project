@@ -936,8 +936,11 @@
       color: #fff;
     }
     & ~ .calendar-svg>.calendar-svg__icon,
-    + .calendar-arrow>.calendar-arrow__icon>.calendar-arrow__icon-arrow {
+    + .calendar-arrow>.calendar-arrow__icon-arrow {
       fill: #fff;
+    }
+    & + .calendar-arrow>.calendar-arrow__icon {
+      transform: rotate(180deg);
     }
   }
 }
