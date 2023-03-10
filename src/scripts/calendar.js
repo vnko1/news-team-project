@@ -125,8 +125,8 @@ function fromBackNewsCardsCreation(data) {
 
 function fromFrontNewsCardsCreation(data) {
   deleteNewsCards();
-  mainPageHideModal();
   renderNewsCardByDate(data);
+  mainPageHideModal();
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);
   addClassesForCoincidencesMarkupAndStorage();
@@ -136,7 +136,7 @@ function renderNewsCardByDate(data) {
   const renderData = [];
 
   for (let i = 0; i < data.length; i++) {
-    if (i >= 8) break;
+    if (i > 10) break;
     renderData.push(data[i]);
   }
 

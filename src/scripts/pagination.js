@@ -17,7 +17,7 @@ itemCont.addEventListener('click', handlePageByNumber);
 
 export async function paginationByQuery() {
   const totalHits = fetchNews.getHits();
-  const totalPages = Math.ceil(totalHits / 8);
+  const totalPages = Math.ceil(totalHits / 10);
   fetchNews.page = 0;
   startPagination(totalPages);
 }
@@ -217,8 +217,8 @@ function renderPerPageNewsCardByData(data) {
 
 function breakUp(array) {
   const arr = [];
-  for (let i = 0; i < array.length; i += 8) {
-    arr.push(array.slice(i, i + 8));
+  for (let i = 0; i < array.length; i += 10) {
+    arr.push(array.slice(i, i + 10));
   }
   return arr;
 }
@@ -375,6 +375,9 @@ function elementMob(totalPag, page) {
   let afterPages = page;
   let totalPages = totalPag;
 
+  if (totalPages === 1 || totalPages === 0) {
+    return;
+  }
   if (totalPages > 50) {
     totalPages = 50;
   }
