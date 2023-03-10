@@ -375,6 +375,9 @@ function elementMob(totalPag, page) {
   let afterPages = page;
   let totalPages = totalPag;
 
+  if (totalPages === 1 || totalPages === 0) {
+    return;
+  }
   if (totalPages > 50) {
     totalPages = 50;
   }
