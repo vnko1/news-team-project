@@ -6,8 +6,6 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageShowModal,
   mainPageHideModal,
-  showPagination,
-  hidePagination,
 } from './commonFunctions';
 import { paginationByQuery, deletePagination } from './pagination';
 import { spinner } from './libraries';
@@ -23,10 +21,9 @@ form.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   //очищуємо масив даних
   event.preventDefault();
-
-  fetchNews.resetData();
-  fetchNews.resetStorageData();
-  spinner.spin(document.body);
+  //
+  onEventStart();
+  //
   try {
     //присвоюємо запиту значення інпуту
     const query = inputField.value;
@@ -40,47 +37,65 @@ async function onFormSubmit(event) {
 
     // приcвоює нове значення пошуковуму параметру
     fetchNews.setQuerySearch(query);
-
     //робимо запит
     const response = await fetchNews.fetchNewsBySearch();
-
     //якщо нічого не приходить у відповіть то пушимо у розмітку <div>
     if (!response.docs.length) {
-      deleteCards();
-      // -------------
-      hidePagination();
-      deletePagination();
-      mainPageShowModal();
-      form.reset();
-      spinner.stop();
+      //
+      nothingFoundEvent();
+      //
       return;
     }
-    deleteCards();
-    // -------------
-    hidePagination();
-    deletePagination();
-    //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
     fetchNews.setHits(response.meta.hits);
     const { docs } = response;
-    saveData(docs);
-    //очищаємо картки
+    //
+    foundNewsEvent(docs);
+    //
 
-    //пушимо розмітку
-    renderCards();
-    // -------------
-    showPagination();
-    paginationByQuery();
-    mainPageHideModal();
-    spinner.stop();
-    addClassesForCoincidencesMarkupAndStorage();
     // записує масив елементів
-    fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-    fetchNews.setIsUrlRequest(true);
   } catch (error) {
-    console.log;
+    console.log(error);
   }
+}
 
-  //скидаємо форму
+function onEventStart() {
+  fetchNews.resetData();
+  fetchNews.resetStorageData();
+  spinner.spin(document.body);
+}
+
+function nothingFoundEvent() {
+  deleteCards();
+  // -------------
+  // hidePagination();
+  deletePagination();
+  mainPageShowModal();
+  spinner.stop();
+  form.reset();
+}
+
+function foundNewsEvent(data) {
+  //
+  deleteCards();
+  // -------------
+  // hidePagination();
+  deletePagination();
+  //пушимо в екземпляр класу загальну кількість даних яки прийшли у відповідб
+
+  saveData(data);
+  //очищаємо картки
+
+  //пушимо розмітку
+  renderCards();
+  // -------------
+  // showPagination();
+  paginationByQuery();
+  mainPageHideModal();
+  addClassesForCoincidencesMarkupAndStorage();
+  fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+  fetchNews.setIsUrlRequest(true);
+  spinner.stop();
+  //
 }
 
 //очищаємо картки

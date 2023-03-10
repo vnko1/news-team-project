@@ -6,8 +6,6 @@ import {
   addClassesForCoincidencesMarkupAndStorage,
   mainPageHideModal,
   mainPageShowModal,
-  showPagination,
-  hidePagination,
 } from './commonFunctions';
 
 import { spinner } from './libraries';
@@ -39,12 +37,9 @@ async function onClickCategoryBtn(e) {
     if (e.target.nodeName === 'BUTTON') {
       spinner.spin(document.body);
       const query = e.target.innerText.toLowerCase();
-
-      fetchNews.resetData();
-      fetchNews.resetStorageData();
-      fetchNews.resetCategoryData();
-      fetchNews.setFilterQuery(query);
-
+      //
+      onEventStart(query);
+      //
       const response = await fetchNews.fetchNewsByFilter();
 
       const {
@@ -52,34 +47,47 @@ async function onClickCategoryBtn(e) {
       } = response;
 
       if (results === null) {
-        deleteNewsCards();
-        // -------------
-        hidePagination();
-        deletePagination();
-        mainPageShowModal();
-        spinner.stop();
-        form.reset();
+        //
+        nothingFoundEvent();
+        //
         return;
       }
-
-      deleteNewsCards();
-      // -------------
-      hidePagination();
-      deletePagination();
-      fetchNews.setHits(results.length);
-      fetchNews.setFilterParams(fetchNews.getFilterParams());
-      saveCategoryData(results);
-
-      renderNewsCards();
-      // -------------
-      showPagination();
-      paginationByQuery();
-      mainPageHideModal();
-
-      fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-      fetchNews.setIsUrlRequest(true);
-      addClassesForCoincidencesMarkupAndStorage();
+      //
+      foundNewsEvent(results);
+      //
     }
+  } catch (error) {
+    console.error(error.message);
+    spinner.stop();
+  }
+  form.reset();
+  spinner.stop();
+}
+
+async function onClickOtherCategory(e) {
+  try {
+    selectedList.classList.toggle('shown');
+    spinner.spin(document.body);
+    const query = e.target.textContent;
+    otherCategoriesBtn.innerText = query;
+    //
+    onEventStart(query);
+    //
+    const response = await fetchNews.fetchNewsByFilter();
+
+    const {
+      data: { results },
+    } = response;
+
+    if (results === null) {
+      //
+      nothingFoundEvent();
+      //
+      return;
+    }
+    //
+    foundNewsEvent(results);
+    //
   } catch (error) {
     console.error(error.message);
     spinner.stop();
@@ -89,57 +97,38 @@ async function onClickCategoryBtn(e) {
   form.reset();
 }
 
-async function onClickOtherCategory(e) {
-  try {
-    selectedList.classList.toggle('shown');
-    spinner.spin(document.body);
-    fetchNews.resetData();
-    fetchNews.resetStorageData();
-    fetchNews.resetCategoryData();
-    const query = e.target.textContent;
-    otherCategoriesBtn.innerText = query;
+function onEventStart(query) {
+  fetchNews.resetData();
+  fetchNews.resetStorageData();
+  fetchNews.resetCategoryData();
+  fetchNews.setFilterQuery(query.toLowerCase());
+}
 
-    fetchNews.setFilterQuery(query.toLowerCase());
-    const response = await fetchNews.fetchNewsByFilter();
-
-    const {
-      data: { results },
-    } = response;
-
-    if (results === null) {
-      deleteNewsCards();
-      // -------------
-      hidePagination();
-      deletePagination();
-      mainPageShowModal();
-      spinner.stop();
-      form.reset();
-      return;
-    }
-    deleteNewsCards();
-    hidePagination();
-    deletePagination();
-    fetchNews.setHits(results.length);
-
-    fetchNews.setFilterParams(fetchNews.getFilterParams());
-    saveCategoryData(results);
-
-    renderNewsCards();
-    // -------------
-    showPagination();
-    paginationByQuery();
-    mainPageHideModal();
-
-    fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
-    fetchNews.setIsUrlRequest(true);
-    addClassesForCoincidencesMarkupAndStorage();
-  } catch (error) {
-    console.error(error.message);
-    spinner.stop();
-  }
-  form.reset();
+function nothingFoundEvent() {
+  deleteNewsCards();
+  // -------------
+  deletePagination();
+  mainPageShowModal();
   spinner.stop();
   form.reset();
+}
+
+function foundNewsEvent(data) {
+  deleteNewsCards();
+  deletePagination();
+  fetchNews.setHits(data.length);
+  fetchNews.setFilterParams(fetchNews.getFilterParams());
+  saveCategoryData(data);
+
+  renderNewsCards();
+  // -------------
+
+  paginationByQuery();
+  mainPageHideModal();
+
+  fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
+  fetchNews.setIsUrlRequest(true);
+  addClassesForCoincidencesMarkupAndStorage();
 }
 
 function onClickOthersBtn() {
