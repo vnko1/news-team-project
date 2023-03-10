@@ -53,12 +53,10 @@ async function onDateClick(e) {
       Report.info('Choose other date!');
       return;
     }
-
     fetchNews.setDate(date.split('-').join(''));
     const normalisedDate = date.split('-').reverse().join('/');
     inputEl.value = normalisedDate;
     calendarContainer.classList.add('is-hidden');
-
     spinner.spin(document.body);
     deletePagination();
     if (fetchNews.getUrl().includes('articlesearch')) {
@@ -68,17 +66,11 @@ async function onDateClick(e) {
 
         if (!response.data.response.docs.length) {
           deleteNewsCards();
-          // ------------
-          hidePagination();
-
           mainPageShowModal();
           spinner.stop();
           return;
         }
         deleteNewsCards();
-        // ------------
-        hidePagination();
-
         fetchNews.setHits(response.data.response.meta.hits);
 
         const {
@@ -99,9 +91,6 @@ async function onDateClick(e) {
 
       if (!filtredData.length) {
         deleteNewsCards();
-        // ------------
-        hidePagination();
-
         mainPageShowModal();
         spinner.stop();
         return;
@@ -114,9 +103,6 @@ async function onDateClick(e) {
 
       if (!filtredData.length) {
         deleteNewsCards();
-        // ------------
-        hidePagination();
-
         mainPageShowModal();
         spinner.stop();
         return;
@@ -133,8 +119,6 @@ function fromBackNewsCardsCreation(data) {
   renderNewsCards();
   paginationByQuery();
   mainPageHideModal();
-  // ------------
-  showPagination();
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(true);
   addClassesForCoincidencesMarkupAndStorage();
@@ -142,11 +126,8 @@ function fromBackNewsCardsCreation(data) {
 
 function fromFrontNewsCardsCreation(data) {
   deleteNewsCards();
-  // --------------
   mainPageHideModal();
-
   renderNewsCardByDate(data);
-
   fetchNews.setNodeChild(document.querySelectorAll('.news-card'));
   fetchNews.setIsUrlRequest(false);
   addClassesForCoincidencesMarkupAndStorage();

@@ -1,4 +1,5 @@
 import { fetchNews } from './fetchNews';
+import { deletePagination } from './pagination';
 
 const gallery = document.querySelector('.gallery-container');
 const modal = document.querySelector('.empty-page');
@@ -279,6 +280,7 @@ function hideModal() {
 }
 
 function mainPageShowModal() {
+  deletePagination();
   modal.classList.remove('is-hidden');
   weather.classList.add('is-hidden');
 }
@@ -289,15 +291,15 @@ function mainPageHideModal() {
 }
 
 // ====================Видалити після фіксів=======================//
-let pag = null;
-function hidePagination() {
-  pag = document.querySelector('.pagination_container');
-  pag.classList.add('hide');
-}
+// let pag = null;
+// function hidePagination() {
+//   pag = document.querySelector('.pagination_container');
+//   pag.classList.add('hide');
+// }
 
-function showPagination() {
-  pag.classList.remove('hide');
-}
+// function showPagination() {
+//   pag.classList.remove('hide');
+// }
 // ====================Видалити після фіксів=======================//
 
 export {
