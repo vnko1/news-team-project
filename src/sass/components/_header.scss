@@ -111,6 +111,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   transition: 0.4s;
   transform: translateX(350%);
   transition: transform $duration $cubic;
@@ -147,8 +148,13 @@
   letter-spacing: 0.02em;
   color: $primary-text-color;
   opacity: 0.4;
+  &:focus {
+    scale: 1;
+  }
+  &:focus + .query-btn {
+    transform: translateX(-60px);
+  }
 
-  cursor: pointer;
   @include tablet {
     scale: 1;
     font-size: 14px;

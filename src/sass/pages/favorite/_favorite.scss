@@ -14,6 +14,7 @@
       flex-wrap: wrap;
       gap: 30px;
       padding-top: 48px;
+      justify-content: flex-start;
     }
 
     @include desktop {
