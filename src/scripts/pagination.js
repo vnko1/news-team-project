@@ -167,6 +167,7 @@ async function handlePageByNumber(e) {
 }
 
 function renderPerPageNewsCardByData(data) {
+  if (!data) return;
   const array = [...data];
   const subArray = breakUp(array);
   const renderData = [];
