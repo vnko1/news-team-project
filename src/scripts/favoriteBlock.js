@@ -70,3 +70,11 @@ function renderFavouriteCardFromStorage() {
 
   gallery.insertAdjacentHTML('beforeend', markUp);
 }
+
+gallery.addEventListener('click', onClickRemoveBtn);
+
+function onClickRemoveBtn(e) {
+  if(e.target.tagName === 'BUTTON') {
+    e.target.parentNode.parentNode.parentNode.remove();
+  }
+}
