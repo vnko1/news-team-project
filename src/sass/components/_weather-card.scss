@@ -40,19 +40,33 @@
   gap: 11px;
 }
 
+.weather-card__top-right {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .weather-card__temp {
-  font-size: 64px;
-  line-height: 1.17;
+  font-size: 55px;
+  line-height: 1.16;
 
   color: #ffffff;
   border-right: solid 1px white;
+
+  @include tablet {
+    font-size: 64px;
+  }
 }
 
 .weather-card__now {
-  font-size: 36px;
+  font-size: 24px;
   line-height: 1.17;
 
   color: #ffffff;
+  @include tablet {
+    font-size: 36px;
+
+  }
 }
 
 .weather-card__locate {
@@ -95,15 +109,21 @@
   align-items: center;
   gap: 18px;
   max-width: 156px;
+  @include tablet {
+    max-width: 205px;
+  }
 }
 
 .weather-card__date {
-
   font-size: 27px;
   line-height: 1.17;
   text-align: center;
 
   color: #ffffff;
+  @include tablet {
+      font-size: 36px;
+
+  }
 }
 
 .weather-card__week {
@@ -118,6 +138,9 @@
   outline: none;
 
   color: #ffffff;
+  @include tablet {
+    font-size: 20px;
+  }
 }
 
 .week-weather {
