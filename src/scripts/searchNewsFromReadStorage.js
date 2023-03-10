@@ -32,6 +32,7 @@ function onFormSubmit(e) {
   } else {
     showModal();
   }
+  formEl.reset();
 }
 
 function render(arr) {
