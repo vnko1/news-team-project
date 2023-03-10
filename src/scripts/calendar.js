@@ -65,9 +65,7 @@ async function onDateClick(e) {
         const response = await fetchNews.fetchNewsByDate();
 
         if (!response.data.response.docs.length) {
-          deleteNewsCards();
-          mainPageShowModal();
-          spinner.stop();
+          onEventNoFound();
           return;
         }
         deleteNewsCards();
@@ -90,9 +88,7 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        deleteNewsCards();
-        mainPageShowModal();
-        spinner.stop();
+        onEventNoFound();
         return;
       }
       fromFrontNewsCardsCreation(filtredData);
@@ -102,15 +98,20 @@ async function onDateClick(e) {
       });
 
       if (!filtredData.length) {
-        deleteNewsCards();
-        mainPageShowModal();
-        spinner.stop();
+        onEventNoFound();
         return;
       }
 
       fromFrontNewsCardsCreation(filtredData);
     }
   }
+  spinner.stop();
+}
+
+function onEventNoFound() {
+  deleteNewsCards();
+  deletePagination();
+  mainPageShowModal();
   spinner.stop();
 }
 

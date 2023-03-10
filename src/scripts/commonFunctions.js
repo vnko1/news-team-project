@@ -1,5 +1,4 @@
 import { fetchNews } from './fetchNews';
-import { deletePagination } from './pagination';
 
 const gallery = document.querySelector('.gallery-container');
 const modal = document.querySelector('.empty-page');
@@ -280,7 +279,6 @@ function hideModal() {
 }
 
 function mainPageShowModal() {
-  deletePagination();
   modal.classList.remove('is-hidden');
   weather.classList.add('is-hidden');
 }
