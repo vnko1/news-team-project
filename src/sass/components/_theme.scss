@@ -126,6 +126,7 @@
 body.dark-theme-site {
   background-color: #2e2e2e;
   color: #f4f4f4;
+  fill: #f4f4f4;
 }
 
 .search-input.dark-theme-site {
@@ -163,9 +164,5 @@ body.dark-theme-site {
 
 .arrow-read,
 .arrow-read-js {
-  fill: #111321;
-}
-
-.arrow-read.dark-theme-site {
-  fill: #f4f4f4;
+  fill: currentColor;
 }
