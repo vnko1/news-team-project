@@ -81,7 +81,7 @@ function renderMarkup(array) {
                    <svg class="arrow-read" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M1.762 9 0 7.287 7.5 0 15 7.287 13.238 9 7.5 3.437 1.763 9Z" fill=""/>
                    </svg>
-                   <svg class="arrow-read arrow-read-js visually-hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <svg class="arrow-read visually-hidden" width="15" height="9" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M1.762 0 0 1.713 7.5 9 15 1.713 13.238 0 7.5 5.563 1.763 0Z" fill=""/>
                    </svg>
                 </p>
